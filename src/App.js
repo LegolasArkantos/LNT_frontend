@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+
+import PublicRouteLogin from "./components/PublicRouteLogin";
+import PersistentLogin from "./components/PersistentLogin";
+import RequiredAuth from "./components/RequireAuth";
+import Login from "./pages/Login";
+import StudentHomePage from "./pages/StudentHomePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      {/* public routes */}
+      <Route element={<PublicRouteLogin />}>
+        <Route path="/" element={<Login />} />
+      </Route>
+
+      <Route element={<PersistentLogin />}>
+        {/* Teacher routes */}
+        <Route element={<RequiredAuth allowedRole="Teacher" />}></Route>
+
+        {/* Student routes */}
+        <Route element={<RequiredAuth allowedRole="Student" />}>
+          <Route path="/student-home" element={<StudentHomePage/>} />
+        </Route>
+
+        {/* admin routes */}
+        <Route element={<RequiredAuth allowedRole="Admin" />}></Route>
+      </Route>
+    </Routes>
   );
 }
 
