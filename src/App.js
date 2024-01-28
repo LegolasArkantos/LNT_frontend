@@ -6,23 +6,26 @@ import RequiredAuth from "./components/RequireAuth";
 import Login from "./pages/Login";
 import StudentHomePage from "./pages/StudentHomePage";
 import LandingPage from "./pages/LandingPage";
+import HomePageLayout from "./pages/HomePageLayout";
 
 function App() {
   return (
     <Routes>
       {/* public routes */}
       <Route element={<PublicRouteLogin />}>
-        <Route path="/" element={<LandingPage/>}/>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
       </Route>
 
       <Route element={<PersistentLogin />}>
-        {/* Teacher routes */}
-        <Route element={<RequiredAuth allowedRole="Teacher" />}></Route>
+        <Route path="/home-page" element={<HomePageLayout />}>
+          {/* Teacher routes */}
+          <Route element={<RequiredAuth allowedRole="Teacher" />}></Route>
 
-        {/* Student routes */}
-        <Route element={<RequiredAuth allowedRole="Student" />}>
-          <Route path="/student-home" element={<StudentHomePage/>} />
+          {/* Student routes */}
+          <Route element={<RequiredAuth allowedRole="Student" />}>
+            <Route index element={<StudentHomePage />} />
+          </Route>
         </Route>
 
         {/* admin routes */}
