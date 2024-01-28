@@ -22,9 +22,9 @@ const PublicRouteLogin = () => {
         if (auth?.role === 'Admin') {
             navigate('/admin-home');
         } else if (auth?.role === "Student"){
-            navigate("/student-home");
+            navigate("/home-page");
         } else if (auth?.role === "Teacher") {
-            navigate("/teacher-home");
+            navigate("/home-page");
         }
 
 

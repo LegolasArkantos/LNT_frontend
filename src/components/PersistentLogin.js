@@ -2,13 +2,14 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import { useDispatch, useSelector } from "react-redux";
-
+import useApiPrivate from "../hooks/useAPIPrivaate";
+import {profile} from "../features/userProfile"
 const PersistentLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
   const auth = useSelector((state) => state.auth.value);
   const dispatch = useDispatch();
-
+  const apiPrivate = useApiPrivate();
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
@@ -20,37 +21,42 @@ const PersistentLogin = () => {
       }
     };
 
-    // const getProfile = async () => {
-    //   try {
-    //     console.log(auth.accessToken);
-    //     const response = await apiPrivate.get("profile/get", {
-    //       headers: {
-    //         Authorization: `Bearer ${auth.accessToken}`,
-    //       },
-    //     });
-    //     if (response.status === 200) {
-    //       dispatch(
-    //         profile({
-    //           firstName: "",
-    //           lastName: "",
-    //           profileID: "",
-    //           notificationsID: "",
-    //           profilePicture: "",
-    //           availableTimeSlots: [],
-    //           educationalCredentials: [],
-    //           subjectsTaught: [],
-    //         })
-    //       );
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+    const getProfile = async () => {
+      try {
+        console.log(auth.accessToken);
+        const response = await apiPrivate.get("student/profile/get", {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
+        if (response.status === 200) {
+          
+          if (auth.role === "Student") {
+            dispatch(
+              profile({
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                profileID: response.data._id,
+                profilePicture: response.data.profilePicture,
+                educationalLevel: response.data.educationalLevel,
+                teachers: response.data.teachers,
+                sessions: response.data.sessions,
+                chatRooms: response.data.chatRooms,
+                personality: response.data.personality
+              })
+            );
+          }
+          
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
     if (!auth?.accessToken) {
       verifyRefreshToken();
     } else {
-      //getProfile();
+      getProfile();
       setIsLoading(false);
     }
   }, [dispatch, auth, refresh]);
