@@ -38,9 +38,9 @@ const Login = () => {
             if (decodedToken.role === "Admin") {
               navigate("/admin-dashboard");
             } else if (decodedToken.role === "Student") {
-              navigate("/student-home");
+              navigate("/home-page");
             } else {
-              navigate("/teacher-home");
+              navigate("/home-page");
             }
           }
         });
@@ -101,9 +101,9 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              class="text-white bg-teal-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="text-white bg-teal-400 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Submit
+              Sign in
             </button>
           </form>
         </div>
