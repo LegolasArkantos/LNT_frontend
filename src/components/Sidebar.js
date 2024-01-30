@@ -14,7 +14,7 @@ const Sidebar = (props) => {
           <li>
             <Link
               to="/home-page"
-              className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+              className={`flex scale-50 hover:scale-75 ease-in duration-100 items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                 location.pathname === "/home-page" ? "bg-teal-200" : ""
               }`}
             >
@@ -68,7 +68,7 @@ const Sidebar = (props) => {
           <li>
             <Link
               to="/#"
-              className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+              className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                 location.pathname === "/" ? "bg-teal-200" : ""
               }`}
             >
@@ -124,7 +124,7 @@ const Sidebar = (props) => {
           <li>
             <Link
               to="/#"
-              className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+              className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                 location.pathname === "/" ? "bg-teal-200" : ""
               }`}
             >
@@ -188,7 +188,7 @@ const Sidebar = (props) => {
           <li>
             <Link
               to="/#"
-              className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+              className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                 location.pathname === "/" ? "bg-teal-200" : ""
               }`}
             >
@@ -232,7 +232,7 @@ const Sidebar = (props) => {
           <li>
             <Link
               to="/#"
-              className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+              className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                 location.pathname === "/" ? "bg-teal-200" : ""
               }`}
             >
@@ -278,7 +278,7 @@ const Sidebar = (props) => {
           </li>
           <li className="absolute items-center bottom-20">
             <button onClick={props.handleLogOut}>
-              <div className="flex  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+              <div className="flex scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                 <svg
                   fill="#000000"
                   width="50px"
