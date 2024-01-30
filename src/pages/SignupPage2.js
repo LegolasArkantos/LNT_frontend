@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from '../assets/l-t-high-resolution-logo-transparent.png';
 
 const SignUpPage2 = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 

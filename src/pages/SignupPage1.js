@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/l-t-high-resolution-logo-transparent.png';
 
 const SignUpPage1 = () => {
-  const dispatch = useDispatch();
+  
   const navigate = useNavigate();
 
   const [progress, setProgress] = useState(0);
