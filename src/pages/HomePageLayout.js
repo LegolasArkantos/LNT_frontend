@@ -10,6 +10,8 @@ const HomePageLayout = () => {
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
+  const profile = useSelector((state) => state.userProfile.value);
+
   const handleLogOut = async () => {
     try {
       const response = await apiPrivate.get("/auth/logout", {
@@ -27,7 +29,7 @@ const HomePageLayout = () => {
   return (
     <div className="h-screen w-screen bg-teal-100">
       <div className="flex-col space-y-16">
-        <HomePageNavBar />
+        <HomePageNavBar profile={profile}/>
         <Sidebar handleLogOut={handleLogOut} />
       </div>
 
