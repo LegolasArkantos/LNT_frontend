@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from '../assets/l-t-high-resolution-logo-transparent.png';
+import logo from "../assets/l-t-high-resolution-logo-transparent.png";
 
 const SignUpPage1 = () => {
-  
   const navigate = useNavigate();
 
   const [progress, setProgress] = useState(0);
@@ -27,7 +26,9 @@ const SignUpPage1 = () => {
 
     // Validate password format
     if (!passwordRegex.test(password)) {
-      setPasswordError("Password must be at least 8 characters long and include at least one digit, one lowercase letter, and one uppercase letter.");
+      setPasswordError(
+        "Password must be at least 8 characters long and include at least one digit, one lowercase letter, and one uppercase letter."
+      );
       setEmailError(""); // Clear email error if password is invalid
       return; // Do not proceed if password format is incorrect
     }
@@ -57,23 +58,23 @@ const SignUpPage1 = () => {
           <img src={logo} alt="Logo" className="h-8" />
         </div>
 
+        
         {/* Progress Bar */}
-        <div className="mb-5">
-          <div className="relative pt-1">
-            <div className="flex mb-2 items-center justify-between">
-              <div className="flex flex-col w-full">
-                <div className="flex relative pt-1">
-                  <div className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out  ${progress >= 1 ? "bg-teal-400" : ""}`}></div>
-                  <div className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${progress >= 2 ? "bg-teal-400" : ""}`}></div>
-                  <div className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${progress === 3 ? "bg-teal-400" : ""}`}></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="mb-5 relative pt-1 flex-col mb-2 items-center justify-between ">
+          <ul className="flex relative pt-1">
+            {[1, 2, 3].map((step) => (
+              <div
+                key={step}
+                className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
+                  progress >= step ? "bg-teal-400" : ""
+                }`}
+              ></div>
+            ))}
+          </ul>
         </div>
 
         {/* Form */}
-        <form className="max-w-sm mx-auto pt-5" onSubmit={submit}>
+        <form className="max-w-sm mx-auto mt-40 " onSubmit={submit}>
           <div className="mb-5">
             <label
               htmlFor="email"
@@ -92,9 +93,7 @@ const SignUpPage1 = () => {
               placeholder="name@gmail.com"
               required
             />
-            {emailError && (
-              <p className="text-red-500 text-sm">{emailError}</p>
-            )}
+            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
           </div>
           <div className="mb-5">
             <label
@@ -117,15 +116,15 @@ const SignUpPage1 = () => {
             {passwordError && (
               <p className="text-red-500 text-sm">{passwordError}</p>
             )}
-            <a href="signup" className="text-sm hover:underline cursor-pointer">
-              Don't have an account? Sign up
+            <a href="login" className="text-sm hover:underline cursor-pointer">
+              Already have an account? Login in
             </a>
           </div>
           <button
             type="submit"
             className="text-white bg-teal-400 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Sign in
+            Next
           </button>
         </form>
       </div>
