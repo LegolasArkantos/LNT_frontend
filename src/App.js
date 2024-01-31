@@ -18,7 +18,7 @@ function App() {
       <Route element={<PublicRouteLogin />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup1" element={<SignUpPage1 />} />
+        <Route path="/signup" element={<SignUpPage1 />} />
         <Route path="/signup2" element={<SignUpPage2 />} />
         <Route path="/signup3" element={<SignUpPage3 />} />
 
