@@ -84,81 +84,81 @@ const SignUpPage3 = () => {
     {
       question: "How do you typically recharge your energy?",
       options: [
-        "By spending time alone (A)",
-        "By being around others and socializing (B)",
-        "It depends on the situation and my mood (C)"
+        "By spending time alone ",
+        "By being around others and socializing ",
+        "It depends on the situation and my mood "
       ]
     },
     {
       question: "What motivates you the most?",
       options: [
-        "Achieving personal goals and accomplishments (A)",
-        "Positive feedback and recognition from others (B)",
-        "The opportunity to learn and grow (C)"
+        "Achieving personal goals and accomplishments ",
+        "Positive feedback and recognition from others ",
+        "The opportunity to learn and grow "
       ]
     },
     {
       question: "How do you handle stress?",
       options: [
-        "Taking a break and practicing relaxation techniques (A)",
-        "Seeking support and talking to others (B)",
-        "Finding practical solutions and addressing the issues (C)"
+        "Taking a break and practicing relaxation techniques ",
+        "Seeking support and talking to others ",
+        "Finding practical solutions and addressing the issues "
       ]
     },
     {
       question: "What describes your work style?",
       options: [
-        "Methodical and organized (A)",
-        "Collaborative and team-oriented (B)",
-        "Adaptable and flexible (C)"
+        "Methodical and organized ",
+        "Collaborative and team-oriented ",
+        "Adaptable and flexible "
       ]
     },
     {
       question: "How do you approach decision-making?",
       options: [
-        "Carefully weighing all options and considering pros and cons (A)",
-        "Consulting with others and seeking their input (B)",
-        "Trusting my instincts and making quick decisions (C)"
+        "Carefully weighing all options and considering pros and cons ",
+        "Consulting with others and seeking their input ",
+        "Trusting my instincts and making quick decisions "
       ]
     },
     {
       question: "What is your communication style?",
       options: [
-        "Thoughtful and detailed (A)",
-        "Expressive and engaging (B)",
-        "Flexible and adjusting based on the situation (C)"
+        "Thoughtful and detailed ",
+        "Expressive and engaging ",
+        "Flexible and adjusting based on the situation "
       ]
     },
     {
       question: "What do you value most in a learning environment?",
       options: [
-        "Structured and organized lessons (A)",
-        "Interactive and engaging activities (B)",
-        "Adaptable and flexible approaches (C)"
+        "Structured and organized lessons ",
+        "Interactive and engaging activities ",
+        "Adaptable and flexible approaches "
       ]
     },
     {
       question: "How do you handle feedback and criticism?",
       options: [
-        "Reflecting on it and using it for improvement (A)",
-        "Appreciating diverse perspectives and considering feedback (B)",
-        "Taking it in stride and not letting it affect me (C)"
+        "Reflecting on it and using it for improvement ",
+        "Appreciating diverse perspectives and considering feedback ",
+        "Taking it in stride and not letting it affect me "
       ]
     },
     {
       question: "What type of projects do you enjoy working on?",
       options: [
-        "Projects that require careful planning and execution (A)",
-        "Team projects with diverse contributions (B)",
-        "Projects that allow for creativity and innovation (C)"
+        "Projects that require careful planning and execution ",
+        "Team projects with diverse contributions ",
+        "Projects that allow for creativity and innovation "
       ]
     },
     {
       question: "How do you prefer to learn new things?",
       options: [
-        "Through structured lessons and step-by-step instructions (A)",
-        "Through collaboration and discussion with others (B)",
-        "Through exploration and trying things out on my own (C)"
+        "Through structured lessons and step-by-step instructions ",
+        "Through collaboration and discussion with others ",
+        "Through exploration and trying things out on my own "
       ]
     }
   ];
@@ -171,18 +171,17 @@ const SignUpPage3 = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-5">
-          <div className="relative pt-1">
-            <div className="flex mb-2 items-center justify-between">
-              <div className="flex flex-col w-full">
-                <div className="flex relative pt-1">
-                  {[1, 2, 3].map((step) => (
-                    <div key={step} className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${progress >= step ? "bg-teal-400" : ""}`}></div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="mb-5 relative pt-1 flex-col mb-2 items-center justify-between ">
+          <ul className="flex relative pt-1">
+            {[1, 2, 3].map((step) => (
+              <div
+                key={step}
+                className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
+                  progress >= step ? "bg-teal-400" : ""
+                }`}
+              ></div>
+            ))}
+          </ul>
         </div>
 
         {/* Personality Questions */}
