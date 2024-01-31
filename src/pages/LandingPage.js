@@ -19,7 +19,7 @@ const LandingPage = () => {
               Login
             </a>
             <a
-              href="#"
+              href="signup"
               class="text-xl hover:underline"
             >
               Sign up
