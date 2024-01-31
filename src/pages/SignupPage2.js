@@ -52,18 +52,17 @@ const SignUpPage2 = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-5">
-          <div className="relative pt-1">
-            <div className="flex mb-2 items-center justify-between">
-              <div className="flex flex-col w-full">
-                <div className="flex relative pt-1">
-                  <div className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out  ${progress >= 1 ? "bg-teal-400" : ""}`}></div>
-                  <div className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${progress >= 2 ? "bg-teal-400" : ""}`}></div>
-                  <div className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${progress === 3 ? "bg-teal-400" : ""}`}></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="mb-5 relative pt-1 flex-col mb-2 items-center justify-between ">
+          <ul className="flex relative pt-1">
+            {[1, 2, 3].map((step) => (
+              <div
+                key={step}
+                className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
+                  progress >= step ? "bg-teal-400" : ""
+                }`}
+              ></div>
+            ))}
+          </ul>
         </div>
 
         {/* Form */}
@@ -164,7 +163,7 @@ const SignUpPage2 = () => {
             type="submit"
             className="text-white bg-teal-400 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Continue
+            Next
           </button>
         </form>
       </div>
