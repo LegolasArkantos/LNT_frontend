@@ -27,13 +27,13 @@ const HomePageLayout = () => {
   };
 
   return (
-    <div className="h-screen w-screen bg-teal-100">
+    <div className="bg-white">
       <div className="flex-col space-y-16">
-        <HomePageNavBar profile={profile}/>
+        <HomePageNavBar profile={profile} />
         <Sidebar handleLogOut={handleLogOut} />
       </div>
 
-      <div className="ml-40 mr-40">
+      <div className="ml-40 mr-40 mb-10">
         <Outlet />
       </div>
     </div>
