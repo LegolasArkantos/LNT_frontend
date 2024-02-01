@@ -51,7 +51,7 @@ const StudentHomePage = () => {
 
   return (
     <div>
-      <form class="flex items-center mt-20">
+      <form class="flex items-center">
         <label for="simple-search" class="sr-only">
           Search
         </label>
