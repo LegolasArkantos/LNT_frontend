@@ -50,12 +50,12 @@ const StudentHomePage = () => {
   }, []);
 
   return (
-    <div className="">
-      <form class="flex items-center mt-10">
+    <div>
+      <form class="flex items-center mt-20">
         <label for="simple-search" class="sr-only">
           Search
         </label>
-        <div class="relative w-full">
+        <div class="w-full">
           <input
             type="text"
             id="simple-search"
