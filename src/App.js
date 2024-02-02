@@ -11,6 +11,7 @@ import SignUpPage1 from "./pages/SignupPage1";
 import SignUpPage2 from "./pages/SignupPage2";
 import SignUpPage3 from "./pages/SignupPage3";
 import TeacherSessionPage from "./pages/TeacherSessionPage";
+import ChatPage from "./pages/ChatPage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           {/* Student routes */}
           <Route element={<RequiredAuth allowedRole="Student" />}>
             <Route index element={<StudentHomePage />} />
+            <Route path="chats" element={<ChatPage/>} />
           </Route>
 
         </Route>
