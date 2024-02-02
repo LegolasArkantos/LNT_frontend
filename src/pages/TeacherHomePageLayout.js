@@ -1,12 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import HomePageNavBar from "../components/HomePageNavBar";
-import Sidebar from "../components/Sidebar";
+import TeacherSidebar from "../components/TeacherSidebar";
 import useApiPrivate from "../hooks/useAPIPrivaate";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
 
-const HomePageLayout = () => {
+const TeacherHomePageLayout = () => {
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const HomePageLayout = () => {
     <div className="bg-white">
       <div className="flex-col space-y-16">
         <HomePageNavBar profile={profile} />
-        <Sidebar handleLogOut={handleLogOut} />
+        <TeacherSidebar handleLogOut={handleLogOut} />
       </div>
 
       <div className="ml-40 mr-40 mb-10 mt-32">
@@ -40,4 +40,4 @@ const HomePageLayout = () => {
   );
 };
 
-export default HomePageLayout;
+export default TeacherHomePageLayout;
