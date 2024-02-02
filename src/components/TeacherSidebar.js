@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import logoutIcon from "../assets/logout.png";
 import { useState } from "react";
-const Sidebar = (props) => {
+
+const TeacherSidebar = (props) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
@@ -22,9 +23,9 @@ const Sidebar = (props) => {
           <ul className="h-screen relative flex flex-col space-y-5 font-medium">
             <li>
               <Link
-                to="/home-page"
+                to="/teacher-home-page"
                 className={`flex scale-50 hover:scale-75 ease-in duration-100 items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  location.pathname === "/home-page" ? "bg-teal-200" : ""
+                  location.pathname === "/teacher-home-page" ? "bg-teal-200" : ""
                 }`}
               >
                 <svg
@@ -134,9 +135,9 @@ const Sidebar = (props) => {
             </li> */}
             <li>
               <Link
-                to="/#"
+                to="sessions"
                 className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  location.pathname === "/" ? "bg-teal-200" : ""
+                  location.pathname === "/teacher-home-page/sessions" ? "bg-teal-200" : ""
                 }`}
               >
                 <svg
@@ -199,9 +200,9 @@ const Sidebar = (props) => {
             </li>
             <li>
               <Link
-                to="chats"
+                to="/#"
                 className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  location.pathname === "/home-page/chats" ? "bg-teal-200" : ""
+                  location.pathname === "/" ? "bg-teal-200" : ""
                 }`}
               >
                 <svg
@@ -400,4 +401,4 @@ const Sidebar = (props) => {
   );
 };
 
-export default Sidebar;
+export default TeacherSidebar;

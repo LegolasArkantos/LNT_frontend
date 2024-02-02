@@ -6,13 +6,14 @@ import RequiredAuth from "./components/RequireAuth";
 import Login from "./pages/Login";
 import StudentHomePage from "./pages/StudentHomePage";
 import LandingPage from "./pages/LandingPage";
-import HomePageLayout from "./pages/HomePageLayout";
+import StudentHomePageLayout from "./pages/StudentHomePageLayout";
 import SignUpPage1 from "./pages/SignupPage1";
 import SignUpPage2 from "./pages/SignupPage2";
 import SignUpPage3 from "./pages/SignupPage3";
 import TeacherSessionPage from "./pages/TeacherSessionPage";
 import ChatPage from "./pages/ChatPage";
 import TeacherHomePage from "./pages/TeacherHomePage";
+import TeacherHomePageLayout from "./pages/TeacherHomePageLayout";
 
 function App() {
   return (
@@ -24,24 +25,23 @@ function App() {
         <Route path="/signup" element={<SignUpPage1 />} />
         <Route path="/signup2" element={<SignUpPage2 />} />
         <Route path="/signup3" element={<SignUpPage3 />} />
-
       </Route>
 
       <Route element={<PersistentLogin />}>
-        <Route path="/home-page" element={<HomePageLayout />}>
-
-          {/* Teacher routes */}
-          <Route element={<RequiredAuth allowedRole="Teacher" />}>
+        {/* Teacher routes */}
+        <Route element={<RequiredAuth allowedRole="Teacher" />}>
+          <Route path="/teacher-home-page" element={<TeacherHomePageLayout/>}>
             <Route index element={<TeacherHomePage />} />
-            <Route path="Session" element={<TeacherSessionPage />} />
+            <Route path="sessions" element={<TeacherSessionPage />} />
           </Route>
+        </Route>
 
-          {/* Student routes */}
-          <Route element={<RequiredAuth allowedRole="Student" />}>
+        {/* Student routes */}
+        <Route element={<RequiredAuth allowedRole="Student" />}>
+          <Route path="/student-home-page" element={<StudentHomePageLayout />}>
             <Route index element={<StudentHomePage />} />
-            <Route path="chats" element={<ChatPage/>} />
+            <Route path="chats" element={<ChatPage />} />
           </Route>
-
         </Route>
 
         {/* admin routes */}
