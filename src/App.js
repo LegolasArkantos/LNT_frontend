@@ -10,6 +10,7 @@ import HomePageLayout from "./pages/HomePageLayout";
 import SignUpPage1 from "./pages/SignupPage1";
 import SignUpPage2 from "./pages/SignupPage2";
 import SignUpPage3 from "./pages/SignupPage3";
+import TeacherSessionPage from "./pages/TeacherSessionPage";
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
         <Route path="/home-page" element={<HomePageLayout />}>
 
           {/* Teacher routes */}
-          <Route element={<RequiredAuth allowedRole="Teacher" />}></Route>
+          <Route element={<RequiredAuth allowedRole="Teacher" />}>
+            <Route path="Session" element={<TeacherSessionPage />} />
+          </Route>
 
           {/* Student routes */}
           <Route element={<RequiredAuth allowedRole="Student" />}>
