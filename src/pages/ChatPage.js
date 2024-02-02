@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useAPIPrivate from "../hooks/useAPIPrivaate";
+import io from "socket.io-client";
 
-const ChatPage = () => {
+
+
+const ChatPage = ({socket}) => {
+  const apiPrivate = useAPIPrivate();
+  const [chats, setChats] = useState([{}]);
+  const [room, setRoom] = useState("");
+
+
+  const joinChatRoom = () => {
+    if (!room) {
+      socket.emit("join_room", room);
+    }
+  }
+ 
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const getChats = async () => {
+      try {
+        await apiPrivate.get("chat/").then((res) => {
+          if (isMounted && res.status === 200) {
+            console.log(res.status)
+            setChats(res.data);
+            console.log(chats);
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getChats();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
+
   return (
     <div className="flex divide-x outline outline-teal-500 h-[700px] rounded-lg">
       <div className="flex-col w-2/5 bg-teal-100 p-5">
