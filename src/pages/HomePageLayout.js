@@ -33,7 +33,7 @@ const HomePageLayout = () => {
         <Sidebar handleLogOut={handleLogOut} />
       </div>
 
-      <div className="ml-40 mr-40 mb-10">
+      <div className="ml-40 mr-40 mb-10 mt-32">
         <Outlet />
       </div>
     </div>
