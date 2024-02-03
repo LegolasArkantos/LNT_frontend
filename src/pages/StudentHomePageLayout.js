@@ -5,12 +5,13 @@ import StudentSidebar from "../components/StudentSidebar";
 import useApiPrivate from "../hooks/useAPIPrivaate";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
+import { removeStudentProfile } from "../features/studentProfile";
 
 const StudentHomePageLayout = () => {
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
-  const profile = useSelector((state) => state.userProfile.value);
+  const profile = useSelector((state) => state.studentProfile.value);
 
   const handleLogOut = async () => {
     try {
@@ -19,6 +20,7 @@ const StudentHomePageLayout = () => {
       });
       if (response.status === 200) {
         dispatch(removeAuthValues());
+        dispatch(removeStudentProfile());
       }
       console.log(response);
     } catch (error) {

@@ -5,13 +5,13 @@ import TeacherSidebar from "../components/TeacherSidebar";
 import useApiPrivate from "../hooks/useAPIPrivaate";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
+import { removeTeacherProfile } from "../features/teacherProfile"
 
 const TeacherHomePageLayout = () => {
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
-  const profile = useSelector((state) => state.userProfile.value);
-
+  const profile = useSelector((state) => state.teacherProfile.value);
   const handleLogOut = async () => {
     try {
       const response = await apiPrivate.get("/auth/logout", {
@@ -19,6 +19,7 @@ const TeacherHomePageLayout = () => {
       });
       if (response.status === 200) {
         dispatch(removeAuthValues());
+        dispatch(removeTeacherProfile());
       }
       console.log(response);
     } catch (error) {

@@ -35,6 +35,7 @@ function App() {
           <Route path="/teacher-home-page" element={<TeacherHomePageLayout/>}>
             <Route index element={<TeacherHomePage />} />
             <Route path="sessions" element={<TeacherSessionPage />} />
+            <Route path="chats" element={<ChatPage socket={socket}/>} />
           </Route>
         </Route>
 

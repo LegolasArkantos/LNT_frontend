@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import { useDispatch, useSelector } from "react-redux";
 import useApiPrivate from "../hooks/useAPIPrivaate";
-import {profile} from "../features/userProfile"
+import { studentProfile } from "../features/studentProfile";
+import { teacherProfile } from "../features/teacherProfile";
+
 const PersistentLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
@@ -24,16 +26,15 @@ const PersistentLogin = () => {
     const getProfile = async () => {
       try {
         console.log(auth.accessToken);
-        const response = await apiPrivate.get("student/profile/get", {
-          headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-          },
-        });
-        if (response.status === 200) {
-          
-          if (auth.role === "Student") {
+        if (auth.role === "Student") {
+          const response = await apiPrivate.get("student/profile/get", {
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          });
+          if (response.status === 200) {
             dispatch(
-              profile({
+              studentProfile({
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
                 profileID: response.data._id,
@@ -42,11 +43,35 @@ const PersistentLogin = () => {
                 teachers: response.data.teachers,
                 sessions: response.data.sessions,
                 chatRooms: response.data.chatRooms,
-                personality: response.data.personality
+                personality: response.data.personality,
               })
             );
           }
-          
+        } else if (auth.role === "Teacher") {
+          const response = await apiPrivate.get("teacher/profile/get", {
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          });
+          if (response.status === 200) {
+            dispatch(
+              teacherProfile({
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                profileID: response.data._id,
+                profilePicture: response.data.profilePicture,
+                educationalCredentials: response.data.educationalCredentials,
+                subjectsTaught: response.data.subjectsTaught,
+                rating: response.data.rating,
+                availableTimeSlots: response.data.availableTimeSlots,
+                students: response.data.students,
+                sessions: response.data.sessions,
+                chatRooms: response.data.chatRooms,
+                personality: response.data.personality,
+                careerCounselling: response.data.careerCounselling,
+              })
+            );
+          }
         }
       } catch (error) {
         console.error(error);
