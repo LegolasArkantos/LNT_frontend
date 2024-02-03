@@ -200,9 +200,9 @@ const TeacherSidebar = (props) => {
             </li>
             <li>
               <Link
-                to="/#"
+                to="chats"
                 className={`flex items-center scale-50 hover:scale-75 ease-in duration-100 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  location.pathname === "/" ? "bg-teal-200" : ""
+                  location.pathname === "/teacher-home-page/chats" ? "bg-teal-200" : ""
                 }`}
               >
                 <svg
