@@ -13,8 +13,8 @@ const SignUpPage3 = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // Extracting previous data from location state
-  const { email, password, firstName, lastName, role, educationalCredential, educationalLevel } = location.state || {};
-
+  const { email, password, firstName, lastName, role, educationalCredential, educationalLevel, profilePicture} = location.state || {};
+  console.log(profilePicture)
   const submit = async (e) => {
     e.preventDefault();
 
@@ -47,6 +47,7 @@ const SignUpPage3 = () => {
         educationalCredential,
         educationalLevel,
         personality,
+        profilePicture
       };
     console.log("payload",payload);
       try {
