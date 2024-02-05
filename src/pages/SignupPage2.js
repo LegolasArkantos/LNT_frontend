@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import logo from '../assets/l-t-high-resolution-logo-transparent.png';
-import lmage from '../assets/image-.png';
-
+import logo from "../assets/l-t-high-resolution-logo-transparent.png";
+import lmage from "../assets/image-.png";
 
 const SignUpPage2 = () => {
   const navigate = useNavigate();
@@ -15,6 +14,9 @@ const SignUpPage2 = () => {
   const [role, setRole] = useState("Teacher");
   const [educationalCredential, setEducationalCredential] = useState("");
   const [educationalLevel, setEducationalLevel] = useState("");
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
 
   // Extracting email and password data from location state
   const { email, password } = location.state || {};
@@ -32,32 +34,78 @@ const SignUpPage2 = () => {
     if (role === "Teacher") {
       console.log("Educational Credential:", educationalCredential);
     } else if (role === "Student") {
-      console.log("educational level",educationalLevel)
+      console.log("educational level", educationalLevel);
     }
-
-    
 
     // Increase progress bar by one
     setProgress((prevProgress) => Math.min(prevProgress + 1, 3));
 
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      setTimeout(() => {
+        // Navigate to the next page
+        navigate("/signup3", {
+          state: {
+            email,
+            password,
+            firstName,
+            lastName,
+            role,
+            educationalCredential,
+            educationalLevel,
+            profilePicture: reader.result,
+          },
+        });
+      }, 1000);
+    };
+    reader.onerror = () => {
+      console.error("AHHHHHHHH!!");
+    };
     // Wait for 1 second for the animation to play
-    setTimeout(() => {
-      // Navigate to the next page
-      navigate("/signup3", {
-        state: {
-          email,
-          password,
-          firstName,
-          lastName,
-          role,
-          educationalCredential,
-          educationalLevel,
-        },
-      });
-    }, 1000);
   };
 
-  const hanldeSelectImage = () => {};
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  // const handleSubmitFile = (e) => {
+  //   e.preventDefault();
+  //   if (!selectedFile) return;
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(selectedFile);
+  //   reader.onloadend = () => {
+  //     uploadImage(reader.result);
+  //   };
+  //   reader.onerror = () => {
+  //     console.error("AHHHHHHHH!!");
+  //   };
+  // };
+
+  // const uploadImage = async (base64EncodedImage) => {
+  //   try {
+  //     await fetch("/api/upload", {
+  //       method: "POST",
+  //       body: JSON.stringify({ data: base64EncodedImage }),
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  //     setFileInputState("");
+  //     setPreviewSource("");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <div className="w-full bg-white rounded-lg h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
@@ -85,7 +133,19 @@ const SignUpPage2 = () => {
           {/* Upload Image Icon */}
           <div className="flex flex-col items-center mt-3">
             <label htmlFor="imageUpload" className="cursor-pointer">
-              <img src={lmage} alt="lmage" className="h-8 w-8 text-gray-500 dark:text-gray-400 mb-2" />
+              {previewSource ? (
+                <img
+                  src={previewSource}
+                  alt="lmage"
+                  className="h-[150px] w-[150px] text-gray-500 dark:text-gray-400 mb-2"
+                />
+              ) : (
+                <img
+                  src={lmage}
+                  alt="lmage"
+                  className="h-[150px] w-[150px] text-gray-500 dark:text-gray-400 mb-2"
+                />
+              )}
             </label>
             <label
               htmlFor="imageUpload"
@@ -98,6 +158,8 @@ const SignUpPage2 = () => {
               type="file"
               id="imageUpload"
               className="hidden"
+              onChange={handleFileInputChange}
+              value={fileInputState}
               // Add event handlers for image upload if needed
             />
           </div>
@@ -154,42 +216,42 @@ const SignUpPage2 = () => {
             </select>
           </div>
           {role === "Teacher" ? (
-              <div className="mb-5">
-                <label
-                  htmlFor="educationalCredential"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Educational Credential
-                </label>
-                <input
-                  type="text"
-                  id="educationalCredential"
-                  value={educationalCredential}
-                  onChange={(e) => setEducationalCredential(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Ph.D. in Computer Science"
-                  required
-                />
-              </div>
-            ) : (
-              <div className="mb-5">
-                  <label
-                    htmlFor="educationalLevel"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Educational Level
-                  </label>
-                  <input
-                    type="text"
-                    id="educationalLevel"
-                    value={educationalLevel}
-                    onChange={(e) => setEducationalLevel(e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="IBA-Undergraduate"
-                    required
-                  />
-                </div>
-               )}
+            <div className="mb-5">
+              <label
+                htmlFor="educationalCredential"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Educational Credential
+              </label>
+              <input
+                type="text"
+                id="educationalCredential"
+                value={educationalCredential}
+                onChange={(e) => setEducationalCredential(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Ph.D. in Computer Science"
+                required
+              />
+            </div>
+          ) : (
+            <div className="mb-5">
+              <label
+                htmlFor="educationalLevel"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Educational Level
+              </label>
+              <input
+                type="text"
+                id="educationalLevel"
+                value={educationalLevel}
+                onChange={(e) => setEducationalLevel(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="IBA-Undergraduate"
+                required
+              />
+            </div>
+          )}
           <button
             type="submit"
             className="text-white bg-teal-400 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
