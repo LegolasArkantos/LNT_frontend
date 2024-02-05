@@ -54,6 +54,7 @@ const PersistentLogin = () => {
             },
           });
           if (response.status === 200) {
+            console.log(response.data.profilePicture)
             dispatch(
               teacherProfile({
                 firstName: response.data.firstName,
