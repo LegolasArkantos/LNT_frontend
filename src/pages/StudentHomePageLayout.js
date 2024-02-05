@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import HomePageNavBar from "../components/HomePageNavBar";
+import StudentHomePageNavBar from "../components/StudentHomePageNavBar";
 import StudentSidebar from "../components/StudentSidebar";
 import useApiPrivate from "../hooks/useAPIPrivaate";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,7 @@ const StudentHomePageLayout = () => {
   return (
     <div className="bg-white">
       <div className="flex-col space-y-16">
-        <HomePageNavBar profile={profile} />
+        <StudentHomePageNavBar profile={profile} />
         <StudentSidebar handleLogOut={handleLogOut} />
       </div>
 
