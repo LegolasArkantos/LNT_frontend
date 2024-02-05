@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import logo from '../assets/l-t-high-resolution-logo-transparent.png';
 import lmage from '../assets/image-.png';
 
@@ -42,9 +43,21 @@ const SignUpPage2 = () => {
     // Wait for 1 second for the animation to play
     setTimeout(() => {
       // Navigate to the next page
-      navigate("/signup3", { state: { email, password, firstName, lastName, role, educationalCredential, educationalLevel } });
+      navigate("/signup3", {
+        state: {
+          email,
+          password,
+          firstName,
+          lastName,
+          role,
+          educationalCredential,
+          educationalLevel,
+        },
+      });
     }, 1000);
   };
+
+  const hanldeSelectImage = () => {};
 
   return (
     <div className="w-full bg-white rounded-lg h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">

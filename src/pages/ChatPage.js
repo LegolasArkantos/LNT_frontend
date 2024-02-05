@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 const ChatPage = ({ socket }) => {
-  const apiPrivate = useAPIPrivate();
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [currentMessage, setCurrentMessage] = useState("");
   const [room, setRoom] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const [deleteChat, setDeleteChat] = useState(null);
 
+  const apiPrivate = useAPIPrivate();
   const auth = useSelector((state) => state.auth.value);
   const profile = useSelector((state) =>
     auth.role === "Student"
@@ -18,31 +19,93 @@ const ChatPage = ({ socket }) => {
       : state.teacherProfile.value
   );
 
-  const handleChatClicked = (chat) => {
+  const handleDeleteChat = async (chatID) => {
+    try {
+      await apiPrivate
+        .delete("chat/delete/" + chatID)
+        .then((res) => {
+          if (res.status === 200) {
+            setChats((prevChats) =>
+              prevChats.filter((chat) => chat._id !== chatID)
+            );
+            setDeleteChat(null);
+            setSelectedChat(null);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChatClicked = async (chat) => {
     socket.emit("join_room", chat._id);
+    try {
+      await apiPrivate.get("chat/get-chat/" + chat._id).then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setMessageList(res.data.messages);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
     setSelectedChat(chat);
     setRoom(chat._id);
   };
 
-  const sendMessage = (e) => {
-    e.preventDefault();
-    if (currentMessage) {
-      const messageData = {
-        user: {
-          ID: profile.profileID,
-          role: auth.role,
-          name: profile.firstName + " " + profile.lastName,
-        },
-        roomID: room,
-        message: currentMessage,
-        timestamp:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
-      };
+  const handleMessageDelete = async (chatID, messageID) => {
+    try {
+      await apiPrivate
+        .patch("chat/delete-message", { chatID: chatID, messageID: messageID })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("hello");
+            setMessageList((prevMessages) =>
+              prevMessages.filter((message) => message._id !== messageID)
+            );
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      socket.emit("send_message", messageData);
-      setMessageList((list) => [...list, messageData]);
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    try {
+      setCurrentMessage("");
+      if (currentMessage) {
+        const messageData = {
+          user: {
+            ID: profile.profileID,
+            role: auth.role,
+            name: profile.firstName + " " + profile.lastName,
+          },
+          roomID: room,
+          message: currentMessage,
+          timestamp:
+            new Date(Date.now()).getHours() +
+            ":" +
+            new Date(Date.now()).getMinutes(),
+        };
+
+        socket.emit("send_message", messageData);
+        setMessageList((list) => [...list, messageData]);
+
+        const result = await apiPrivate.post("chat/send-message", {
+          chatID: room,
+          message: {
+            user: {
+              ID: profile.profileID,
+              role: auth.role,
+              name: profile.firstName + " " + profile.lastName,
+            },
+            message: currentMessage,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -77,10 +140,10 @@ const ChatPage = ({ socket }) => {
       isMounted = false;
       controller.abort();
     };
-  }, []);
+  }, [messageList]);
 
   return (
-    <div className="flex divide-x outline outline-teal-500 h-[700px] rounded-lg">
+    <div className="flex divide-x outline outline-teal-500 h-[700px] w-[1500px] rounded-lg">
       <div className="flex-col w-2/5 bg-teal-100 p-5">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
           Chats
@@ -89,7 +152,7 @@ const ChatPage = ({ socket }) => {
           {chats.map((chat, index) => (
             <li
               key={index}
-              class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 hover:outline-teal-700 rounded p-3"
+              class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 bg-teal-300 hover:outline-teal-700 rounded p-3"
               onClick={() => handleChatClicked(chat)}
             >
               <div class="flex items-center">
@@ -110,19 +173,134 @@ const ChatPage = ({ socket }) => {
                     }
                   })}
                 </div>
+                {/* <svg
+                  width="40px"
+                  height="40px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  stroke="#017cda"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      d="M10 11V17"
+                      stroke="#d80e0e"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <path
+                      d="M14 11V17"
+                      stroke="#d80e0e"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <path
+                      d="M4 7H20"
+                      stroke="#d80e0e"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <path
+                      d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
+                      stroke="#d80e0e"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <path
+                      d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                      stroke="#d80e0e"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                  </g>
+                </svg> */}
+                <button
+                  class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900  rounded-lg hover:bg-teal-100  focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDeleteChat(chat);
+                  }}
+                >
+                  <svg
+                    class=" h-4 text-gray-500 dark:text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 5 15"
+                  >
+                    <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                  </svg>
+                </button>
               </div>
             </li>
           ))}
         </ul>
       </div>
-
+      {deleteChat && (
+        <div className="fixed z-20 overflow-y-auto top-0 left-0 bg-opacity-50 bg-gray-900 w-screen h-screen">
+          <div class="flex justify-center items-center mt-60">
+            <div class="p-4 w-full max-w-md max-h-full ">
+              <div class="bg-teal-200 rounded-lg shadow dark:bg-gray-700">
+                <div class="p-4 md:p-5 text-center">
+                  <svg
+                    class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                  <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Are you sure you want to delete this chat?
+                  </h3>
+                  <button
+                    data-modal-hide="popup-modal"
+                    type="button"
+                    onClick={() => handleDeleteChat(deleteChat._id)}
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
+                  >
+                    Yes, I'm sure
+                  </button>
+                  <button
+                    data-modal-hide="popup-modal"
+                    onClick={() => setDeleteChat(null)}
+                    type="button"
+                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                  >
+                    No, cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {selectedChat ? (
-        <div className="w-3/5">
+        <div className="w-3/5 flex-col">
           <div className="flex">
             {selectedChat.participants.map((participant, index) => {
               if (participant.participant != profile.profileID) {
                 return (
-                  <div key={index} className="bg-teal-400 w-full">
+                  <div key={index} className="bg-teal-500 w-full">
                     <h1 className="ml-10 mt-3 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
                       {participant.name}
                     </h1>
@@ -134,46 +312,147 @@ const ChatPage = ({ socket }) => {
               }
             })}
           </div>
-          <ul className="flex-col w-full h-[550px] p-3">
-            <ScrollToBottom className="h-full w-full">
-              {messageList.map((messageContent, index) => (
-                <li
-                  key={index}
-                  className={`flex ${
-                    messageContent.user.ID === profile.profileID
-                      ? "right-0"
-                      : "left-0"
-                  } gap-2.5 mb-3 w-fit `}
-                >
-                  <img class="w-8 h-8 rounded-full" alt="Jese image" />
-                  <div
-                    class={`flex flex-col w-full max-w-[320px] leading-1.5 p-4 ${
-                      messageContent.user.ID === profile.profileID
-                        ? "bg-green-500"
-                        : "bg-blue-500"
-                    } border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700`}
+          <div className="h-[550px] p-3 ">
+            <ScrollToBottom className="h-full w-full justify-end">
+              {messageList.map((messageContent, index) => {
+                return messageContent.user.ID !== profile.profileID ? (
+                  <li
+                    key={index}
+                    className="flex 
+                   gap-2.5 mb-3 w-fit justify-content:flex-end"
                   >
-                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span class="text-sm font-semibold text-gray-900 dark:text-white">
-                        {messageContent.user.ID === profile.profileID
-                          ? "You"
-                          : messageContent.user.name}
-                      </span>
-                      <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                        {messageContent.timestamp}
-                      </span>
+                    <img class="w-8 h-8 rounded-full" alt="Jese image" />
+                    <div
+                      class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 bg-gray-200 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl
+                     dark:bg-gray-700"
+                    >
+                      <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">
+                          {messageContent.user.name}
+                        </span>
+                        <span class="text-sm font-normal text-gray-900 dark:text-gray-400">
+                          {messageContent.timestamp}
+                        </span>
+                      </div>
+                      <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+                        {messageContent.message}
+                      </p>
                     </div>
-                    <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                      {messageContent.message}
-                    </p>
-                    {/* <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                      Delivered
-                    </span> */}
-                  </div>
-                </li>
-              ))}
+                    <svg
+                      width="40px"
+                      height="40px"
+                      viewBox="0 0 1024 1024"
+                      class="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#000000"
+                      className="cursor-pointer"
+                      onClick={() =>
+                        handleMessageDelete(room, messageContent._id)
+                      }
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path d="M154 260h568v700H154z" fill="#FF3B30"></path>
+                        <path
+                          d="M624.428 261.076v485.956c0 57.379-46.737 103.894-104.391 103.894h-362.56v107.246h566.815V261.076h-99.864z"
+                          fill="#030504"
+                        ></path>
+                        <path
+                          d="M320.5 870.07c-8.218 0-14.5-6.664-14.5-14.883V438.474c0-8.218 6.282-14.883 14.5-14.883s14.5 6.664 14.5 14.883v416.713c0 8.219-6.282 14.883-14.5 14.883zM543.5 870.07c-8.218 0-14.5-6.664-14.5-14.883V438.474c0-8.218 6.282-14.883 14.5-14.883s14.5 6.664 14.5 14.883v416.713c0 8.219-6.282 14.883-14.5 14.883z"
+                          fill="#152B3C"
+                        ></path>
+                        <path
+                          d="M721.185 345.717v-84.641H164.437z"
+                          fill="#030504"
+                        ></path>
+                        <path
+                          d="M633.596 235.166l-228.054-71.773 31.55-99.3 228.055 71.773z"
+                          fill="#FF3B30"
+                        ></path>
+                        <path
+                          d="M847.401 324.783c-2.223 0-4.475-0.333-6.706-1.034L185.038 117.401c-11.765-3.703-18.298-16.239-14.592-27.996 3.706-11.766 16.241-18.288 27.993-14.595l655.656 206.346c11.766 3.703 18.298 16.239 14.592 27.996-2.995 9.531-11.795 15.631-21.286 15.631z"
+                          fill="#FF3B30"
+                        ></path>
+                      </g>
+                    </svg>
+                  </li>
+                ) : (
+                  <li
+                    key={index}
+                    className="flex 
+                   gap-2.5 mb-3 w-fit"
+                  >
+                    <svg
+                      width="40px"
+                      height="40px"
+                      viewBox="0 0 1024 1024"
+                      class="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#000000"
+                      className="cursor-pointer"
+                      onClick={() =>
+                        handleMessageDelete(room, messageContent._id)
+                      }
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path d="M154 260h568v700H154z" fill="#FF3B30"></path>
+                        <path
+                          d="M624.428 261.076v485.956c0 57.379-46.737 103.894-104.391 103.894h-362.56v107.246h566.815V261.076h-99.864z"
+                          fill="#030504"
+                        ></path>
+                        <path
+                          d="M320.5 870.07c-8.218 0-14.5-6.664-14.5-14.883V438.474c0-8.218 6.282-14.883 14.5-14.883s14.5 6.664 14.5 14.883v416.713c0 8.219-6.282 14.883-14.5 14.883zM543.5 870.07c-8.218 0-14.5-6.664-14.5-14.883V438.474c0-8.218 6.282-14.883 14.5-14.883s14.5 6.664 14.5 14.883v416.713c0 8.219-6.282 14.883-14.5 14.883z"
+                          fill="#152B3C"
+                        ></path>
+                        <path
+                          d="M721.185 345.717v-84.641H164.437z"
+                          fill="#030504"
+                        ></path>
+                        <path
+                          d="M633.596 235.166l-228.054-71.773 31.55-99.3 228.055 71.773z"
+                          fill="#FF3B30"
+                        ></path>
+                        <path
+                          d="M847.401 324.783c-2.223 0-4.475-0.333-6.706-1.034L185.038 117.401c-11.765-3.703-18.298-16.239-14.592-27.996 3.706-11.766 16.241-18.288 27.993-14.595l655.656 206.346c11.766 3.703 18.298 16.239 14.592 27.996-2.995 9.531-11.795 15.631-21.286 15.631z"
+                          fill="#FF3B30"
+                        ></path>
+                      </g>
+                    </svg>
+                    <div
+                      class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 bg-green-500 border-gray-200 bg-gray-100 rounded-l-lg rounded-b-lg
+                     dark:bg-gray-700"
+                    >
+                      <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">
+                          You
+                        </span>
+                        <span class="text-sm font-normal text-gray-900 dark:text-gray-400">
+                          {messageContent.timestamp}
+                        </span>
+                      </div>
+                      <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
+                        {messageContent.message}
+                      </p>
+                    </div>
+                    <img class="w-8 h-8 rounded-full" alt="Jese image" />
+                  </li>
+                );
+              })}
             </ScrollToBottom>
-          </ul>
+          </div>
           <div className="p-5">
             <form onSubmit={sendMessage}>
               <label
@@ -184,9 +463,8 @@ const ChatPage = ({ socket }) => {
               </label>
               <div class="relative">
                 <input
-                  type="search"
                   id="default-search"
-                  class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="block w-full p-4 text-sm text-gray-900 border border-blue-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Type a message"
                   value={currentMessage}
                   onChange={(e) => {
@@ -196,7 +474,7 @@ const ChatPage = ({ socket }) => {
                 />
                 <button
                   type="submit"
-                  class="text-white absolute end-2.5 bottom-2.5  hover:bg-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  class="text-white absolute end-2.5 bottom-2.5  hover:bg-blue-200  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   <svg
                     width="20px"
