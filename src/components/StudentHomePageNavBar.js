@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/l-t-high-resolution-logo-transparent.png";
 
-const HomePageNavBar = (props) => {
+const StudentHomePageNavBar = (props) => {
   return (
     <nav class="top-0  fixed w-full bg-teal-300 border-gray-200 dark:bg-gray-900">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -31,8 +32,8 @@ const HomePageNavBar = (props) => {
               </a>
             </li>
             <li className="">
-              <a
-                href="#"
+              <Link
+                to="my-profile"
                 class="flex py-2 px-3 text-gray-900 rounded  md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 <svg
@@ -77,7 +78,7 @@ const HomePageNavBar = (props) => {
                   </g>
                 </svg>
                 {props.profile.firstName} {props.profile.lastName}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -86,4 +87,4 @@ const HomePageNavBar = (props) => {
   );
 };
 
-export default HomePageNavBar;
+export default StudentHomePageNavBar;
