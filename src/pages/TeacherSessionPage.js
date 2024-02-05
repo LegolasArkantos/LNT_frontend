@@ -1,5 +1,5 @@
 import React from "react";
-import HomePageNavBar from "../components/HomePageNavBar";
+import HomePageNavBar from "../components/StudentHomePageNavBar";
 import Sidebar from "../components/StudentSidebar";
 
 const TeacherSessionPage = () => {
