@@ -13,7 +13,7 @@ const SignUpPage3 = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // Extracting previous data from location state
-  const { email, password, firstName, lastName, role, educationalCredential, educationalLevel, profilePicture} = location.state || {};
+  const { email, password, firstName, lastName, role, educationalCredential, educationalLevel, profilePicture, aboutMe} = location.state || {};
   console.log(profilePicture)
   const submit = async (e) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ const SignUpPage3 = () => {
     console.log("First Name:", firstName);
     console.log("Last Name:", lastName);
     console.log("Role:", role);
+    console.log(aboutMe);
 
     if (role === "Teacher") {
       console.log("Educational Credential:", educationalCredential);
@@ -47,7 +48,8 @@ const SignUpPage3 = () => {
         educationalCredential,
         educationalLevel,
         personality,
-        profilePicture
+        profilePicture,
+        aboutMe,
       };
     console.log("payload",payload);
       try {
@@ -165,7 +167,7 @@ const SignUpPage3 = () => {
   ];
 
   return (
-    <div className="w-full bg-white rounded-lg h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
+    <div className="w-full bg-white rounded-lg min-h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
       <div className="p-10">
         <div className="flex mb-10 items-center justify-center space-x-3 rtl:space-x-reverse">
           <img src={logo} alt="Logo" className="h-8" />
