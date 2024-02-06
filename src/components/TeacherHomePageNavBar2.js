@@ -1,13 +1,23 @@
 import { Link, useLocation } from "react-router-dom";
 import logoutIcon from "../assets/logout.png";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 const TeacherHomePageNavBar2 = (props) => {
   const location = useLocation();
   const [isHovered, setIsHovered] = useState(false);
 
+  useEffect(() => {
+    const navHeight = document.querySelector("nav").offsetHeight;
+    document.body.style.paddingTop = `${navHeight}px`;
+
+    
+    return () => {
+      document.body.style.paddingTop = 0;
+    };
+  }, []);
+
   return (
-    <nav className="">
+    <nav className="fixed top-0 w-screen z-10">
       <div className="bg-teal-100 flex  justify-between dark:bg-gray-800">
         <ul className="relative flex font-medium w-screen">
           <li>
