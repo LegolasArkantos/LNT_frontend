@@ -44,6 +44,7 @@ const PersistentLogin = () => {
                 sessions: response.data.sessions,
                 chatRooms: response.data.chatRooms,
                 personality: response.data.personality,
+                aboutMe: response.data.aboutMe
               })
             );
           }
@@ -70,6 +71,7 @@ const PersistentLogin = () => {
                 chatRooms: response.data.chatRooms,
                 personality: response.data.personality,
                 careerCounselling: response.data.careerCounselling,
+                aboutMe: response.data.aboutMe
               })
             );
           }
