@@ -3,7 +3,7 @@ import logo from "../assets/l-t-high-resolution-logo-transparent.png";
 
 const TeacherHomePageNavBar = (props) => {
   return (
-    <nav class="top-0  fixed w-full bg-teal-300 border-gray-200 dark:bg-gray-900">
+    <nav class="top-0 z-20 fixed w-full bg-teal-300 border-gray-200 dark:bg-gray-900">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logo} class="h-8" />
