@@ -31,6 +31,7 @@ const TeacherHomePage = () => {
   const handleCancel = () => {
     setShowPopup(false);
     setOptions([]);
+    setTitle("");
   };
 
   return (
