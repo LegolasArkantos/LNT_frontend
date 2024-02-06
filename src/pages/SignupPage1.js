@@ -80,7 +80,7 @@ const SignUpPage1 = () => {
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Your email
+              Email
             </label>
             <input
               type="email"
@@ -100,7 +100,7 @@ const SignUpPage1 = () => {
               htmlFor="password"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Your password
+              Password
             </label>
             <input
               type="password"
