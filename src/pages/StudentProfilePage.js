@@ -9,7 +9,7 @@ const StudentProfilePage = () => {
       <div class="flex items-center  mb-8">
         <img
           class="bg-teal-200 rounded-full outline outline-teal-700 w-[350px] h-[350px]"
-          src="/docs/images/people/profile-picture-1.jpg"
+          src={profile.profilePicture}
           alt="Jese Leos"
         />
         <div>
