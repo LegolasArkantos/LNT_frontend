@@ -3,7 +3,7 @@ import logo from '../assets/l-t-high-resolution-logo-transparent.png'
 const LandingPage = () => {
   return (
     <div>
-      <nav class="bg-teal-200 border-gray-200 dark:bg-gray-900">
+      <nav class="bg-teal-300 border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
           <div class="flex items-center space-x-3 rtl:space-x-reverse">
             <img
