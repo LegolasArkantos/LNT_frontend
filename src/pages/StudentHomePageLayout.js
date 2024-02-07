@@ -32,7 +32,7 @@ const StudentHomePageLayout = () => {
     <div className="bg-white">
       <div className="flex-col space-y-16">
         <StudentHomePageNavBar profile={profile} />
-        <StudentHomePageNavBar2 handleLogOut={handleLogOut} />
+        <StudentHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} />
       </div>
 
       <div className="ml-20 mr-20 mb-10 mt-20">
