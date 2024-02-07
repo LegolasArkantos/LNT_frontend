@@ -89,7 +89,7 @@ const StudentHomePage = () => {
 
       <div className="mt-10">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
-          Available Sessions:
+          New Sessions:
         </h1>
         <ul className="flex mt-10 space-x-8">
           {availableSessions.length === 0 ? (
