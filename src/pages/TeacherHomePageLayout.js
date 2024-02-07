@@ -31,7 +31,7 @@ const TeacherHomePageLayout = () => {
     <div className="bg-white">
       <div className="flex-col space-y-16">
         <TeacherHomePageNavBar profile={profile} />
-        <TeacherHomePageNavBar2 handleLogOut={handleLogOut} />
+        <TeacherHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} />
       </div>
 
       <div className="ml-20 mr-20 mb-10 mt-20">

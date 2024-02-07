@@ -10,6 +10,7 @@ const ChatPage = ({ socket }) => {
   const [room, setRoom] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [deleteChat, setDeleteChat] = useState(null);
+  const [otherImage, setOtherImage] = useState("");
 
   const apiPrivate = useAPIPrivate();
   const auth = useSelector((state) => state.auth.value);
@@ -21,17 +22,15 @@ const ChatPage = ({ socket }) => {
 
   const handleDeleteChat = async (chatID) => {
     try {
-      await apiPrivate
-        .delete("chat/delete/" + chatID)
-        .then((res) => {
-          if (res.status === 200) {
-            setChats((prevChats) =>
-              prevChats.filter((chat) => chat._id !== chatID)
-            );
-            setDeleteChat(null);
-            setSelectedChat(null);
-          }
-        });
+      await apiPrivate.delete("chat/delete/" + chatID).then((res) => {
+        if (res.status === 200) {
+          setChats((prevChats) =>
+            prevChats.filter((chat) => chat._id !== chatID)
+          );
+          setDeleteChat(null);
+          setSelectedChat(null);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -50,6 +49,11 @@ const ChatPage = ({ socket }) => {
       console.log(error);
     }
     setSelectedChat(chat);
+    chat.participants.map((participant) => {
+      if (participant.participant !== profile.profileID){
+        setOtherImage(participant.profilePicture);
+      }
+    })
     setRoom(chat._id);
   };
 
@@ -140,112 +144,155 @@ const ChatPage = ({ socket }) => {
       isMounted = false;
       controller.abort();
     };
-  }, [messageList]);
+  }, []);
 
   return (
-    <div className="flex divide-x outline outline-teal-500 h-[700px] w-[1500px] rounded-lg">
+    <div className="flex divide-x outline outline-teal-500 h-[700px] rounded-lg">
       <div className="flex-col w-2/5 bg-teal-100 p-5">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
           Chats
         </h1>
         <ul class="divide-y divide-gray-200 dark:divide-gray-700 mt-5">
-          {chats.map((chat, index) => (
-            <li
-              key={index}
-              class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 bg-teal-300 hover:outline-teal-700 rounded p-3"
-              onClick={() => handleChatClicked(chat)}
-            >
-              <div class="flex items-center">
-                <div class="flex-shrink-0">
-                  <img class="w-8 h-8 rounded-full" alt="Neil image" />
-                </div>
-                <div class="flex-1 min-w-0 ms-4">
-                  {chat.participants.map((participant, index) => {
-                    if (participant.participant !== profile.profileID) {
-                      return (
-                        <p
-                          key={index}
-                          class="text-lg font-semibold text-gray-900 truncate dark:text-white"
-                        >
-                          {participant.name}
-                        </p>
-                      );
-                    }
-                  })}
-                </div>
-                {/* <svg
-                  width="40px"
-                  height="40px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  stroke="#017cda"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path
-                      d="M10 11V17"
-                      stroke="#d80e0e"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>{" "}
-                    <path
-                      d="M14 11V17"
-                      stroke="#d80e0e"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>{" "}
-                    <path
-                      d="M4 7H20"
-                      stroke="#d80e0e"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>{" "}
-                    <path
-                      d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
-                      stroke="#d80e0e"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>{" "}
-                    <path
-                      d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                      stroke="#d80e0e"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>{" "}
-                  </g>
-                </svg> */}
-                <button
-                  class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900  rounded-lg hover:bg-teal-100  focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setDeleteChat(chat);
-                  }}
-                >
-                  <svg
-                    class=" h-4 text-gray-500 dark:text-gray-400"
+          {!chats ? (
+            <p className="text-lg font-semibold text-gray-900 truncate dark:text-white">
+              No Chats
+            </p>
+          ) : (
+            chats.map((chat, index) => (
+              <li
+                key={index}
+                class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 bg-teal-300 hover:outline-teal-700 rounded p-3"
+                onClick={() => handleChatClicked(chat)}
+              >
+                <div class="flex items-center">
+                  <div class="flex-1 min-w-0 ms-4">
+                    {chat.participants.map((participant, index) => {
+                      if (participant.participant !== profile.profileID) {
+                        return (
+                          <div class="flex">
+                            <img
+                              class="w-8 h-8 rounded-full"
+                              src={participant.profilePicture}
+                              alt="Neil image"
+                            />
+
+                            <p
+                              key={index}
+                              class="text-lg ml-3 font-semibold text-gray-900 truncate dark:text-white"
+                            >
+                              {participant.name}
+                            </p>
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
+                  {/* <svg
+                    width="40px"
+                    height="40px"
+                    viewBox="0 0 24 24"
+                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 5 15"
+                    stroke="#017cda"
                   >
-                    <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                  </svg>
-                </button>
-              </div>
-            </li>
-          ))}
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <path
+                        d="M10 11V17"
+                        stroke="#d80e0e"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                      <path
+                        d="M14 11V17"
+                        stroke="#d80e0e"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                      <path
+                        d="M4 7H20"
+                        stroke="#d80e0e"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                      <path
+                        d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
+                        stroke="#d80e0e"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                      <path
+                        d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                        stroke="#d80e0e"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                    </g>
+                  </svg> */}
+                  <button
+                    class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900  rounded-lg hover:bg-teal-100  focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteChat(chat);
+                    }}
+                  >
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 1024 1024"
+                      class="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#000000"
+                      className="cursor-pointer"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path d="M154 260h568v700H154z" fill="#FF3B30"></path>
+                        <path
+                          d="M624.428 261.076v485.956c0 57.379-46.737 103.894-104.391 103.894h-362.56v107.246h566.815V261.076h-99.864z"
+                          fill="#030504"
+                        ></path>
+                        <path
+                          d="M320.5 870.07c-8.218 0-14.5-6.664-14.5-14.883V438.474c0-8.218 6.282-14.883 14.5-14.883s14.5 6.664 14.5 14.883v416.713c0 8.219-6.282 14.883-14.5 14.883zM543.5 870.07c-8.218 0-14.5-6.664-14.5-14.883V438.474c0-8.218 6.282-14.883 14.5-14.883s14.5 6.664 14.5 14.883v416.713c0 8.219-6.282 14.883-14.5 14.883z"
+                          fill="#152B3C"
+                        ></path>
+                        <path
+                          d="M721.185 345.717v-84.641H164.437z"
+                          fill="#030504"
+                        ></path>
+                        <path
+                          d="M633.596 235.166l-228.054-71.773 31.55-99.3 228.055 71.773z"
+                          fill="#FF3B30"
+                        ></path>
+                        <path
+                          d="M847.401 324.783c-2.223 0-4.475-0.333-6.706-1.034L185.038 117.401c-11.765-3.703-18.298-16.239-14.592-27.996 3.706-11.766 16.241-18.288 27.993-14.595l655.656 206.346c11.766 3.703 18.298 16.239 14.592 27.996-2.995 9.531-11.795 15.631-21.286 15.631z"
+                          fill="#FF3B30"
+                        ></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+              </li>
+            ))
+          )}
         </ul>
       </div>
       {deleteChat && (
@@ -312,18 +359,22 @@ const ChatPage = ({ socket }) => {
               }
             })}
           </div>
-          <div className="h-[550px] p-3 ">
-            <ScrollToBottom className="h-full w-full justify-end">
+          <div className="h-[550px] p-3 w-full">
+            <ScrollToBottom className="h-full w-full flex-col">
               {messageList.map((messageContent, index) => {
                 return messageContent.user.ID !== profile.profileID ? (
                   <li
                     key={index}
                     className="flex 
-                   gap-2.5 mb-3 w-fit justify-content:flex-end"
+                   gap-2.5 mb-3  "
                   >
-                    <img class="w-8 h-8 rounded-full" alt="Jese image" />
+                    <img
+                      class="w-8 h-8 rounded-full"
+                      src={otherImage}
+                      alt="Jese image"
+                    />
                     <div
-                      class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 bg-gray-200 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl
+                      class="flex flex-col w-fit max-w-[320px] leading-1.5 p-4 bg-gray-200 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl
                      dark:bg-gray-700"
                     >
                       <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -339,8 +390,8 @@ const ChatPage = ({ socket }) => {
                       </p>
                     </div>
                     <svg
-                      width="40px"
-                      height="40px"
+                      width="25px"
+                      height="25px"
                       viewBox="0 0 1024 1024"
                       class="icon"
                       version="1.1"
@@ -386,11 +437,11 @@ const ChatPage = ({ socket }) => {
                   <li
                     key={index}
                     className="flex 
-                   gap-2.5 mb-3 w-fit"
+                   gap-2.5 mb-3 justify-end"
                   >
                     <svg
-                      width="40px"
-                      height="40px"
+                      width="25px"
+                      height="25px"
                       viewBox="0 0 1024 1024"
                       class="icon"
                       version="1.1"
@@ -432,7 +483,7 @@ const ChatPage = ({ socket }) => {
                       </g>
                     </svg>
                     <div
-                      class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 bg-green-500 border-gray-200 bg-gray-100 rounded-l-lg rounded-b-lg
+                      class="flex flex-col items-end w-fit max-w-[320px] leading-1.5 p-4 bg-green-500 border-gray-200 bg-gray-100 rounded-l-lg rounded-b-lg
                      dark:bg-gray-700"
                     >
                       <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -447,7 +498,11 @@ const ChatPage = ({ socket }) => {
                         {messageContent.message}
                       </p>
                     </div>
-                    <img class="w-8 h-8 rounded-full" alt="Jese image" />
+                    <img
+                      class="w-8 h-8 rounded-full"
+                      src={profile.profilePicture}
+                      alt="Jese image"
+                    />
                   </li>
                 );
               })}
