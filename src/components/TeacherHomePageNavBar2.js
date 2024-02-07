@@ -169,10 +169,10 @@ const NotificationBox = ({ isNotificationOpen, notifications }) => {
     <div
       className={`fixed top-30 right-4 ${isNotificationOpen ? "block" : "hidden"}`}
     >
-      <ul className="bg-teal-200 p-4 h-[200px] w-[200px] rounded-lg shadow-lg">
+      <ul className="bg-teal-200 p-4 h-fit w-[200px] rounded-lg shadow-lg">
         {
           notifications.map((notification, index) => (
-            <li key={index} className="outline rounded ">
+            <li key={index} className="outline rounded mb-3">
               <h1 className="font-semibold">
                 {notification.title}
               </h1>
