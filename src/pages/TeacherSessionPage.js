@@ -35,13 +35,7 @@ const TeacherSessionsPage = () => {
 
     getSessions();
 
-    // Disable scrolling on mount
-    document.body.style.overflow = 'hidden';
-
-    // Enable scrolling on unmount (cleanup)
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
+    
   }, []);
 
   const handleShowStudents = (session) => {
