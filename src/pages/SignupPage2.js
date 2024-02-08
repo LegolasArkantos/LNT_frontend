@@ -131,7 +131,7 @@ const SignUpPage2 = () => {
                     <img
                       src={previewSource}
                       alt="Image"
-                      className="h-[150px] w-[150px] text-gray-500 dark:text-gray-400 mb-2"
+                      className="h-[150px] w-[150px] rounded-full text-gray-500 dark:text-gray-400 mb-2"
                     />
                   ) : (
                     <img
