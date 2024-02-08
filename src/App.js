@@ -14,6 +14,8 @@ import TeacherSessionPage from "./pages/TeacherSessionPage";
 import ChatPage from "./pages/ChatPage";
 import TeacherHomePage from "./pages/TeacherHomePage";
 import TeacherHomePageLayout from "./pages/TeacherHomePageLayout";
+import AICareerGenerator from "./pages/AICareerGenerator";
+
 import io from "socket.io-client";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
@@ -48,6 +50,8 @@ function App() {
             <Route index element={<StudentHomePage />} />
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<StudentProfilePage/>} />
+            <Route path="ai-career" element={<AICareerGenerator/>} />
+
           </Route>
         </Route>
 
