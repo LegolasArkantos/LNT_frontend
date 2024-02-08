@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logoutIcon from "../assets/logout.png"; // Make sure to provide the correct path to your logout icon
 import useAPIPrivate from "../hooks/useAPIPrivaate";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 const StudentHomePageNavBar2 = (props) => {
   const location = useLocation();
@@ -167,7 +168,8 @@ const NotificationBox = ({ isNotificationOpen, notifications }) => {
     <div
       className={`fixed top-30 right-4 ${isNotificationOpen ? "block" : "hidden"}`}
     >
-      <ul className="bg-teal-200 p-4  w-[200px] rounded-lg shadow-lg">
+      <ul className="bg-teal-200 p-4 h-[300px] w-[200px] rounded-lg shadow-lg">
+        <ScrollToBottom className="h-full w-full flex-col">
         {
           notifications.map((notification, index) => (
             <li key={index} className="outline rounded mb-3">
@@ -175,11 +177,12 @@ const NotificationBox = ({ isNotificationOpen, notifications }) => {
                 {notification.title}
               </h1>
               <p1 className="">
-                {notification.time}
+                {notification.timestamp}
               </p1>
             </li>
           ))
         }
+        </ScrollToBottom>
       </ul>
       
     </div>
