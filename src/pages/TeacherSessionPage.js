@@ -78,49 +78,36 @@ const TeacherSessionsPage = () => {
 
   return (
     <div className="flex h-screen">
-      {/* Main Content */}
-      <div className="p-8 flex space-x-8 h-full">
-        {/* Sessions Container */}
-        <div className="rounded bg-white p-8 flex-1 h-screen-1/2 overflow-y-auto mt-[-100px] mb-[100px]">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Teacher Sessions</h2>
-            <button onClick={handleOpenCreateSessionPopup} className="text-blue-500 underline">
-              Create Session
-            </button>
-          </div>
-
-          {/* Session Cards (Fetched Data) */}
-          {sessions.map((session) => (
-            <div key={session.sessionId} className="bg-gray-100 p-4 rounded mb-4 w-96 h-60 ">
-              <h3 className="text-lg font-semibold mb-2">{session.subject}</h3>
-              <p>Start Time: {session.startTime}</p>
-              <p>End Time: {session.endTime}</p>
-              <p>Payment Status: {session.paymentStatus}</p>
-              <p>Status: {session.status}</p>
-              <p>Price: ${session.sessionPrice}</p>
-              <p>No. of Students: {session.students.length}</p>
-              <button onClick={() => handleShowStudents(session)} className="text-blue-500 mt-2 underline">
-                Show Students
-              </button>
-              
-          </div>
-        ))}
-      </div>
-
-        {/* Assignments Container */}
-        <div className="rounded bg-white p-8 flex-1 h-screen-1/2 overflow-y-auto mt-[-100px] mb-[100px]">
-          <h2 className="text-2xl font-bold mb-4">Assignments</h2>
-
-          {/* Assignment Cards (Dummy Data) */}
-          {Array.from({ length: 20 }).map((_, index) => (
-            <div key={index} className="bg-gray-100 p-4 rounded mb-4 w-96 h-48 ">
-              <h3 className="text-lg font-semibold mb-2">Assignment {index + 1}</h3>
-              <p>Subject: Science</p>
-              <p>Time: Due in 3 days</p>
-            </div>
-          ))}
+     {/* Main Content */}
+<div className="p-8 flex flex-col h-full ">
+  {/* Sessions Container */}
+  <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col overflow-x-auto h-[700px] w-[1430px] mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
+    {/* Teacher Sessions */}
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-2xl font-bold">Teacher Sessions</h2>
+      <button onClick={handleOpenCreateSessionPopup} className="inline-flex items-center px-4 py-2 mt-2  text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ">
+        Create Session
+      </button>
+    </div>
+    <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
+      {/* Session Cards (Fetched Data) */}
+      {sessions.map((session) => (
+        <div key={session.sessionId} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
+          <h3 className="text-xl font-semibold mb-2">{session.subject}</h3>
+          <p className="text-gray-700">Start Time: {session.startTime}</p>
+          <p className="text-gray-700">End Time: {session.endTime}</p>
+          <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
+          <p className="text-gray-700">Status: {session.status}</p>
+          <p className="text-gray-700">Price: ${session.sessionPrice}</p>
+          <p className="text-gray-700">No. of Students: {session.students.length}</p>
+          <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            Show Students
+          </button>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
 
       {/* Students Popup */}
       {selectedSession && (
