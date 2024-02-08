@@ -100,11 +100,12 @@ const ChatPage = ({ socket }) => {
           chatID: room,
           message: {
             user: {
-              ID: profile.profileID,
-              role: auth.role,
-              name: profile.firstName + " " + profile.lastName,
+              ID: messageData.user.ID,
+              role: messageData.user.role,
+              name: messageData.user.name,
             },
-            message: currentMessage,
+            message: messageData.message,
+            timestamp: messageData.timestamp
           },
         });
       }
