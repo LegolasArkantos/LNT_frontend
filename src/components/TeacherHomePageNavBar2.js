@@ -20,7 +20,6 @@ const TeacherHomePageNavBar2 = (props) => {
 
   const handleNotificationDelete = async (notID) => {
     try {
-      console.log("hello")
       await apiPrivate.delete("notification/delete/" + notID).then((res) => {
         if (res.status === 200) {
           setNotifications((notifications) => notifications.filter((notification) => notification._id !== notID));
