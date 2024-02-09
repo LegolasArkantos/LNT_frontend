@@ -162,7 +162,7 @@ const ChatPage = ({ socket }) => {
             chats.map((chat, index) => (
               <li
                 key={index}
-                class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 bg-teal-300 hover:outline-teal-700 rounded p-3"
+                class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 bg-teal-300 rounded-full hover:outline-teal-700 rounded p-3"
                 onClick={() => handleChatClicked(chat)}
               >
                 <div class="flex items-center">
@@ -242,7 +242,7 @@ const ChatPage = ({ socket }) => {
                     </g>
                   </svg> */}
                   <button
-                    class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900  rounded-lg hover:bg-teal-100  focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+                    class=" self-center items-center p-2 text-sm font-medium text-center text-gray-900  rounded-full hover:bg-teal-100  focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
