@@ -15,7 +15,6 @@ import ChatPage from "./pages/ChatPage";
 import TeacherHomePage from "./pages/TeacherHomePage";
 import TeacherHomePageLayout from "./pages/TeacherHomePageLayout";
 import AICareerGenerator from "./pages/AICareerGenerator";
-
 import io from "socket.io-client";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
