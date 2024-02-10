@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import useAPIPrivte from "../hooks/useAPIPrivaate";
 
 const StudentHomePage = () => {
-  const apiPrivte = useAPIPrivte();
 
   const [availableSessions, setAvailableSessions] = useState([]);
   const [topRatedTeachers, setTopRatedTeachers] = useState([]);
+  const [polls, setPolls] = useState([]);
+
+  const apiPrivate = useAPIPrivte();
+
+  const profile = useSelector((state) => state.studentProfile.value);
 
   useEffect(() => {
     let isMounted = true;
@@ -15,7 +19,7 @@ const StudentHomePage = () => {
 
     const getSessions = async () => {
       try {
-        await apiPrivte.get("sessions/availableSessions").then((res) => {
+        await apiPrivate.get("sessions/availableSessions").then((res) => {
           if (isMounted && res.status === 200) {
             setAvailableSessions(res.data.sessions);
           }
@@ -27,7 +31,7 @@ const StudentHomePage = () => {
 
     const getTopRatedTeachers = async () => {
       try {
-        await apiPrivte.get("student/top-rated-teachers").then((res) => {
+        await apiPrivate.get("student/top-rated-teachers").then((res) => {
           if (isMounted && res.status === 200) {
             setTopRatedTeachers(res.data);
             console.log(topRatedTeachers)
@@ -37,10 +41,19 @@ const StudentHomePage = () => {
       catch (error) {
         console.log(error);
       }
-    }
+    };
+
+    const getPolls = async () => {
+      await apiPrivate.get("poll/").then((res) => {
+        if (isMounted && res.status === 200) {
+          setPolls(res.data);
+        }
+      });
+    };
 
     getSessions();
     getTopRatedTeachers();
+    getPolls();
 
     return () => {
       isMounted = false;
@@ -48,6 +61,31 @@ const StudentHomePage = () => {
     };
 
   }, []);
+
+  useEffect(() => {
+
+    const getPolls = async () => {
+      await apiPrivate.get("poll/").then((res) => {
+        if (res.status === 200) {
+          setPolls(res.data);
+        }
+      });
+    };
+    const interval = setInterval(() => {
+        getPolls();
+    }, 2000); 
+
+    return () => clearInterval(interval);
+}, []); 
+
+
+  const handleOptionClicked = async (pollID, optionID) => {
+    await apiPrivate.put("poll/update-count/" + pollID, {optionID}).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    })
+  }
 
   const slideLeft = (id) => {
     var slider = document.getElementById(id);
@@ -211,6 +249,63 @@ const StudentHomePage = () => {
           )}
         </div>
         <button className="hover:bg-teal-200 rounded-full" style={{ marginRight: "-40px" }} onClick={() => slideRight('slider2')}>
+        <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5596 8.41992L13.6196 11.29C13.778 11.4326 13.9047 11.6068 13.9914 11.8015C14.0781 11.9962 14.123 12.2068 14.123 12.4199C14.123 12.633 14.0781 12.8439 13.9914 13.0386C13.9047 13.2332 13.778 13.4075 13.6196 13.55L10.5596 16.4199" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        </button>
+        </div>
+      </div>
+
+      <div className="mt-10">
+      <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
+          Polls:
+        </h1>
+        <div className="flex items-center">
+        <button className="hover:bg-teal-200 rounded-full" style={{ marginLeft: "-40px" }} onClick={() => slideLeft('slider3')}>
+        <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        </button>
+        <ul id="slider3" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-10 space-x-8">
+        {polls.length !== 0 ? (
+  polls.map((poll, index) => (
+    <li key={index} className="mb-4 ml-2 mt-2 outline outline-teal-800 rounded p-3 w-[300px] h-fit">
+      <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll.question}</h3>
+      <ul className="mt-5 ">
+        {poll.options.map((option, optionIndex) => (
+          <li className="w-[300px]" key={optionIndex}>
+            <div className="flex items-center space-x-2 mb-2 mt-2">
+              {/*
+                Only render the radio input if the student has not voted
+                Check if the student's profileID exists in the poll's users array
+              */}
+              {!poll.users.includes(profile.profileID) && (
+                <input
+                  onClick={() => handleOptionClicked(poll._id, option._id)}
+                  id={`option-${option._id}`}
+                  type="radio"
+                  value=""
+                  name={`poll-${poll._id}`}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+              )}
+              <p className="font-bold">{option.option}</p>
+            </div>
+            <span>
+              <div class="w-[270px] bg-blue-400 rounded-full dark:bg-gray-700">
+                <div
+                  class={`${option.percentage === 0 ? ("bg-blue-400") : ("bg-blue-600")} text-xs font-medium text-blue-200 text-center p-0.5 leading-none rounded-full`}
+                  style={option.percentage !== 0 ? { width: `${option.percentage}%` } : null}
+                >
+                  {option.percentage}%
+                </div>
+              </div>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </li>
+  ))
+) : (<p>No current polls</p>)}
+
+        </ul>
+        <button className="hover:bg-teal-200 rounded-full" style={{ marginRight: "-40px" }} onClick={() => slideRight('slider3')}>
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5596 8.41992L13.6196 11.29C13.778 11.4326 13.9047 11.6068 13.9914 11.8015C14.0781 11.9962 14.123 12.2068 14.123 12.4199C14.123 12.633 14.0781 12.8439 13.9914 13.0386C13.9047 13.2332 13.778 13.4075 13.6196 13.55L10.5596 16.4199" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
         </div>
