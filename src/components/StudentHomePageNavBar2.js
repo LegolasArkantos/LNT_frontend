@@ -101,7 +101,7 @@ const StudentHomePageNavBar2 = (props) => {
   onClick={toggleNotification}
   width="30px"
   height="30px"
-  viewBox="0 0 24 24"
+  viewBox="3 -1.7 24 24"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   className="cursor-pointer"
@@ -124,7 +124,7 @@ const StudentHomePageNavBar2 = (props) => {
   {/* Add notification count */}
   {notifications.length > 0 && (
     <circle
-      cx="18"
+      cx="17.5"
       cy="6"
       r="8"
       fill="#ff0000"
