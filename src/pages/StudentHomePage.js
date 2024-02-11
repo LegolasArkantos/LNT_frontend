@@ -2,12 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import useAPIPrivte from "../hooks/useAPIPrivaate";
+import { useNavigate } from "react-router-dom";
 
 const StudentHomePage = () => {
+
+  const navigate = useNavigate();
 
   const [availableSessions, setAvailableSessions] = useState([]);
   const [topRatedTeachers, setTopRatedTeachers] = useState([]);
   const [polls, setPolls] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const apiPrivate = useAPIPrivte();
 
@@ -87,6 +91,8 @@ const StudentHomePage = () => {
     })
   }
 
+  
+
   const slideLeft = (id) => {
     var slider = document.getElementById(id);
     slider.scrollLeft -= 300; 
@@ -100,7 +106,11 @@ const StudentHomePage = () => {
 
   return (
     <div>
-      <form class="flex items-center">
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        navigate('/student-home-page/results', { state: { searchValue } })
+      }} 
+      class="flex items-center">
         <label for="simple-search" class="sr-only">
           Search
         </label>
@@ -110,6 +120,8 @@ const StudentHomePage = () => {
             id="simple-search"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for topics/courses..."
+            value={searchValue} 
+            onChange={(e) => setSearchValue(e.target.value)}
             required
           />
         </div>
