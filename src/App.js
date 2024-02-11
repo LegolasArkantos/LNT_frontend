@@ -20,6 +20,7 @@ import AICareerGenerator from "./pages/AICareerGenerator";
 import io from "socket.io-client";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
+import StudentProfilePageSecondary from "./pages/StudentProfilePageSecondary";
 const socket = io.connect("http://localhost:4000");
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route path="ai-career" element={<AICareerGenerator/>} />
             <Route path="sessions" element={<StudentSessionsPage />} />
             <Route path="studentassignments" element={<StudentAssignmentsPage />} />
+            <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
 
             
 
