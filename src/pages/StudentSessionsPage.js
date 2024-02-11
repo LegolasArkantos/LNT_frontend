@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StudentSessionsPage = () => {
   const [sessions, setSessions] = useState([]);
@@ -23,6 +23,10 @@ const StudentSessionsPage = () => {
     navigate('/student-home-page/studentassignments', { state: { sessionId } });
   };
 
+  const handleTeacherClick = (teacherId) => {
+    navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId } });
+  };
+
   return (
     <div className="flex h-screen">
       <div className="p-8 flex flex-col h-full">
@@ -42,7 +46,15 @@ const StudentSessionsPage = () => {
                 >
                   {session.subject}
                 </button>
-                <p className="text-gray-700">Teacher: {session.teacherName}</p>
+                <p className="text-gray-700">
+                  Teacher: 
+                  <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() => handleTeacherClick(session.teacher)}
+                  >
+                    {session.teacherName}
+                  </button>
+                </p>
                 <p className="text-gray-700">
                   Timings: {session.startTime} - {session.endTime}
                 </p>
