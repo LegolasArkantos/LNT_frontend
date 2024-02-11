@@ -149,8 +149,8 @@ const StudentHomePage = () => {
             <p className="text-xl font-semibold">No Sessions Available</p>
           ) : (
             availableSessions.map((session, index) => (
-                <div key={index} class=" w-[500px] bg-white border border-gray-200 rounded-lg cursor-pointer shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div className="hover:scale-105 ease-in-out">
+                <div key={index} class=" w-[500px] bg-white border border-gray-200 hover:border-gray-500 rounded-lg cursor-pointer shadow dark:bg-gray-800 dark:border-gray-700">
+                  <div className="">
                   <a href="#">
                     <img
                       class="rounded-t-lg"
