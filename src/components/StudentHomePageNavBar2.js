@@ -62,9 +62,9 @@ const StudentHomePageNavBar2 = (props) => {
           </li>
           <li>
             <Link
-              to="/#"
+              to="sessions"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
-                location.pathname === "/"
+                location.pathname === "/student-home-page/sessions"
                   ? "text-teal-500 underline"
                   : "hover:text-teal-500"
               }`}
