@@ -106,6 +106,22 @@ const StudentHomePage = () => {
     navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId, otherRole: "Teacher" } });
   };
 
+  const joinSession = async (sessionId) => {
+    try {
+        const response = await apiPrivate.post(`/sessions/joinSession/${sessionId}`);
+        alert('Student joined session successfully');
+    } catch (error) {
+        
+    }
+};
+
+      
+  
+  
+  
+  
+  
+
   return (
     <div>
       <form onSubmit={(e) => {
@@ -207,7 +223,8 @@ const StudentHomePage = () => {
       <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
         <span className="font-semibold">End:</span> {session.endTime}
       </p>
-      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      onClick={() => joinSession(session._id)}>
         Join
       </button>
     </div>
