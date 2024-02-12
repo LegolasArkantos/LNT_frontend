@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
+import { useNavigate } from 'react-router-dom';
+
 
 const TeacherSessionsPage = () => {
   const [sessions, setSessions] = useState([]);
@@ -22,6 +24,8 @@ const TeacherSessionsPage = () => {
     sessionPrice: '',
   });
   const [selectedSessionId, setSelectedSessionId] = useState(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const getSessions = async () => {
@@ -128,6 +132,11 @@ const TeacherSessionsPage = () => {
     }
   };
 
+  const handleTeacherClick = (studentId) => {
+    console.log("id "+studentId)
+    navigate('/teacher-home-page/StudentProfileSecondary', { state: { studentId, otherRole: "Student" } });
+  };
+
 
   return (
     <div className=" max-h-screen max-w-screen">
@@ -174,7 +183,12 @@ const TeacherSessionsPage = () => {
             <h2 className="text-2xl font-bold mb-4">Students in Session {selectedSession.subject}</h2>
             {selectedSession.students.map((student) => (
               <div key={student.studentId} className="mb-2">
+                <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() => handleTeacherClick(student.studentId)}
+                  >
                 {`${student.firstName} ${student.lastName}`}
+                </button>
               </div>
             ))}
             <button onClick={handleClosePopup} className="text-blue-500 mt-4 underline">

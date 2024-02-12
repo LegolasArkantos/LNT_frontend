@@ -71,7 +71,7 @@ const SearchResultsPage = () => {
         </svg>
         <button
           className="text-sm text-blue-500 hover:underline focus:outline-none"
-          onClick={() => handleTeacherClick(session.session.teacher)}
+          onClick={() => handleTeacherClick(session.session.teacher._id)}
         >
           <span className="font-semibold">Teacher:</span> {session.session.teacherName}
         </button>
