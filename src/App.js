@@ -22,6 +22,7 @@ import StudentProfilePage from "./pages/StudentProfilePage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 import StudentProfilePageSecondary from "./pages/StudentProfilePageSecondary";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import TeacherAssignmentsPage from "./pages/TeacherAssignmentsPage";
 
 const socket = io.connect("http://localhost:4000");
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<TeacherProfilePage/>} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
+            <Route path="assignments" element={<TeacherAssignmentsPage />} />
 
           </Route>
         </Route>
