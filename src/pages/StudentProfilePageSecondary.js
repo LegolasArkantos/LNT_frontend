@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { apiPrivate } from '../services/api';
+import useAPIPrivte from "../hooks/useAPIPrivaate";
 import { useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const StudentProfilePageSecondary = () => {
   const [profile, setProfile] = useState(null);
   const location = useLocation();
 
+  const apiPrivate = useAPIPrivte();
+  
+  const auth = useSelector((state) => state.auth.value);
+  
   useEffect(() => {
     const getProfile = async () => {
       try {
         const teacherId = location.state.teacherId; 
-        const studentId= location.state.studentId;
+        const studentId = location.state.studentId;
+        const otherRole = location.state.otherRole;
         console.log(teacherId)
-        if (teacherId) {
-          const response = await apiPrivate.get(`/student/getTeacher/${teacherId}`);
-          if (response.status === 200) {
-            setProfile(response.data);
+
+      if (auth.role === "Student") {
+        if (otherRole === "Teacher") {
+          if (teacherId) {
+            const response = await apiPrivate.get(`/student/getTeacher/${teacherId}`);
+            if (response.status === 200) {
+              setProfile(response.data);
+            }
           }
         }
+      }
+      else {
+        if (otherRole === "Student") {
+          if (studentId) {
+            const response = await apiPrivate.get(`/teacher/getStudent/${studentId}`);
+            if (response.status === 200) {
+              setProfile(response.data);
+            }
+          }
+        }
+      }
       } catch (error) {
         console.error(error);
       }
