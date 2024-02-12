@@ -45,6 +45,8 @@ function App() {
             <Route path="sessions" element={<TeacherSessionPage />} />
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<TeacherProfilePage/>} />
+            <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
+
           </Route>
         </Route>
 
