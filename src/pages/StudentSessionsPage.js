@@ -24,7 +24,7 @@ const StudentSessionsPage = () => {
   };
 
   const handleTeacherClick = (teacherId) => {
-    navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId } });
+    navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId, otherRole: "Teacher" } });
   };
 
   return (
