@@ -38,40 +38,56 @@ const SearchResultsPage = () => {
         ) 
         : (
           sessions.map((session, index) => (
-            <div key={index} class=" w-[500px] bg-white border border-gray-200 hover:border-gray-500 rounded-lg cursor-pointer shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div className="">
-                  {/* <a href="#">
-                    <img
-                      class="rounded-t-lg"
-                      src="/docs/images/blog/image-1.jpg"
-                      alt=""
-                    />
-                  </a> */}
-                  <div class="p-5">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      {session.session.subject}
-                    </h5>
-                    <p class="mb-3 font-semibold text-green-500 text-xl dark:text-gray-400">
-                      {"Price: " + session.session.sessionPrice}
-                    </p>
-                    <p class="mb-3 text-gray-700 text-xl dark:text-gray-400">
-                    <button
-                    className="text-blue-500 hover:underline"
-                    onClick={() => handleTeacherClick(session.session.teacher._id)}
-                    
-                     >
-                      {"Teacher: " + session.session.teacherName}
-                      </button>
-                    </p>
-                    <p class="mb-3 text-gray-700 text-xl dark:text-gray-400">
-                      {"Start: " + session.session.startTime}
-                    </p>
-                    <p class="mb-3  text-gray-700 text-xl dark:text-gray-400">
-                      {"End: " + session.session.endTime}
-                    </p>
-                  </div>
-                  </div>
-                </div>
+            <div key={index} className="w-[300px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+  <div className="">
+    <a href="#">
+      <img
+        className="rounded-t-lg w-full"
+        src="/docs/images/blog/image-1.jpg"
+        alt=""
+      />
+    </a>
+    <div className="p-5">
+      <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+        {session.session.subject}
+      </h2>
+      <p className="mb-2 text-sm font-medium text-green-500 dark:text-green-400">
+        Price: {session.session.sessionPrice}
+      </p>
+      <div className="flex items-center mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+        <button
+          className="text-sm text-blue-500 hover:underline focus:outline-none"
+          onClick={() => handleTeacherClick(session.session.teacher)}
+        >
+          <span className="font-semibold">Teacher:</span> {session.session.teacherName}
+        </button>
+      </div>
+      <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">
+        <span className="font-semibold">Start:</span> {session.session.startTime}
+      </p>
+      <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
+        <span className="font-semibold">End:</span> {session.session.endTime}
+      </p>
+      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+        Join
+      </button>
+    </div>
+  </div>
+</div>
           ))
           )}
       </div>
