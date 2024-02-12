@@ -163,60 +163,60 @@ const StudentHomePage = () => {
             <p className="text-xl font-semibold">No Sessions Available</p>
           ) : (
             availableSessions.map((session, index) => (
-                <div key={index} class=" w-[500px] bg-white border border-gray-200 hover:border-gray-500 rounded-lg cursor-pointer shadow dark:bg-gray-800 dark:border-gray-700">
-                  <div className="">
-                  <a href="#">
-                    <img
-                      class="rounded-t-lg"
-                      src="/docs/images/blog/image-1.jpg"
-                      alt=""
-                    />
-                  </a>
-                  <div class="p-5">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      {session.subject}
-                    </h5>
-                    <p class="mb-3 font-semibold text-green-500 text-xl dark:text-gray-400">
-                      {"Price: " + session.sessionPrice}
-                    </p>
-                    <p class="mb-3 text-gray-700 text-xl dark:text-gray-400">
-                    <button
-                    className="text-blue-500 hover:underline"
-                    onClick={() => handleTeacherClick(session.teacher)}
-                     >
-                      {"Teacher: " + session.teacherName}
-                      </button>
-                    </p>
-                    <p class="mb-3 text-gray-700 text-xl dark:text-gray-400">
-                      {"Start: " + session.startTime}
-                    </p>
-                    <p class="mb-3  text-gray-700 text-xl dark:text-gray-400">
-                      {"End: " + session.endTime}
-                    </p>
-                    {/* <a
-                      href="#"
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Read more
-                      <svg
-                        class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 10"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M1 5h12m0 0L9 1m4 4L9 9"
-                        />
-                      </svg>
-                    </a> */}
-                  </div>
-                  </div>
-                </div>
+              <div key={index} className="w-[500px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+  <div className="">
+    <a href="#">
+      <img
+        className="rounded-t-lg w-full"
+        src="/docs/images/blog/image-1.jpg"
+        alt=""
+      />
+    </a>
+    <div className="p-5">
+      <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+        {session.subject}
+      </h2>
+      <p className="mb-2 text-sm font-medium text-green-500 dark:text-green-400">
+        Price: {session.sessionPrice}
+      </p>
+      <div className="flex items-center mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+        <button
+          className="text-sm text-blue-500 hover:underline focus:outline-none"
+          onClick={() => handleTeacherClick(session.teacher)}
+        >
+          <span className="font-semibold">Teacher:</span> {session.teacherName}
+        </button>
+      </div>
+      <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">
+        <span className="font-semibold">Start:</span> {session.startTime}
+      </p>
+      <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
+        <span className="font-semibold">End:</span> {session.endTime}
+      </p>
+      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+        Join
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+            
             ))
           )}
         </div>
@@ -239,37 +239,29 @@ const StudentHomePage = () => {
             <p className="text-xl font-semibold">No Sessions Available</p>
           ) : (
             topRatedTeachers.map((teacher, index) => (
-              <div key={index}>
-                <div class="w-[400px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <a href="#">
-                    <img
-                      class="rounded-t-lg"
-                      src="/docs/images/blog/image-1.jpg"
-                      alt=""
-                    />
-                  </a>
-                  <div class="p-5 text-wrap">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    
-                      {teacher.firstName } {teacher.lastName}
-                    </h5>
-                    <p class="mb-3 font-semibold text-gray-900 text-lg dark:text-gray-400">
-                      {"Subjects: " + teacher.subjectsTaught  }
-                    </p>
-                    <a
-                      href="#"
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-teal-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      <button
-                    className=" hover:underline"
-                    onClick={() => handleTeacherClick(teacher._id)}
-                     >
-                      View
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <div key={index} class="w-[400px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  
+    <div class="flex items-center justify-center">
+      <img
+        class="w-40 h-40 rounded-full border-4 border-white"
+        src={teacher.profilePicture}
+        alt=""
+      />
+    </div>
+  <div class="p-5 text-wrap">
+    <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+      {teacher.firstName} {teacher.lastName}
+    </h2>
+    <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
+      Subjects: {teacher.subjectsTaught}
+    </p>
+      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 " 
+        onClick={() => handleTeacherClick(teacher._id)}>
+        View
+      </button>
+  </div>
+</div>
+
             ))
           )}
         </div>
