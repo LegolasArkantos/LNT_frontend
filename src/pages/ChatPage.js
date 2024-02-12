@@ -153,7 +153,7 @@ const ChatPage = ({ socket }) => {
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
           Chats
         </h1>
-        <ul class="divide-y divide-gray-200 dark:divide-gray-700 mt-5">
+        <ul class="divide-y space-y-5 divide-gray-200 dark:divide-gray-700 mt-5">
           {!chats ? (
             <p className="text-lg font-semibold text-gray-900 truncate dark:text-white">
               No Chats
