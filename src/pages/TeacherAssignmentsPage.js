@@ -101,6 +101,7 @@ const TeacherAssignmentsPage = () => {
           <div className="bg-white p-8 rounded">
             <h2 className="text-2xl font-bold mb-4">Create Assignment</h2>
             <form onSubmit={handleCreateAssignmentSubmit}>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
               <div className="flex flex-col mb-4">
                 <label htmlFor="title" className="block text-sm font-medium text-gray-900">Title</label>
                 <input
@@ -161,9 +162,10 @@ const TeacherAssignmentsPage = () => {
                   required
                 />
               </div>
+              </div>
               <div className="flex justify-end">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-auto">Submit</button>
-                <button type="button" onClick={handleCloseCreateAssignmentPopup} className="bg-gray-300 text-gray-800 px-4 py-2 rounded">Close</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded mr-auto">Submit</button>
+                <button type="button" onClick={handleCloseCreateAssignmentPopup} className="bg-gray-300 hover:bg-gray-500 text-gray-800 px-4 py-2 rounded">Close</button>
               </div>
             </form>
           </div>
