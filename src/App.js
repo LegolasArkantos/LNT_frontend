@@ -21,6 +21,8 @@ import io from "socket.io-client";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 import StudentProfilePageSecondary from "./pages/StudentProfilePageSecondary";
+import SearchResultsPage from "./pages/SearchResultsPage";
+
 const socket = io.connect("http://localhost:4000");
 
 function App() {
@@ -56,8 +58,7 @@ function App() {
             <Route path="sessions" element={<StudentSessionsPage />} />
             <Route path="studentassignments" element={<StudentAssignmentsPage />} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
-
-            
+            <Route path="results" element={<SearchResultsPage/>}/>
 
           </Route>
         </Route>
