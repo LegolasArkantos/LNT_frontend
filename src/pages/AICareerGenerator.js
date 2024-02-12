@@ -12,18 +12,16 @@ const AICareerGenerator = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+    const  customMessage="As a career counselor, I will need your educational details, strengths, and weaknesses to recommend three jobs that best fit you. Please provide this information. If you have any unrelated questions, please refrain from asking them, and focus on career-related inquiries. If you don't provide any data, I won't make any assumptions and will ask you for the necessary information.student :";
     try {
       setLoading(true);
-      const response = await api.post('/ai/generate-story', { prompt });
+      const response = await api.post('/ai/generate-story', { "prompt": customMessage + " " + prompt });
   
       if (response.status !== 200) {
         throw new Error('Failed to generate story');
       }
        console.log(response.data.story)
-      // Format the response text
-      const formattedStory = formatStory(response.data.story);
-      setStory(formattedStory);
+      setStory(response.data.story);
     } catch (error) {
       console.error('Error generating story:', error);
       // Handle error
@@ -32,15 +30,7 @@ const AICareerGenerator = () => {
     }
   };
   
-  const formatStory = (story) => {
-    // Replace ** with a space
-    let formattedStory = story.replace(/\*\*/g, '\n\n');
   
-    // Replace **** with a newline
-    formattedStory = formattedStory.replace(/\*\*\*\*/g, '\n');
-  
-    return formattedStory;
-  };
 
   const handleReset = () => {
     setPrompt('');
