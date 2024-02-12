@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useApiPrivate from '../hooks/useAPIPrivaate';
 
 const SearchResultsPage = () => {
-
+  const navigate = useNavigate();
     const [sessions, setSessions] = useState([]);
 
     const location = useLocation();
@@ -22,6 +22,11 @@ const SearchResultsPage = () => {
 
         getResults();
     }, [])
+
+    const handleTeacherClick = (teacherId) => {
+      console.log("id"+teacherId)
+      navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId, otherRole: "Teacher" } });
+    };
 
   return (
     <div>
@@ -50,7 +55,13 @@ const SearchResultsPage = () => {
                       {"Price: " + session.session.sessionPrice}
                     </p>
                     <p class="mb-3 text-gray-700 text-xl dark:text-gray-400">
+                    <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() => handleTeacherClick(session.session.teacher._id)}
+                    
+                     >
                       {"Teacher: " + session.session.teacherName}
+                      </button>
                     </p>
                     <p class="mb-3 text-gray-700 text-xl dark:text-gray-400">
                       {"Start: " + session.session.startTime}
