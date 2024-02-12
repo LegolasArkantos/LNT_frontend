@@ -132,7 +132,7 @@ const TeacherSessionsPage = () => {
   return (
     <div className=" max-h-screen max-w-screen">
      {/* Main Content */}
-<div className="p-8 flex  max-h-screen max-w-screen">
+<div className="p-8 flex  max-h-screen max-w-screen ">
   {/* Sessions Container */}
   <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col overflow-x-auto h-[700px] max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
     {/* Teacher Sessions */}
@@ -187,10 +187,10 @@ const TeacherSessionsPage = () => {
       {/* Create Session Popup */}
       {isCreateSessionPopupOpen && (
         <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded">
+          <div className="bg-white p-8 mt-[100px] h-[430px] rounded">
             <h2 className="text-2xl font-bold mb-4">Create Session</h2>
             <form onSubmit={handleCreateSessionSubmit}>
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-3 gap-4 mb-4">
                 <div className="mb-4">
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
                     Subject
@@ -219,8 +219,6 @@ const TeacherSessionsPage = () => {
                     required
                   />
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="mb-4">
                   <label htmlFor="day" className="block text-sm font-medium text-gray-900">
                     Day
@@ -307,23 +305,6 @@ const TeacherSessionsPage = () => {
                   />
                 </div>
               </div>
-              <div className="mb-4">
-                <label htmlFor="status" className="block text-sm font-medium text-gray-900">
-                  Status
-                </label>
-                <select
-                  id="status"
-                  name="status"
-                  value={createSessionFormData.status}
-                  onChange={handleCreateSessionFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                >
-                  <option value="scheduled">Scheduled</option>
-                  <option value="completed">Completed</option>
-                  <option value="canceled">Canceled</option>
-                </select>
-              </div>
               <div className="flex justify-end">
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-auto">
                   Submit
@@ -339,7 +320,7 @@ const TeacherSessionsPage = () => {
       {/* Update Session Popup */}
       {isUpdateSessionPopupOpen && (
         <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded">
+          <div className="bg-white p-8 mt-[100px] rounded">
             <h2 className="text-2xl font-bold mb-4">Update Session</h2>
             <form onSubmit={handleUpdateSessionSubmit}>
               <div className="grid grid-cols-2 gap-4 mb-4">
