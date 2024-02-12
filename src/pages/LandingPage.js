@@ -14,13 +14,13 @@ const LandingPage = () => {
           </div>
           <div class="flex items-center space-x-6 rtl:space-x-reverse">
           <a
-              href="login"
+              href=""
               class="text-2xl text-white hover:underline"
             >
               Faqs
             </a>
           <a
-              href="login"
+              href=""
               class="text-2xl text-white hover:underline"
             >
               Contact Us
@@ -42,7 +42,7 @@ const LandingPage = () => {
             <p className="text-[#5589C7] ">Counseling </p>
             <p className="text-white ">Services</p>
             <div>
-            <p className='font-normal text-[30px] text-white mt-10'>Our aim is to provide a personalized space for your learning and growth!</p>
+            <p className='font-normal text-[30px] text-white mt-15'>Our aim is to provide a personalized space for your learning and growth!</p>
             <Link to="signup" type="button" class="text-white mt-10 bg-[#0ea5e9] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Get Started
             </Link>
