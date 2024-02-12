@@ -137,6 +137,11 @@ const TeacherSessionsPage = () => {
     navigate('/teacher-home-page/StudentProfileSecondary', { state: { studentId, otherRole: "Student" } });
   };
 
+  const handleAssignmentClick = (sessionId) => {
+    console.log("id "+sessionId)
+    navigate('/teacher-home-page/assignments', { state: { sessionId} });
+  };
+
 
   return (
     <div className=" max-h-screen max-w-screen">
@@ -155,7 +160,15 @@ const TeacherSessionsPage = () => {
       {/* Session Cards (Fetched Data) */}
       {sessions.map((session) => (
         <div key={session.sessionId} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
-          <h3 className="text-xl font-semibold mb-2">{session.subject}</h3>
+          <h3 className="text-xl font-semibold mb-2">
+              
+              <button
+                className="text-black-500 hover:underline"
+                onClick={() =>handleAssignmentClick(session.sessionId)}
+              >
+                {session.subject}
+              </button>
+            </h3>
           <p className="text-gray-700">Start Time: {session.startTime}</p>
           <p className="text-gray-700">End Time: {session.endTime}</p>
           <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
