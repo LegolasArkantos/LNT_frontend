@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 import useApiPrivate from '../hooks/useAPIPrivaate';
+import SearchBar from '../components/SearchBar';
 
 const SearchResultsPage = () => {
   const navigate = useNavigate();
@@ -28,8 +29,17 @@ const SearchResultsPage = () => {
       navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId, otherRole: "Teacher" } });
     };
 
+    const handleSearch = async (searchValue) => {
+      await apiPrivate.get("sessions/search", { params: {value: searchValue}}).then((res) => {
+          if (res.status === 200) {
+              setSessions(res.data);
+          }
+      })
+  };
+
   return (
     <div>
+      <SearchBar handleSearch={handleSearch}/>
         <h1 className="mb-4  mt-10 text-2xl font-extrabold dark:text-white">search results</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  mb-10 gap-5">
         {sessions.length === 0 
