@@ -41,7 +41,9 @@ const StudentHomePageNavBar = (props) => {
                   src={props.profile.profilePicture}
                   alt="Profile"
                 />
+                <div className="ml-2">
                 {props.profile.firstName} {props.profile.lastName}
+                </div>
               </Link>
             </li>
           </ul>
