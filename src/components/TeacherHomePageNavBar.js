@@ -40,7 +40,9 @@ const TeacherHomePageNavBar = (props) => {
                   className="w-8 h-8 rounded-full"
                   src={props.profile.profilePicture}
                 />
+                <div className="ml-2">
                 {props.profile.firstName} {props.profile.lastName}
+                </div>
               </Link>
             </li>
           </ul>
