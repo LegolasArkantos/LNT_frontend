@@ -20,7 +20,7 @@ const PublicRouteLogin = () => {
         verifyRefreshToken();
 
         if (auth?.role === 'Admin') {
-            navigate('/admin-home');
+            navigate('/admin-home-page');
         } else if (auth?.role === "Student"){
             navigate("/student-home-page");
         } else if (auth?.role === "Teacher") {
