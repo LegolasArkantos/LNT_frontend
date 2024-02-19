@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const TeacherAssignmentsPage = () => {
   const [assignments, setAssignments] = useState([]);
@@ -13,6 +13,8 @@ const TeacherAssignmentsPage = () => {
     marks: ''
   });
   const location = useLocation();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -66,6 +68,11 @@ const TeacherAssignmentsPage = () => {
     }
   };
 
+  const handleAssignmentClick = (assignmentId) => {
+    console.log("id "+assignmentId)
+    navigate('/teacher-home-page/responses', { state: { assignmentId} });
+  };
+
   return (
     <div className="flex h-screen">
       <div className="p-8 flex flex-col h-full">
@@ -86,7 +93,15 @@ const TeacherAssignmentsPage = () => {
             </div>
             {assignments.map((assignment) => (
               <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <div className="flex-grow">{assignment.title}</div>
+                <h3 className="text-xl font-semibold mb-2">
+              
+              <button
+                className="text-black-500 hover:underline"
+                onClick={() =>handleAssignmentClick(assignment._id)}
+              >
+                {assignment.title}
+              </button>
+            </h3>
                 <div className="mx-4">{assignment.startTime}</div>
                 <div className="mx-4">{assignment.endTime}</div>
                 <div className="mx-4">{assignment.description}</div>
