@@ -6,7 +6,7 @@ import RequiredAuth from "./components/RequireAuth";
 import Login from "./pages/Login";
 import StudentHomePage from "./pages/StudentHomePage";
 import LandingPage from "./pages/LandingPage";
-import StudentHomePageLayout from "./pages/StudentHomePageLayout";
+import StudentHomePageLayout from "./layouts/StudentHomePageLayout";
 import SignUpPage1 from "./pages/SignupPage1";
 import SignUpPage2 from "./pages/SignupPage2";
 import SignUpPage3 from "./pages/SignupPage3";
@@ -15,7 +15,7 @@ import StudentSessionsPage from "./pages/StudentSessionsPage";
 import StudentAssignmentsPage from "./pages/StudentAssignmentsPage";
 import ChatPage from "./pages/ChatPage";
 import TeacherHomePage from "./pages/TeacherHomePage";
-import TeacherHomePageLayout from "./pages/TeacherHomePageLayout";
+import TeacherHomePageLayout from "./layouts/TeacherHomePageLayout";
 import AICareerGenerator from "./pages/AICareerGenerator";
 import io from "socket.io-client";
 import StudentProfilePage from "./pages/StudentProfilePage";
@@ -24,6 +24,8 @@ import StudentProfilePageSecondary from "./pages/StudentProfilePageSecondary";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import TeacherAssignmentsPage from "./pages/TeacherAssignmentsPage";
 import StudentResponsesPage from "./pages/StudentResponsesPage";
+import AdminLayout from "./layouts/AdminLayout";
+import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
 
 const socket = io.connect("http://localhost:4000");
 
@@ -71,7 +73,11 @@ function App() {
         </Route>
 
         {/* admin routes */}
-        <Route element={<RequiredAuth allowedRole="Admin" />}></Route>
+        <Route element={<RequiredAuth allowedRole="Admin" />}>
+          <Route path="/admin-home-page" element={<AdminLayout/>}>
+            <Route index element={<ApproveTeachersPage/>} />
+          </Route>
+        </Route>
       </Route>
     </Routes>
   );

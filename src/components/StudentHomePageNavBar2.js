@@ -184,7 +184,11 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
       <ul className="bg-teal-200 p-4 h-[300px] rounded-lg shadow-lg">
         <ScrollToBottom className="h-full  flex-col">
         {
-          notifications.map((notification, index) => (
+          notifications.length == 0 
+          ? (<div>
+            No Notifications
+          </div>)
+          : (notifications.map((notification, index) => (
             <li key={index} className=" rounded mb-3 mr-3">
               <div id="toast-notification" class="w-full max-w-xs p-4 text-gray-900 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-300" role="alert">
     <div class="flex items-center mb-3">
@@ -213,6 +217,7 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
 </div>
             </li>
           ))
+          )
         }
         </ScrollToBottom>
       </ul>
