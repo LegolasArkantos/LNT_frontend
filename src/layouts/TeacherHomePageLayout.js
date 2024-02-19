@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
 import { removeTeacherProfile } from "../features/teacherProfile";
 import TeacherHomePageNavBar2 from "../components/TeacherHomePageNavBar2";
+import Footer from "../components/Footer";
 
 const TeacherHomePageLayout = () => {
   const apiPrivate = useApiPrivate();
@@ -36,6 +37,10 @@ const TeacherHomePageLayout = () => {
 
       <div className="ml-20 mr-20 mb-10 mt-20">
         <Outlet />
+      </div>
+
+      <div className="bg-teal-100">
+      <Footer/>
       </div>
     </div>
   );

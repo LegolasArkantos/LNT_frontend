@@ -62,7 +62,7 @@ const PersistentLogin = () => {
                 lastName: response.data.lastName,
                 profileID: response.data._id,
                 profilePicture: response.data.profilePicture,
-                educationalCredentials: response.data.educationalCredentials,
+                educationalCredential: response.data.educationalCredential,
                 subjectsTaught: response.data.subjectsTaught,
                 rating: response.data.rating,
                 availableTimeSlots: response.data.availableTimeSlots,

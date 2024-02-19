@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import useAPIPrivte from "../hooks/useAPIPrivaate";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 const StudentHomePage = () => {
 
@@ -82,6 +83,10 @@ const StudentHomePage = () => {
     return () => clearInterval(interval);
 }, []); 
 
+  const handleSearch = (searchValue) => {
+    navigate('/student-home-page/results', { state: { searchValue } })
+  }
+
 
   const handleOptionClicked = async (pollID, optionID) => {
     await apiPrivate.put("poll/update-count/" + pollID, {optionID}).then((res) => {
@@ -124,48 +129,7 @@ const StudentHomePage = () => {
 
   return (
     <div>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        navigate('/student-home-page/results', { state: { searchValue } })
-      }} 
-      class="flex items-center">
-        <label for="simple-search" class="sr-only">
-          Search
-        </label>
-        <div class="w-full">
-          <input
-            type="text"
-            id="simple-search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search for topics/courses..."
-            value={searchValue} 
-            onChange={(e) => setSearchValue(e.target.value)}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          <svg
-            class="w-4 h-4"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 20 20"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-            />
-          </svg>
-          <span class="sr-only">Search</span>
-        </button>
-      </form>
-
+      <SearchBar handleSearch={handleSearch} />
       <div className="mt-10">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
           New Sessions:
@@ -176,10 +140,10 @@ const StudentHomePage = () => {
         </button>
         <div id="slider1" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {availableSessions.length === 0 ? (
-            <p className="text-xl font-semibold">No Sessions Available</p>
+            <p className="text-xl font-normal">No Sessions Available</p>
           ) : (
             availableSessions.map((session, index) => (
-              <div key={index} className="w-[500px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+              <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
     <a href="#">
       <img
@@ -253,14 +217,14 @@ const StudentHomePage = () => {
         </button>
         <div id="slider2" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {topRatedTeachers.length === 0 ? (
-            <p className="text-xl font-semibold">No Sessions Available</p>
+            <p className="text-xl font-normal">No Teachers</p>
           ) : (
             topRatedTeachers.map((teacher, index) => (
-              <div key={index} class="w-[400px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div key={index} class="w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   
     <div class="flex items-center justify-center">
       <img
-        class="w-40 h-40 rounded-full border-4 border-white"
+        class="w-40 h-40 mt-4 rounded-full border-4 border-white"
         src={teacher.profilePicture}
         alt=""
       />
@@ -299,7 +263,7 @@ const StudentHomePage = () => {
         <ul id="slider3" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-10 space-x-8">
         {polls.length !== 0 ? (
   polls.map((poll, index) => (
-    <li key={index} className="mb-4 ml-2 mt-2 outline outline-teal-800 rounded p-3 w-[300px] h-fit">
+    <li key={index} className="mb-4 ml-2 mt-2 border border-gray-200 rounded-lg shadow p-3 w-[300px] h-fit">
       <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll.question}</h3>
       <ul className="mt-5 ">
         {poll.options.map((option, optionIndex) => (
