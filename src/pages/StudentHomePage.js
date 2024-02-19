@@ -140,10 +140,10 @@ const StudentHomePage = () => {
         </button>
         <div id="slider1" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {availableSessions.length === 0 ? (
-            <p className="text-xl font-semibold">No Sessions Available</p>
+            <p className="text-xl font-normal">No Sessions Available</p>
           ) : (
             availableSessions.map((session, index) => (
-              <div key={index} className="w-[500px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+              <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
     <a href="#">
       <img
@@ -217,14 +217,14 @@ const StudentHomePage = () => {
         </button>
         <div id="slider2" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {topRatedTeachers.length === 0 ? (
-            <p className="text-xl font-semibold">No Sessions Available</p>
+            <p className="text-xl font-normal">No Teachers</p>
           ) : (
             topRatedTeachers.map((teacher, index) => (
-              <div key={index} class="w-[400px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div key={index} class="w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   
     <div class="flex items-center justify-center">
       <img
-        class="w-40 h-40 rounded-full border-4 border-white"
+        class="w-40 h-40 mt-4 rounded-full border-4 border-white"
         src={teacher.profilePicture}
         alt=""
       />
@@ -263,7 +263,7 @@ const StudentHomePage = () => {
         <ul id="slider3" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-10 space-x-8">
         {polls.length !== 0 ? (
   polls.map((poll, index) => (
-    <li key={index} className="mb-4 ml-2 mt-2 outline outline-teal-800 rounded p-3 w-[300px] h-fit">
+    <li key={index} className="mb-4 ml-2 mt-2 border border-gray-200 rounded-lg shadow p-3 w-[300px] h-fit">
       <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll.question}</h3>
       <ul className="mt-5 ">
         {poll.options.map((option, optionIndex) => (
