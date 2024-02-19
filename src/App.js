@@ -23,6 +23,7 @@ import TeacherProfilePage from "./pages/TeacherProfilePage";
 import StudentProfilePageSecondary from "./pages/StudentProfilePageSecondary";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import TeacherAssignmentsPage from "./pages/TeacherAssignmentsPage";
+import StudentResponsesPage from "./pages/StudentResponsesPage";
 import AdminLayout from "./layouts/AdminLayout";
 import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
 
@@ -50,6 +51,8 @@ function App() {
             <Route path="my-profile" element={<TeacherProfilePage/>} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="assignments" element={<TeacherAssignmentsPage />} />
+            <Route path="responses" element={<StudentResponsesPage />} />
+
 
           </Route>
         </Route>
