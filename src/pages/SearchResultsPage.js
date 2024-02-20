@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
-import useApiPrivate from '../hooks/useAPIPrivaate';
+import useApiPrivate from '../hooks/useAPIPrivate';
 import SearchBar from '../components/SearchBar';
 
 const SearchResultsPage = () => {

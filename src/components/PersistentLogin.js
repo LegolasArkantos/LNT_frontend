@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import { useDispatch, useSelector } from "react-redux";
-import useApiPrivate from "../hooks/useAPIPrivaate";
+import useApiPrivate from "../hooks/useAPIPrivate";
 import { studentProfile } from "../features/studentProfile";
 import { teacherProfile } from "../features/teacherProfile";
 
