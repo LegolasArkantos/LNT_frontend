@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logoutIcon from "../assets/logout.png"; // Make sure to provide the correct path to your logout icon
-import useAPIPrivate from "../hooks/useAPIPrivaate";
+import useAPIPrivate from "../hooks/useAPIPrivate";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 const StudentHomePageNavBar2 = (props) => {
