@@ -1,6 +1,6 @@
 import AdminNavBar from '../components/AdminComponents/AdminNavBar';
 import { Outlet } from "react-router-dom";
-import useApiPrivate from "../hooks/useAPIPrivaate";
+import useApiPrivate from "../hooks/useAPIPrivate";
 import { useDispatch } from "react-redux";
 import { removeAuthValues } from "../features/auth";
 import { removeStudentProfile } from "../features/studentProfile";

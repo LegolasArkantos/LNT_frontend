@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import StudentHomePageNavBar from "../components/StudentHomePageNavBar";
-import useApiPrivate from "../hooks/useAPIPrivaate";
+import useApiPrivate from "../hooks/useAPIPrivate";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
 import { removeStudentProfile } from "../features/studentProfile";
