@@ -26,7 +26,7 @@ import TeacherAssignmentsPage from "./pages/TeacherAssignmentsPage";
 import StudentResponsesPage from "./pages/StudentResponsesPage";
 import AdminLayout from "./layouts/AdminLayout";
 import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
-
+import StudentSubmissionPage from "./pages/StudentSubmissionPage";
 const socket = io.connect("http://localhost:4000");
 
 function App() {
@@ -68,6 +68,8 @@ function App() {
             <Route path="studentassignments" element={<StudentAssignmentsPage />} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="results" element={<SearchResultsPage/>}/>
+            <Route path="submission" element={<StudentSubmissionPage />} />
+
 
           </Route>
         </Route>

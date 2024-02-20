@@ -21,13 +21,9 @@ initializeApp(firebaseConfig);
 // Initialize Firebase Storage
 const storage = getStorage();
 
-const StudentResponsesPage = () => {
+const StudentSubmissionPage = () => {
     const [assignment, setAssignment] = useState(null);
-    const [files, setFiles] = useState([]); // State to hold the uploaded files
-    const [fileUrls, setFileUrls] = useState([]); // State to hold the download URLs of the uploaded files
-    const [fileNames, setFileNames] = useState([]); // State to hold the names of selected files
-    const [isLoading, setIsLoading] = useState(false); // State to control loading animation
-  const [uploadSuccess, setUploadSuccess] = useState(false);
+    
     const location = useLocation();
 
     const fetchAssignmentDetails = async () => {
@@ -43,60 +39,12 @@ const StudentResponsesPage = () => {
  
 
   useEffect(() => {
-    
-
     fetchAssignmentDetails();
   }, [location]);
 
-  const handleFileInputChange = (event) => {
-    const fileList = event.target.files;
-    setFiles(fileList);
+  
 
-    const names = Array.from(fileList).map(file => file.name);
-    setFileNames(names);
-  };
-
-  const handleUpload = async () => {
-    try {
-      if (files.length === 0) {
-        console.error('No files selected');
-        return;
-      }
-      setIsLoading(true); // Start loading animation
-
-      const uploadPromises = Array.from(files).map(async (file) => {
-        const storageRef = ref(storage, file.name);
-        await uploadBytes(storageRef, file);
-        const downloadURL = await getDownloadURL(storageRef);
-        return { fileName: file.name, fileUrl: downloadURL };
-      });
-    
-      const uploadedFiles = await Promise.all(uploadPromises);
-      setFileUrls(uploadedFiles);
-      console.log('File uploaded:', uploadedFiles);
-      // Send file URLs to backend
-      const response = await apiPrivate.post(`/assignment/uploadFiles/${assignment._id}`, { files: uploadedFiles });
-      console.log('File upload response:', response.data);
-
-      fetchAssignmentDetails();
-
-      
-
-      setIsLoading(false); // Stop loading animation
-      setUploadSuccess(true); // Set upload success to true
-      setFiles([]); // Clear selected files
-      setFileNames([]); // Clear selected file names
-      setTimeout(() => {
-        setUploadSuccess(false); // Reset upload success after 3 seconds
-      }, 3000);
-
-      document.getElementById('fileInput').value = '';
-
-    } catch (error) {
-      console.error(error);
-      setIsLoading(false);
-    }
-  };
+  
 
   return (
     <div className="p-8">
@@ -125,34 +73,10 @@ const StudentResponsesPage = () => {
             </div>
           )}
 
-          {/* Display selected file names */}
-          {fileNames && fileNames.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-xl font-semibold mb-2">Selected Files:</h3>
-              <ul>
-                {fileNames.map((fileName, index) => (
-                  <li key={index}>{fileName}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Upload button and file input */}
-          <div className="mt-4">
-            <input type="file" multiple onChange={handleFileInputChange} id="fileInput" />
-            <button onClick={handleUpload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 " disabled={isLoading}>
-              {isLoading ? 'Uploading...' : 'Upload Files'}
-            </button>
-          </div>
-
-          {/* Success message */}
-          {uploadSuccess && (
-            <div className="mt-4 text-green-500">Files uploaded successfully!</div>
-          )}
         </div>
       )}
     </div>
   );
 };
 
-export default StudentResponsesPage;
+export default StudentSubmissionPage;
