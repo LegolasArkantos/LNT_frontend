@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useAPIPrivate from "../hooks/useAPIPrivaate";
+import useAPIPrivate from "../hooks/useAPIPrivate";
 import { useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
 
