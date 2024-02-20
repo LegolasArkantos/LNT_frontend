@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import useApiPrivate from '../../hooks/useAPIPrivaate';
+import useApiPrivate from '../../hooks/useAPIPrivate';
 import ConfirmationPopup from '../../components/AdminComponents/ConfirmationPopup';
 
 const ApproveTeachersPage = () => {
@@ -65,11 +65,11 @@ const ApproveTeachersPage = () => {
 
   return (
     <div>
-      <h1 className='mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white'>
+      <h1 className='mb-8 text-2xl font-bold tracking-tight text-teal-900 dark:text-white'>
         Approve Teachers:
       </h1>
 
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5  mb-10 gap-5'>
+    <div className='flex-col space-y-5'>
       {
         unApproveTeachers.length == 0 
         ? (
@@ -77,7 +77,7 @@ const ApproveTeachersPage = () => {
         )
         : (
           unApproveTeachers.map((teacher, index) => (
-            <div key={index} class="w-[400px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div key={index} class="h-fit w-[500px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   
     <div class="flex items-center justify-center">
       <img
