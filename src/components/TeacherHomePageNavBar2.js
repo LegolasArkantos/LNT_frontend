@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import logoutIcon from "../assets/logout.png";
 import { useState ,useEffect} from "react";
-import useAPIPrivate from "../hooks/useAPIPrivaate";
+import useAPIPrivate from "../hooks/useAPIPrivate";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 const TeacherHomePageNavBar2 = (props) => {
@@ -186,6 +186,15 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
       <ul className="bg-teal-200 p-4 h-[300px]  rounded-lg shadow-lg">
         <ScrollToBottom className="h-full  flex-col">
         {
+          notifications.length == 0
+          ? (
+            <div>
+            No Notifications
+          </div>
+          )
+          : (
+
+          
           notifications.map((notification, index) => (
             <li key={index} className=" rounded mb-3 mr-3">
               
@@ -218,7 +227,7 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
 
 
             </li>
-          ))
+          )))
         }
         </ScrollToBottom>
       </ul>
