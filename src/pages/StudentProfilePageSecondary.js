@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useAPIPrivte from "../hooks/useAPIPrivaate";
+import useAPIPrivte from "../hooks/useAPIPrivate";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
