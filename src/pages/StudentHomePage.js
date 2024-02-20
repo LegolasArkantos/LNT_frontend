@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import useAPIPrivte from "../hooks/useAPIPrivaate";
+import useAPIPrivte from "../hooks/useAPIPrivate";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 
