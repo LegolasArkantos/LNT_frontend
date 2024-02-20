@@ -12,7 +12,7 @@ const AICareerGenerator = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const  customMessage="As a career counselor, I will need your educational details, strengths, and weaknesses to recommend three jobs that best fit you. Please provide this information. If you have any unrelated questions, please refrain from asking them, and focus on career-related inquiries. If you don't provide any data, I won't make any assumptions and will ask you for the necessary information.student :";
+    const  customMessage="As a career counselor, I will need your educational details, strengths, and weaknesses to recommend three jobs that best fit you. Please provide this information. If you have any unrelated questions, please refrain from asking them, and focus on career-related inquiries. If you don't provide or miss any data required, I won't make any assumptions and will ask you for the necessary information.I will focus on giving detailed and long info on the jobs i am sugessting like description ,work expected,avg pay,avg experience needed according to pakistan.i will give as much info as i can about the strenghts, weaknesses and jobs .i will not use * and will make heading bolder .Student :";
     try {
       setLoading(true);
       const response = await api.post('/ai/generate-story', { "prompt": customMessage + " " + prompt });
