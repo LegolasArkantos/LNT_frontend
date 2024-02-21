@@ -29,6 +29,11 @@ import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
 import StudentSubmissionPage from "./pages/StudentSubmissionPage";
 const socket = io.connect("http://localhost:4000");
 
+
+
+
+
+
 function App() {
   return (
     <Routes>
