@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes,getDownloadURL } from 'firebase/storage';
 import { apiPrivate } from '../services/api';
 
-// Your Firebase configuration
-const firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId
-  };
 
-// Initialize Firebase App
-initializeApp(firebaseConfig);
-
-// Initialize Firebase Storage
-const storage = getStorage();
 
 const StudentSubmissionPage = () => {
     const [assignment, setAssignment] = useState(null);
