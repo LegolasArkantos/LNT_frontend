@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/l-t-high-resolution-logo-transparent.png'
 import image from '../assets/Rectangle 49.png'
+import Footer from '../components/Footer'
 const LandingPage = () => {
   return (
     <div>

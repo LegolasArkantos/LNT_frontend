@@ -148,7 +148,7 @@ const TeacherSessionsPage = () => {
      {/* Main Content */}
 <div className="p-8 flex  max-h-screen max-w-screen ">
   {/* Sessions Container */}
-  <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col overflow-x-auto h-[700px] max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
+  <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
     {/* Teacher Sessions */}
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-2xl font-bold">Teacher Sessions</h2>
