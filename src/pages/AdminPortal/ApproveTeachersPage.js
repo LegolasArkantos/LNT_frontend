@@ -97,9 +97,6 @@ const ApproveTeachersPage = () => {
       Educational Credentials: {teacher.educationalCredential}
     </p>
     <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-      Available Time slots: {teacher.availableTimeSlots}
-    </p>
-    <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
       About Me: {teacher.aboutMe}
     </p>
   </div>

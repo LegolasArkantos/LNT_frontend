@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 import logo from "../assets/l-t-high-resolution-logo-transparent.png";
+import { useNavigate } from "react-router-dom";
 
 const StudentHomePageNavBar = (props) => {
+  // const [careerClicked, setCareerClicked] = useState(false);
+
+  // const handleCareerClick = () => {
+  //   setCareerClicked(true);
+  //   navigate("/student-home-page/ai-career"); // Using navigate to go to the career page
+  // };
+
+  const location = useLocation();
+
   return (
     <nav className="top-0 z-20 fixed w-full bg-teal-300 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -17,7 +28,7 @@ const StudentHomePageNavBar = (props) => {
             <li>
               <Link
                 to="/teacher-home-page"
-                className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                className={`block py-2 px-3   rounded md:bg-transparent  md:p-0  ${location.pathname.startsWith("/student-home-page") && !location.pathname.endsWith("/ai-career")  ? 'text-blue-700' : 'text-gray-900'}`}
                 aria-current="page"
               >
                 Learn
@@ -25,8 +36,8 @@ const StudentHomePageNavBar = (props) => {
             </li>
             <li>
               <Link
-                to="ai-career"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname == "/student-home-page/ai-career" ? 'text-blue-700' : 'text-gray-900'}`}
+                to="/student-home-page/ai-career"
               >
                 Career
               </Link>
