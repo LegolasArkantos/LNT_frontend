@@ -27,10 +27,10 @@ const StudentAssignmentsPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="p-8 flex flex-col h-full">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col overflow-x-auto h-[700px] w-[1430px] mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <div className="flex justify-between items-center mb-4">
+    <div className=" max-w-screen ">
+      <div className="p-8 flex flex-col max-w-screen h-full">
+        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[900px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div className=" justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">Assignments</h2>
           </div>
           <div className="flex flex-col" style={{ paddingRight: '17px' }}>

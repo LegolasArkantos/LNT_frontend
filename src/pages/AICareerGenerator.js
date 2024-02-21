@@ -40,7 +40,7 @@ const AICareerGenerator = () => {
   return (
     <div className="min-h-auto  flex items-top justify-center bg-white-100">
       <div className="w-full h-screen/2 max-w-screen-xl bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl font-bold mb-4 text-center">AICareerGenerator</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center">AI Career Generator</h1>
         {!story && (
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
