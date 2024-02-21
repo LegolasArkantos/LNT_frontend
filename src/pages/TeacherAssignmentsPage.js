@@ -88,7 +88,6 @@ const TeacherAssignmentsPage = () => {
               <div className="flex-grow font-bold">Name</div>
               <div className="font-bold mx-4">Start Time</div>
               <div className="font-bold mx-4">End Time</div>
-              <div className="font-bold mx-4">Description</div>
               <div className="font-bold">Marks</div>
             </div>
             {assignments.map((assignment) => (
@@ -102,9 +101,9 @@ const TeacherAssignmentsPage = () => {
                 {assignment.title}
               </button>
             </h3>
+            <div className="flex-grow"></div>
                 <div className="mx-4">{assignment.startTime}</div>
                 <div className="mx-4">{assignment.endTime}</div>
-                <div className="mx-4">{assignment.description}</div>
                 <div>{assignment.marks}</div>
               </div>
             ))}
