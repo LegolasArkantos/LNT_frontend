@@ -11,6 +11,8 @@ const TeacherHomePage = () => {
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [title1, setTitle1] = useState("");
+  const [description1, setDescription1] = useState("");
   const [showUpdateNotePopup, setShowUpdateNotePopup] = useState(false);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
 
@@ -122,8 +124,8 @@ const TeacherHomePage = () => {
     e.preventDefault();
     try {
       const response = await apiPrivate.post("note/create", {
-        title: title,
-        description: description,
+        title: title1,
+        description: description1,
         timestamp: new Date(Date.now()).getHours() +
         ":" +
         new Date(Date.now()).getMinutes(),
@@ -355,8 +357,8 @@ const TeacherHomePage = () => {
             id="noteTitle"
             placeholder="Enter note title"
             className="border border-gray-300 p-2 rounded-md w-full"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={title1}
+            onChange={(e) => setTitle1(e.target.value)}
             required
           />
         </div>
@@ -367,8 +369,8 @@ const TeacherHomePage = () => {
             placeholder="Enter note description"
             rows={4}
             className="border border-gray-300 p-2 rounded-md w-full"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={description1}
+            onChange={(e) => setDescription1(e.target.value)}
             required
           />
         </div>
