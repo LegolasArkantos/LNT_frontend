@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
-const StudentSessionsPage = () => {
+const StudentSessionsPage = ({socket}) => {
   const [sessions, setSessions] = useState([]);
   const navigate = useNavigate();
 
@@ -27,6 +27,11 @@ const StudentSessionsPage = () => {
     navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId, otherRole: "Teacher" } });
   };
 
+  const handleJoinVideoCall = (roomID) => {
+    socket.emit("join:video-call", {roomID});
+    navigate('/student-home-page/live-session', { state: {roomID}});
+  }
+
   return (
     <div className="h-screen">
       <div className="p-8 flex flex-col h-full">
@@ -40,12 +45,16 @@ const StudentSessionsPage = () => {
             {/* Session Rectangles (Fetched Data) */}
             {sessions.map((session) => (
               <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
+                <div className='flex justify-between'>
                 <button
                   className="text-xl font-semibold mb-2 hover:underline"
                   onClick={() => handleSessionClick(session._id)}
                 >
                   {session.subject}
                 </button>
+                <button onClick={() => handleJoinVideoCall(session._id)} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Join Video</button>
+                
+                </div>
                 <p className="text-gray-700">
                   Teacher: 
                   <button

@@ -261,8 +261,8 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
               />
             
             
-            <label htmlFor="teacherFileInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Upload Files (Teacher)
+            <label htmlFor="teacherFileInput" className="block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white">
+              Upload Credential Files
             </label>
             <input
               type="file"
