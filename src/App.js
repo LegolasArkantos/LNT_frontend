@@ -28,6 +28,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
 import StudentSubmissionPage from "./pages/StudentSubmissionPage";
 import VideoCallPage from "./pages/VideoCallPage";
+import GradeSubmissions from "./pages/GradeSubmissions";
 const socket = io.connect("http://localhost:4000");
 
 
@@ -59,6 +60,8 @@ function App() {
             <Route path="assignments" element={<TeacherAssignmentsPage />} />
             <Route path="responses" element={<StudentResponsesPage />} />
             <Route path="live-session" element={<VideoCallPage socket={socket}/>} />
+            <Route path="submissons" element={<GradeSubmissions />} />
+
 
           </Route>
         </Route>
