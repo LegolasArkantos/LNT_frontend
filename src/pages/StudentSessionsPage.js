@@ -29,7 +29,7 @@ const StudentSessionsPage = ({socket}) => {
 
   const handleJoinVideoCall = (roomID) => {
     socket.emit("join:video-call", {roomID});
-    navigate('/student-home-page/live-session', { state: {roomID}});
+    navigate('/student-home-page/live-session', { state: {roomID, userType: "Student"}});
   }
 
   return (
