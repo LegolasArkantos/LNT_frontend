@@ -9,8 +9,9 @@ const VideoCallPage2 = () => {
     const [localTracks, setLocalTracks] = useState([]);
     const [localScreenTracks, setLocalScreenTracks] = useState();
     const [screenShare, setScreenShare] = useState(false);
+    const [client, setClient] = useState(AgoraRTC.createClient({mode: 'rtc', codec:'vp8'}));
+    const [viewSwitch, setViewSwitch] = useState(false);
     const APP_ID = "77f2afa99ce6443fb89a6e40281b0b4f";
-    //const localTracknew = AgoraRTC.useLocalCameraTrack()
 
     const location = useLocation();
     const {roomID, userType} = location.state;
@@ -26,10 +27,6 @@ const VideoCallPage2 = () => {
     );
     
     let token = null;
-    const client = AgoraRTC.createClient({mode: 'rtc', codec:'vp8'});
-    
-    
-    
 
     let uid = sessionStorage.getItem('uid');
     if (!uid) {
@@ -48,6 +45,7 @@ const VideoCallPage2 = () => {
             await client.subscribe(user, mediaType)
     
             if (mediaType === 'video') {
+                console.log("VIDEO TRACK", user.videoTrack)
                 user.videoTrack.play(`user-${user.uid}`);
             }
     
@@ -70,82 +68,122 @@ const VideoCallPage2 = () => {
     }
 
     const joinStream = async () => {
-        const localTrackstemp = await AgoraRTC.createMicrophoneAndCameraTracks({}, {encoderConfig: {
-            width: {min:640, ideal:1920, max:1920},
-            height: {min:480, ideal:1080, max:1080}
-        }});
-        
-        localTrackstemp[1].play(`user-${uid}`);
-        // localTracks1[0].play();
-        await client.publish([localTrackstemp[0], localTrackstemp[1]]);
-        setLocalTracks(localTrackstemp);
+        try {
+            const localTrackstemp = await AgoraRTC.createMicrophoneAndCameraTracks({}, {encoderConfig: {
+                width: {min:640, ideal:1920, max:1920},
+                height: {min:480, ideal:1080, max:1080}
+            }});
+            
+            localTrackstemp[1].play(`user-${uid}`);
+            // localTracks1[0].play();
+            await client.publish([localTrackstemp[0], localTrackstemp[1]]);
+            setLocalTracks(localTrackstemp);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
-    // const expandVideoFrame = (e) => {
-
-    // }
-
-    const toggleMic = async () => {
-        if (localTracks[0]) {
-            if(localTracks[0].muted) {
-                await localTracks[0].setMuted(false);
+    const expandVideoFrame = (user) => {
+        // if (localTracks[1]) {
+        //     localTracks[1].stop();
+        //     localTracks[1].close();
+        // }
+        try {
+            if (!viewSwitch){
+                user.videoTrack.play(`user-${uid}`);
+                localTracks[1].play(`user-${user.uid}`)
+                setViewSwitch(true);
             }
             else {
-                await localTracks[0].setMuted(true);
+                user.videoTrack.play(`user-${user.uid}`);
+                localTracks[1].play(`user-${uid}`)
+                setViewSwitch(false);
             }
-        } else {
-            console.log("Local audio track is undefined");
+        }
+        catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    const toggleMic = async () => {
+        try {
+            if (localTracks[0]) {
+                if(localTracks[0].muted) {
+                    await localTracks[0].setMuted(false);
+                }
+                else {
+                    await localTracks[0].setMuted(true);
+                }
+            } else {
+                console.log("Local audio track is undefined");
+            }
+        }
+        catch (error) {
+            console.log(error);
         }
     }
 
     const toggleCamera = async () => {
-        if (localTracks[1]) {
-            if(localTracks[1].muted) {
-                await localTracks[1].setMuted(false);
+        try {
+            if (localTracks[1]) {
+                if(localTracks[1].muted) {
+                    await localTracks[1].setMuted(false);
+                }
+                else {
+                    await localTracks[1].setMuted(true);
+                }
+            } else {
+                console.log("Local camera track is undefined");
             }
-            else {
-                await localTracks[1].setMuted(true);
-            }
-        } else {
-            console.log("Local camera track is undefined");
+        }
+        catch(error) {
+            console.log(error);
         }
     }
 
     const toggleScreen = async () => {
         try {
             if (!screenShare) {
+                setScreenShare(true);
                 const localScreenTrackstemp = await AgoraRTC.createScreenVideoTrack();
-                localScreenTrackstemp.play(`user-${uid}`);
                 
-                console.log("TOGGGGLLLLEEEESCREEEEEEENNNNN",localTracks)
+                console.log("CLIENT JOINED:", client);
+                
                 if (localTracks[1]) {
                     localTracks[1].stop();
                     localTracks[1].close();
                 }
-
-                setScreenShare(true);
-                setLocalScreenTracks(localScreenTrackstemp);
+                console.log("UID", uid);
+                localScreenTrackstemp.play(`user-${uid}`);
+                
                 await client.unpublish([localTracks[1]]);
                 await client.publish([localScreenTrackstemp]);
-                
+                setLocalScreenTracks(localScreenTrackstemp);
         
             } else {
+                setScreenShare(false);
                 if (localScreenTracks) {
                     localScreenTracks.stop();
                     localScreenTracks.close();
                 }
-                
-                await client.unpublish([localScreenTracks]);
-                setScreenShare(false);
+
                 const localCameraTrack = await AgoraRTC.createCameraVideoTrack({encoderConfig: {
                     width: {min:640, ideal:1920, max:1920},
                     height: {min:480, ideal:1080, max:1080}
                 }});
-                
-                setLocalTracks([localTracks[0], localCameraTrack]);
+
                 localCameraTrack.play(`user-${uid}`);
-        
+                await client.unpublish([localScreenTracks]);
                 
+                
+                
+                // setLocalTracks([localTracks[0], localTracks[1]]);
+                console.log("LOCALTRACKSSSOFF", localTracks)
+                
+                await client.publish([localCameraTrack]);
+                setLocalTracks([localTracks[0], localCameraTrack]);
                 setLocalScreenTracks(null);
             }
         }
@@ -159,7 +197,7 @@ const VideoCallPage2 = () => {
     useEffect(() => {
         const joinRoomInit = async () => {
             try {
-                
+                //const client = AgoraRTC.createClient({mode: 'rtc', codec:'vp8'});
                 console.log(profile.profileID);
                 await client.join(APP_ID, roomID, token, uid);
     
@@ -176,10 +214,8 @@ const VideoCallPage2 = () => {
         joinRoomInit();
     
         // Cleanup function to leave the channel when the component unmounts
-        return () => {
-            client.leave();
-        };
-    }, [])
+        
+    }, []);
     
     
     
@@ -220,19 +256,20 @@ const VideoCallPage2 = () => {
 
             
         
-        <div className='flex-col bg-teal-200 flex-1 mr-10 ml-5 mt-3 mb-3 rounded outline outline-teal-700 p-5 space-y-5'>
-            {
-                remoteUsers && (
-                    Object.keys(remoteUsers).map((uid) => (
-                        <div className='flex  justify-center'>
-                        <div key={uid} className='w-[150px] h-[150px] rounded-full outline overflow-hidden ' id={`user-${uid}`}  >
+            <div className='flex-col bg-teal-200 flex-1 mr-10 ml-5 mt-3 mb-3 rounded outline outline-teal-700 p-5 space-y-5'>
+               {
+                 remoteUsers && (
+                   Object.keys(remoteUsers).map((uid) => (
+                     <div onClick={() => expandVideoFrame(remoteUsers[uid])} className='flex justify-center cursor-pointer' key={uid}>
+                        <div className='w-[150px] h-[150px] rounded-full outline overflow-hidden' id={`user-${uid}`}>
 
                         </div>
-                        </div>
-                    ))
-                )
-            }
-        </div>
+                     </div>
+                  ))
+                 )
+               }
+            </div>
+
         </div>
   )
 }
