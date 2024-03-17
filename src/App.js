@@ -28,7 +28,11 @@ import AdminLayout from "./layouts/AdminLayout";
 import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
 import StudentSubmissionPage from "./pages/StudentSubmissionPage";
 import VideoCallPage from "./pages/VideoCallPage";
+
+import VideoCallPage2 from "./pages/VideoCallPage2";
+
 import GradeSubmissions from "./pages/GradeSubmissions";
+
 const socket = io.connect("http://localhost:4000");
 
 
@@ -59,11 +63,14 @@ function App() {
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="assignments" element={<TeacherAssignmentsPage />} />
             <Route path="responses" element={<StudentResponsesPage />} />
-            <Route path="live-session" element={<VideoCallPage socket={socket}/>} />
+
+            
             <Route path="submissons" element={<GradeSubmissions />} />
 
 
+
           </Route>
+          <Route path="/teacher-home-page/live-session" element={<VideoCallPage2/>} />
         </Route>
 
         {/* Student routes */}
@@ -78,9 +85,10 @@ function App() {
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="results" element={<SearchResultsPage/>}/>
             <Route path="submission" element={<StudentSubmissionPage />} />
-            <Route path="live-session" element={<VideoCallPage socket={socket}/>} />
+            
 
           </Route>
+          <Route path="/student-home-page/live-session" element={<VideoCallPage2/>} />
         </Route>
 
         {/* admin routes */}
