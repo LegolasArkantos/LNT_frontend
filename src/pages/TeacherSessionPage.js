@@ -143,7 +143,6 @@ const TeacherSessionsPage = ({socket}) => {
   };
 
   const handleJoinVideoCall = (roomID) => {
-    socket.emit("join:video-call", {roomID});
     navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher"}});
   }
 
