@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import AgoraRTC from "agora-rtc-react";
 
 const VideoCallPage2 = () => {
@@ -13,6 +14,7 @@ const VideoCallPage2 = () => {
     const [viewSwitch, setViewSwitch] = useState(false);
     const APP_ID = "77f2afa99ce6443fb89a6e40281b0b4f";
 
+    const navigate = useNavigate();
     const location = useLocation();
     const {roomID, userType} = location.state;
 
@@ -85,10 +87,6 @@ const VideoCallPage2 = () => {
     };
 
     const expandVideoFrame = (user) => {
-        // if (localTracks[1]) {
-        //     localTracks[1].stop();
-        //     localTracks[1].close();
-        // }
         try {
             if (!viewSwitch){
                 user.videoTrack.play(`user-${uid}`);
@@ -153,7 +151,6 @@ const VideoCallPage2 = () => {
                 
                 if (localTracks[1]) {
                     localTracks[1].stop();
-                    localTracks[1].close();
                 }
                 console.log("UID", uid);
                 localScreenTrackstemp.play(`user-${uid}`);
@@ -169,21 +166,10 @@ const VideoCallPage2 = () => {
                     localScreenTracks.close();
                 }
 
-                const localCameraTrack = await AgoraRTC.createCameraVideoTrack({encoderConfig: {
-                    width: {min:640, ideal:1920, max:1920},
-                    height: {min:480, ideal:1080, max:1080}
-                }});
-
-                localCameraTrack.play(`user-${uid}`);
+                localTracks[1].play(`user-${uid}`);
                 await client.unpublish([localScreenTracks]);
                 
-                
-                
-                // setLocalTracks([localTracks[0], localTracks[1]]);
-                console.log("LOCALTRACKSSSOFF", localTracks)
-                
-                await client.publish([localCameraTrack]);
-                setLocalTracks([localTracks[0], localCameraTrack]);
+                await client.publish([localTracks[1]]);
                 setLocalScreenTracks(null);
             }
         }
@@ -191,6 +177,29 @@ const VideoCallPage2 = () => {
             console.log(error);
         }
     };
+
+    const leaveStream = async () => {
+        for (let i = 0; i < localTracks.length; i++) {
+            localTracks[i].stop();
+            localTracks[i].close();
+        }
+
+        await client.unpublish([localTracks[0], localTracks[1]]);
+
+        if (localScreenTracks) {
+            localScreenTracks.stop();
+            localScreenTracks.close();
+            await client.unpublish([localScreenTracks]);
+        }
+
+        if (userType === "Teacher") {
+            navigate('/teacher-home-page/sessions');
+        }
+        else {
+            navigate('/student-home-page/sessions');
+        }
+        
+    }
     
     
 
@@ -213,7 +222,9 @@ const VideoCallPage2 = () => {
     
         joinRoomInit();
     
-        // Cleanup function to leave the channel when the component unmounts
+        return () => {
+            client.leave();
+        };
         
     }, []);
     
@@ -221,7 +232,7 @@ const VideoCallPage2 = () => {
     
 
   return (
-        <div className='flex w-full bg-teal-100  h-screen'>
+        <div className='flex w-full bg-teal-100 h-screen'>
             <div className='flex-col w-3.5/5 '>
                 <div className='flex-col p-3'>
                   <div className='w-[800px] h-[470px] ml-10 outline rounded overflow-hidden' id={`user-${uid}`} ></div>
@@ -247,7 +258,7 @@ const VideoCallPage2 = () => {
                <button onClick={() => toggleScreen()}  className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
                <svg width="30px" height="30px" viewBox="0 0 28 28" version="1.1" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>ic_fluent_share_screen_28_regular</title> <desc>Created with Sketch.</desc> <g id="🔍-System-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="ic_fluent_share_screen_28_regular" fill="#212121" fill-rule="nonzero"> <path d="M23.75,4.99939 C24.9926,4.99939 26,6.00675 26,7.24939 L26,20.75 C26,21.9926 24.9926,23 23.75,23 L4.25,23 C3.00736,23 2,21.9927 2,20.75 L2,7.24939 C2,6.00675 3.00736,4.99939 4.25,4.99939 L23.75,4.99939 Z M23.75,6.49939 L4.25,6.49939 C3.83579,6.49939 3.5,6.83518 3.5,7.24939 L3.5,20.75 C3.5,21.1642 3.83579,21.5 4.25,21.5 L23.75,21.5 C24.1642,21.5 24.5,21.1642 24.5,20.75 L24.5,7.24939 C24.5,6.83518 24.1642,6.49939 23.75,6.49939 Z M13.9975,8.62102995 C14.1965,8.62102995 14.3874,8.69998 14.5281,8.8407 L17.7826,12.0952 C18.0755,12.3881 18.0755,12.863 17.7826,13.1559 C17.4897,13.4488 17.0148,13.4488 16.7219,13.1559 L14.7477,11.1817 L14.7477,18.6284 C14.7477,19.0426 14.412,19.3784 13.9977,19.3784 C13.5835,19.3784 13.2477,19.0426 13.2477,18.6284 L13.2477,11.1835 L11.2784,13.1555 C10.9858,13.4486 10.5109,13.4489 10.2178,13.1562 C9.92469,12.8636 9.92436,12.3887 10.217,12.0956 L13.467,8.84107 C13.6077,8.70025 13.7985,8.62102995 13.9975,8.62102995 Z" > </path> </g> </g> </g></svg>
                </button>
-               <button  className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-green-500 rounded-e-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+               <button onClick={() => leaveStream()} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-green-500 rounded-e-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
                <svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M928 358.4l-49.066667-49.066667c-172.8-168.533333-586.666667-145.066667-736 0l-49.066666 49.066667c-12.8 12.8-12.8 34.133333 0 49.066667L192 503.466667c12.8 12.8 36.266667 12.8 49.066667 0l108.8-104.533334-8.533334-113.066666c34.133333-34.133333 307.2-34.133333 341.333334 0l-6.4 117.333333 104.533333 100.266667c12.8 12.8 36.266667 12.8 49.066667 0l98.133333-96c14.933333-14.933333 14.933333-36.266667 0-49.066667z" fill="#F44336"></path><path d="M512 864L341.333333 661.333333h341.333334z" fill="#B71C1C"></path><path d="M448 512h128v160h-128z" fill="#B71C1C"></path></g></svg>
                </button>
              </div>
@@ -256,7 +267,7 @@ const VideoCallPage2 = () => {
 
             
         
-            <div className='flex-col bg-teal-200 flex-1 mr-10 ml-5 mt-3 mb-3 rounded outline outline-teal-700 p-5 space-y-5'>
+            <div className='flex-col bg-teal-200 flex-1 mr-10 ml-5 mt-3 mb-3 overflow-y-scroll scroll scrollbar-hide rounded outline outline-teal-700 p-5 space-y-5'>
                {
                  remoteUsers && (
                    Object.keys(remoteUsers).map((uid) => (
