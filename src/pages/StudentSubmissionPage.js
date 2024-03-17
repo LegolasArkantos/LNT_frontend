@@ -12,7 +12,8 @@ const StudentSubmissionPage = () => {
     const [fileUrls, setFileUrls] = useState([]); 
     const [isLoading, setIsLoading] = useState(false); 
     const location = useLocation();
-    
+    const [Feedback, setFeedback] = useState([]); 
+    const [Grade, setGrade] = useState([]); 
 
     const [submissionFiles, setSubmissionFiles] = useState([]); 
 
@@ -36,8 +37,14 @@ const StudentSubmissionPage = () => {
           const assignmentId = location.state.assignmentId; 
           const response = await apiPrivate.get(`/assignment/getSubmission/${assignmentId}`);
           setSubmissionFiles(response.data.files);
+          setFeedback(response.data.feedback)
+          setGrade(response.data.grade)
       } catch (error) {
+        if (error.response && error.response.status === 404) {
+          console.error("Submission not found");
+      } else {
           console.error(error);
+      }
       }
   };
 
@@ -93,7 +100,7 @@ const StudentSubmissionPage = () => {
   return (
     <div className="p-8">
       {assignment && (
-        <div>
+      <div>
           <h2 className="text-3xl font-bold mb-4">{assignment.title}</h2>
           <p className="text-lg">Start Time: <span className="ml-2">{assignment.startTime}</span></p>
           <p className="text-lg">End Time: <span className="ml-4">{assignment.endTime}</span></p>
@@ -139,12 +146,19 @@ const StudentSubmissionPage = () => {
             </svg>
             Uploading...
         </div>
-    ) : (
+         ) : (
         'Upload Files'
-    )}
-                    </button>
+         )}
+        </button>
 
-        </div>
+        {Grade !== -1 && Grade !== undefined && (
+    <div className="">
+        <p className="text-xl font-semibold mb-2 mt-4">Feedback:</p>
+        <p className="bg-gray-100 p-4 rounded-lg">{Feedback}</p>
+        <p className="bg-gray-100 p-4 rounded-lg"> Grade: {Grade}</p>
+    </div>
+)}
+      </div>
       )}
               
 
