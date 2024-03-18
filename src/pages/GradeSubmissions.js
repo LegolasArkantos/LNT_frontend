@@ -32,10 +32,15 @@ const GradeSubmissions = () => {
 
     const handleSubmit = async () => {
         try {
+            const assignmentId = location.state.assignmentId;
+            const title = location.state.title;
+            const total =location.state.total
             const response = await apiPrivate.post(`/assignment/grade/${selectedSubmission._id}`, {
-                
+                assignmentId,
+                title,
                 grade,
-                feedback
+                feedback,
+                total
             });
             console.log(response.data.message);
             fetchSubmissions();
@@ -71,7 +76,7 @@ const GradeSubmissions = () => {
                             </ul>
                             {submission.grade !== -1 ? (
                                 <p className="text-gray-600 mt-2 mb-2">
-                                    Grade: {submission.grade} out of {location.state.marks}
+                                    Grade: {submission.grade} out of {location.state.total}
                                 </p>
                             ) : (
                                 <p className="text-red-500 mt-2 mb-2">Not graded</p>

@@ -34,7 +34,7 @@ const StudentAssignmentsPage = () => {
             <h2 className="text-2xl font-bold">Assignments</h2>
           </div>
           <div className="flex flex-col" style={{ paddingRight: '17px' }}>
-            <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
+            <div className="flex items-right bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Name</div>
               <div className="font-bold mx-4">Start Time</div>
               <div className="font-bold mx-4">End Time</div>
@@ -51,6 +51,7 @@ const StudentAssignmentsPage = () => {
                 {assignment.title}
               </button>
             </h3>
+            <div className="flex-grow"></div>
                 <div className="mx-4">{assignment.startTime}</div>
                 <div className="mx-4">{assignment.endTime}</div>
                 <div>{assignment.marks}</div>
