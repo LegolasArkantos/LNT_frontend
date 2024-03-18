@@ -32,6 +32,7 @@ import VideoCallPage from "./pages/VideoCallPage";
 import VideoCallPage2 from "./pages/VideoCallPage2";
 
 import GradeSubmissions from "./pages/GradeSubmissions";
+import ProgressPage from "./pages/TeacherProgress";
 
 const socket = io.connect("http://localhost:4000");
 
@@ -64,7 +65,8 @@ function App() {
             <Route path="assignments" element={<TeacherAssignmentsPage />} />
             <Route path="responses" element={<StudentResponsesPage />} />
 
-            
+            <Route path="progress" element={<ProgressPage />} />
+
             <Route path="submissons" element={<GradeSubmissions />} />
 
 
