@@ -46,7 +46,7 @@ const TeacherHomePageNavBar2 = (props) => {
   }, []);
 
   return (
-    <nav className="fixed top-0 w-screen z-10">
+    <nav className="fixed top-0 w-screen z-20">
       <div className="bg-teal-100 flex items-center justify-between dark:bg-gray-800">
         <ul className="relative flex font-medium w-screen">
           <li>
