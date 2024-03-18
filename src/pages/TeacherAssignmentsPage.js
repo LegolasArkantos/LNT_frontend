@@ -74,9 +74,9 @@ const TeacherAssignmentsPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="p-8 flex flex-col h-full">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col overflow-x-auto h-[700px] w-[1430px] mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+    <div className="max-w-screen">
+      <div className="p-8 flex flex-col max-w-screen h-full">
+        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[900px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">Assignments</h2>
             <button onClick={handleOpenCreateAssignmentPopup} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
