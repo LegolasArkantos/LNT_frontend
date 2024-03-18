@@ -12,6 +12,8 @@ const VideoCallPage2 = () => {
     const [screenShare, setScreenShare] = useState(false);
     const [client, setClient] = useState(AgoraRTC.createClient({mode: 'rtc', codec:'vp8'}));
     const [viewSwitch, setViewSwitch] = useState(false);
+    const [idInDisplay, setIdInDisplay] = useState("");
+
     const APP_ID = "77f2afa99ce6443fb89a6e40281b0b4f";
 
     const navigate = useNavigate();
@@ -92,11 +94,14 @@ const VideoCallPage2 = () => {
                 user.videoTrack.play(`user-${uid}`);
                 localTracks[1].play(`user-${user.uid}`)
                 setViewSwitch(true);
+                setIdInDisplay(user.uid);
             }
             else {
-                user.videoTrack.play(`user-${user.uid}`);
-                localTracks[1].play(`user-${uid}`)
-                setViewSwitch(false);
+                if (idInDisplay === user.uid) {
+                    user.videoTrack.play(`user-${user.uid}`);
+                    localTracks[1].play(`user-${uid}`)
+                    setViewSwitch(false);
+                }
             }
         }
         catch (error) {
@@ -232,7 +237,7 @@ const VideoCallPage2 = () => {
     
 
   return (
-        <div className='flex w-full bg-teal-100 h-screen'>
+        <div className='flex w-full bg-teal-100 overflow-y-scroll scroll scrollbar-hide h-screen'>
             <div className='flex-col w-3.5/5 '>
                 <div className='flex-col p-3'>
                   <div className='w-[800px] h-[470px] ml-10 outline rounded overflow-hidden' id={`user-${uid}`} ></div>
