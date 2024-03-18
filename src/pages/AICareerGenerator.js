@@ -40,7 +40,6 @@ const AICareerGenerator = () => {
       setStory(response.data.story);
     } catch (error) {
       console.error('Error generating:', error);
-      // Handle error
     } finally {
       setLoading(false);
     }
