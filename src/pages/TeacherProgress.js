@@ -79,7 +79,10 @@ const AssignmentProgress = () => {
   }, [assignments]); 
 
   return (
-    <div className="card" style={{ width: '50%', height: '50vh' }}>
+    <div className="card" style={{ width: '50%', height: '60vh' }}>
+      <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
+          Assignment Performance:
+      </h1>
       <div className="card-body">
         <div id="chart"></div>
       </div>
