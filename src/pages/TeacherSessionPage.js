@@ -137,9 +137,9 @@ const TeacherSessionsPage = ({socket}) => {
     navigate('/teacher-home-page/StudentProfileSecondary', { state: { studentId, otherRole: "Student" } });
   };
 
-  const handleAssignmentClick = (sessionId) => {
-    console.log("id "+sessionId)
-    navigate('/teacher-home-page/assignments', { state: { sessionId} });
+  const handleAssignmentClick = (sessionId,subject) => {
+    console.log("id "+sessionId+subject)
+    navigate('/teacher-home-page/assignments', { state: { sessionId,subject} });
   };
 
   const handleJoinVideoCall = (roomID) => {
@@ -167,7 +167,7 @@ const TeacherSessionsPage = ({socket}) => {
               <div className='flex justify-between'>
               <button
                 className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(session.sessionId)}
+                onClick={() =>handleAssignmentClick(session.sessionId,session.subject)}
               >
                 <h3 className="text-xl font-semibold mb-2">
                 {session.subject}
