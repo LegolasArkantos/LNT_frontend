@@ -35,6 +35,7 @@ import GradeSubmissions from "./pages/GradeSubmissions";
 import ProgressPage from "./pages/TeacherProgress";
 import TeacherCareerPage from "./pages/TeacherCareer";
 import CareerSignupPage from "./pages/TeacherCareerSignup";
+import QuizPage from "./pages/QuizPage";
 
 const socket = io.connect("http://localhost:4000");
 
@@ -93,7 +94,7 @@ function App() {
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="results" element={<SearchResultsPage/>}/>
             <Route path="submission" element={<StudentSubmissionPage />} />
-            
+            <Route path="quiz" element={<QuizPage />} />
 
           </Route>
           <Route path="/student-home-page/live-session" element={<VideoCallPage2/>} />
