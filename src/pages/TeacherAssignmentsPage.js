@@ -22,12 +22,15 @@ const TeacherAssignmentsPage = () => {
   });
   const location = useLocation();
   const navigate = useNavigate();
+  const sessionId = location.state.sessionId;
+  const subject = location.state.subject;
+
   const apiPrivate = useAPIPrivate();
 
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const sessionId = location.state.sessionId;
+        
         const response = await apiPrivate.get(`/assignment/getSessionAssignments/${sessionId}`);
         setAssignments(response.data.assignments);
       } catch (error) {
@@ -89,9 +92,9 @@ const TeacherAssignmentsPage = () => {
     }
   };
 
-  const handleAssignmentClick = (assignmentId) => {
-    console.log("id "+assignmentId)
-    navigate('/teacher-home-page/responses', { state: { assignmentId} });
+  const handleAssignmentClick = (assignmentId,sessionId,subject) => {
+    console.log("id "+assignmentId,sessionId,subject)
+    navigate('/teacher-home-page/responses', { state: { assignmentId,sessionId,subject} });
   };
 
   const handleCreateQuizFormChange = (e) => {
@@ -204,7 +207,7 @@ const TeacherAssignmentsPage = () => {
               
               <button
                 className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(assignment._id)}
+                onClick={() =>handleAssignmentClick(assignment._id,sessionId,subject)}
               >
                 {assignment.title}
               </button>
