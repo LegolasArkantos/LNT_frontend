@@ -41,7 +41,7 @@ const SearchResultsPage = () => {
     <div>
       <SearchBar handleSearch={handleSearch}/>
         <h1 className="mb-4  mt-10 text-2xl font-extrabold dark:text-white">search results</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  mb-10 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  mb-10 space-x-12 gap-5">
         {sessions.length === 0 
         ? (
         <p>No Sessions Found</p>
