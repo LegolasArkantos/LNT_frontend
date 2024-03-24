@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useLocation,useNavigate } from 'react-router-dom';
+import ConfirmationPopupQuiz from '../components/ConfirmationPopupQuiz';
 
 const StudentAssignmentsPage = () => {
   const [assignments, setAssignments] = useState([]);
   const [quizes, setQuizes] = useState([]);
+  const [confirmationPopup, setConfirmationPopup] = useState(false);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -39,6 +42,10 @@ const StudentAssignmentsPage = () => {
     console.log("id "+assignmentId)
     navigate('/student-home-page/submission', { state: { assignmentId} });
   };
+
+  const onConfirm = () => {
+    navigate('/student-home-page/quiz', { state: { selectedQuiz } })
+  }
 
   return (
     <div className=" max-w-screen ">
@@ -88,9 +95,12 @@ const StudentAssignmentsPage = () => {
             <div className='overflow-y-scroll scroll scrollbar-hide'>
             {quizes.map((quiz) => (
               <div key={quiz._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 className="text-xl hover:underline cursor-pointer font-semibold mb-2">
-                {quiz.title}
-            </h3>
+                <h3 onClick={() => {
+                  setConfirmationPopup(true);
+                  setSelectedQuiz(quiz);
+                  }} className="text-xl hover:underline cursor-pointer font-semibold mb-2">
+                   {quiz.title}
+                </h3>
             {/* <button type="button" class="text-white ml-5 bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800">Start</button> */}
             {/* <button type="button" class="text-white bg-teal-500 ml-5 hover:bg-teal-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800">View Submission</button> */}
             <div className="flex-grow"></div>
@@ -102,6 +112,12 @@ const StudentAssignmentsPage = () => {
           </div>
         </div>
       </div>
+
+      {
+        confirmationPopup && (
+          <ConfirmationPopupQuiz onConfirm={onConfirm} setConfirmationPopup={setConfirmationPopup}/>
+        )
+      }
       </div>
     </div>
   );
