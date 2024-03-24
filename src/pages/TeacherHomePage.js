@@ -213,7 +213,7 @@ const TeacherHomePage = () => {
     }, 2000); 
 
     return () => clearInterval(interval);
-}, []); 
+  }, []); 
 
 
   const slideLeft = (id) => {
