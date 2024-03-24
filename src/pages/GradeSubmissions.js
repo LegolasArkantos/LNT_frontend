@@ -34,13 +34,19 @@ const GradeSubmissions = () => {
         try {
             const assignmentId = location.state.assignmentId;
             const title = location.state.title;
-            const total =location.state.total
+            const total =location.state.total;
+            const sessionId =location.state.sessionId;
+            const subject =location.state.subject;
+
+
             const response = await apiPrivate.post(`/assignment/grade/${selectedSubmission._id}`, {
                 assignmentId,
                 title,
                 grade,
                 feedback,
-                total
+                total,
+                sessionId,
+                subject
             });
             console.log(response.data.message);
             fetchSubmissions();
