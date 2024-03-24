@@ -33,6 +33,8 @@ import VideoCallPage2 from "./pages/VideoCallPage2";
 
 import GradeSubmissions from "./pages/GradeSubmissions";
 import ProgressPage from "./pages/TeacherProgress";
+import TeacherCareerPage from "./pages/TeacherCareer";
+import CareerSignupPage from "./pages/TeacherCareerSignup";
 import QuizPage from "./pages/QuizPage";
 
 const socket = io.connect("http://localhost:4000");
@@ -69,6 +71,10 @@ function App() {
             <Route path="progress" element={<ProgressPage />} />
 
             <Route path="submissons" element={<GradeSubmissions />} />
+            <Route path="career" element={<TeacherCareerPage />} />
+            <Route path="careerSighup" element={<CareerSignupPage />} />
+
+
 
 
 
