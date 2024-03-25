@@ -27,7 +27,7 @@ const StudentHomePageNavBar = (props) => {
           <ul className="flex flex-col text-xl font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-teal-300 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-teal-300 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
-                to="/teacher-home-page"
+                to="/student-home-page"
                 className={`block py-2 px-3   rounded md:bg-transparent  md:p-0  ${location.pathname.startsWith("/student-home-page") && !location.pathname.endsWith("/ai-career")  ? 'text-blue-700' : 'text-gray-900'}`}
                 aria-current="page"
               >
