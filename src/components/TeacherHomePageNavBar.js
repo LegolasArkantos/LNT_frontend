@@ -19,7 +19,7 @@ const TeacherHomePageNavBar = (props) => {
             <li>
             <Link
                 to="/teacher-home-page"
-                className={`block py-2 px-3 rounded md:bg-transparent  md:p-0  ${location.pathname.startsWith("/teacher-home-page") && (!location.pathname.endsWith("/career") || location.pathname.endsWith("/careerSignup")) ? 'text-blue-700' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded md:bg-transparent  md:p-0 ${location.pathname.startsWith("/teacher-home-page") && (!location.pathname.endsWith("/career") || !location.pathname.endsWith("/careerSignup")) ? 'text-blue-700' : 'text-gray-900'}`}
                 aria-current="page"
               >
                 Learn
