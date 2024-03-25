@@ -72,7 +72,7 @@ function App() {
 
             <Route path="submissons" element={<GradeSubmissions />} />
             <Route path="career" element={<TeacherCareerPage />} />
-            <Route path="careerSighup" element={<CareerSignupPage />} />
+            <Route path="careerSignup" element={<CareerSignupPage />} />
 
 
 
