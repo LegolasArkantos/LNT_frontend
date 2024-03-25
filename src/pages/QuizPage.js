@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
+import useAPIPrivate from "../hooks/useAPIPrivate";
 
 const QuizPage = () => {
     const location = useLocation();
     const [timer, setTimer] = useState(parseInt(location.state.selectedQuiz.time));
     const [quiz, setQuiz] = useState(location.state.selectedQuiz);
-    const [answers, setAnswers] = useState(Array(quiz.questions.length).fill('')); // Initialize answers array
+    const [answers, setAnswers] = useState([]);
+
+    const apiPrivate = useAPIPrivate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const timerDecrement = () => {
@@ -29,9 +33,22 @@ const QuizPage = () => {
         });
     };
 
+    const handleSubmit = async () => {
+        try{
+            await apiPrivate.post(`quiz/submit/${quiz._id}`, {answers}).then((res) => {
+                if (res.status === 200) {
+                    navigate('/student-home-page/studentassignments', { state: { sessionId: location.state.sessionId } });
+                }
+            });
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className='flex-col items-center justify-center'>
-            <div className='flex items-center justify-center'>
+            <div className='flex w-full items-center justify-center'>
                 <div className={`flex space-x-2 ${timer <= 30 ? 'bg-red-400' : 'bg-green-400'} p-3 rounded-full`}>
                     <h>Timer:</h>
                     <p>{timer}</p>
@@ -72,6 +89,9 @@ const QuizPage = () => {
                         </div>
                     ))
                 }
+            </div>
+            <div className='flex justify-end'>
+            <button onClick={() => handleSubmit()} type="button" class="text-white ml-5 bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800">Submit</button>
             </div>
         </div>
     )
