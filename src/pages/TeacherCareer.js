@@ -15,7 +15,7 @@ const TeacherCareerPage = () => {
         if (isCareerCounseling) {
           setIsCareerCounseling(true);
         } else {
-          navigate('/teacher-home-page/careerSighup');
+          navigate('/teacher-home-page/careerSignup');
         }
       } catch (error) {
         console.error('Error fetching career counseling status:', error);
