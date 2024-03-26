@@ -20,6 +20,8 @@ const TeacherAssignmentsPage = () => {
     marks: '',
     questions: []
   });
+  const [quizSubmissions, setQuizSubmissions] = useState([]);
+
   const location = useLocation();
   const navigate = useNavigate();
   const sessionId = location.state.sessionId;
@@ -48,6 +50,8 @@ const TeacherAssignmentsPage = () => {
         console.error(error);
       }
     }
+
+    
 
     fetchQuizes();
 
@@ -180,6 +184,21 @@ const TeacherAssignmentsPage = () => {
       questions: []
     });
   }
+
+  const fetchQuizSubmissions = async (quizId) => {
+    try {
+      apiPrivate.get(`quiz/get-quiz-submissions/${quizId}`).then((res) => {
+        if (res.status === 200) {
+          setQuizSubmissions(res.data);
+        }
+      })
+    }
+    catch(error) {
+      console.log(error)
+    }
+    
+  }
+
   
 
 
@@ -317,15 +336,9 @@ const TeacherAssignmentsPage = () => {
             <div className='overflow-y-scroll scroll scrollbar-hide'>
             {quizes.map((quiz) => (
               <div key={quiz._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 className="text-xl font-semibold mb-2">
-              
-              <button
-                className="text-black-500 hover:underline"
-                //onClick={() =>handleAssignmentClick(assignment._id)}
-              >
-                {quiz.title}
-              </button>
-            </h3>
+                <h3 onClick={() =>fetchQuizSubmissions(quiz._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline cursor-pointer">
+                    {quiz.title}
+                </h3>
             <div className="flex-grow"></div>
                 <div className="mx-4">{quiz.time}</div>
                 <div>{quiz.marks}</div>
@@ -428,6 +441,33 @@ const TeacherAssignmentsPage = () => {
         </div>
         )
       }
+
+{
+  quizSubmissions.length !== 0 && (
+    <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
+      <div className="bg-white p-8 rounded">
+        <h2 className="text-2xl font-bold mb-4">Student Submissions</h2>
+        {quizSubmissions.map((submission, index) => (
+          <div key={index} className="flex items-center mb-2">
+            <div className="flex items-center justify-center h-8 w-8 bg-gray-300 rounded-full overflow-hidden mr-2">
+              <img src={submission.student.profilePicture} alt="Profile" className="h-full w-full object-cover" />
+            </div>
+            <h3 className="text-blue-500">
+              {`${submission.student.firstName} ${submission.student.lastName}`}
+            </h3>
+            <h3 className="text-blue-500 ml-10">
+              {"Marks: "}{submission.marks}
+            </h3>
+          </div>
+        ))}
+        <button onClick={() => setQuizSubmissions([])} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+              Close
+        </button>
+      </div>
+    </div>
+  )
+}
+
     </div>
   );
 };
