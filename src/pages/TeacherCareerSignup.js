@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import image from '../assets/we need u.jpg'
+import image from '../assets/we need u.jpg';
+import { apiPrivate } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const CareerSignupPage = () => {
+  const navigate = useNavigate();
+
   const [description, setDescription] = useState('');
   const [timings, setTimings] = useState('');
 
@@ -13,9 +17,20 @@ const CareerSignupPage = () => {
     setTimings(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission, e.g., send data to backend
+    try {
+      const response = await apiPrivate.post('/career/createCareer', {
+        description,
+        timings
+      });
+
+      
+        navigate('/teacher-home-page/career');
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
@@ -23,8 +38,8 @@ const CareerSignupPage = () => {
       <div className="w-full max-w-screen-xl bg-white rounded-lg shadow-lg p-6">
         {/* Placeholder for Image */}
         <div className="mb-6 text-center">
-        <img src={image} alt="Career Counseling" className="w-56 h-auto mx-auto rounded-lg" />
-                </div>
+          <img src={image} alt="Career Counseling" className="w-56 h-auto mx-auto rounded-lg" />
+        </div>
 
         {/* Introductory text */}
         <h1 className="text-3xl font-bold mb-4 text-center">Sign Up for Career Counseling</h1>
@@ -74,14 +89,14 @@ const CareerSignupPage = () => {
               required
             />
           </div>
-          <div className="mb-6 flex justify-end"> {/* Add flex and justify-end */}
-  <button
-    type="submit"
-    className="bg-blue-500 text-white py-2 px-8  rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-  >
-    Submit
-  </button>
-</div>
+          <div className="mb-6 flex justify-end">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-8 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
