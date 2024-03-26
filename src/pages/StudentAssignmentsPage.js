@@ -6,6 +6,7 @@ import ConfirmationPopupQuiz from '../components/ConfirmationPopupQuiz';
 const StudentAssignmentsPage = () => {
   const [assignments, setAssignments] = useState([]);
   const [quizes, setQuizes] = useState([]);
+  const [submissions, setSubmissions] = useState([]);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const location = useLocation();
@@ -33,6 +34,17 @@ const StudentAssignmentsPage = () => {
       }
     }
 
+    const fetchMySubmissions = async () => {
+      try {
+        const sessionId = location.state.sessionId;
+        const response = await apiPrivate.get(`/quiz/my-session-quiz-submissions/${sessionId}`);
+        setSubmissions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchMySubmissions();
     fetchQuizes();
 
     fetchAssignments();
@@ -44,7 +56,7 @@ const StudentAssignmentsPage = () => {
   };
 
   const onConfirm = () => {
-    navigate('/student-home-page/quiz', { state: { selectedQuiz } })
+    navigate('/student-home-page/quiz', { state: { selectedQuiz, sessionId: location.state.sessionId } })
   }
 
   return (
@@ -63,15 +75,9 @@ const StudentAssignmentsPage = () => {
             </div>
             {assignments.map((assignment) => (
               <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 className="text-xl font-semibold mb-2">
-              
-              <button
-                className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(assignment._id)}
-              >
-                {assignment.title}
-              </button>
-            </h3>
+                <h3 onClick={() =>handleAssignmentClick(assignment._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline">
+                  {assignment.title}
+                </h3>
             <div className="flex-grow"></div>
                 <div className="mx-4">{assignment.startTime}</div>
                 <div className="mx-4">{assignment.endTime}</div>
@@ -89,25 +95,34 @@ const StudentAssignmentsPage = () => {
           <div className="flex flex-col" >
             <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Title</div>
+              <div className="font-bold mx-4">Marks Attained</div>
               <div className="font-bold mx-4">Time</div>
               <div className="font-bold">Marks</div>
             </div>
             <div className='overflow-y-scroll scroll scrollbar-hide'>
-            {quizes.map((quiz) => (
+            {quizes.map((quiz, index) => {
+              const submission = submissions[index];
+              return (
               <div key={quiz._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() => {
-                  setConfirmationPopup(true);
-                  setSelectedQuiz(quiz);
-                  }} className="text-xl hover:underline cursor-pointer font-semibold mb-2">
-                   {quiz.title}
+                <h3
+                onClick={() => {
+                  if (!submission) {
+                    setConfirmationPopup(true);
+                    setSelectedQuiz(quiz);
+                  }
+                }}
+                className={`text-xl ${!submission ? 'hover:underline cursor-pointer' : ''} font-semibold mb-2`}
+                >
+                  {quiz.title}
                 </h3>
-            {/* <button type="button" class="text-white ml-5 bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800">Start</button> */}
-            {/* <button type="button" class="text-white bg-teal-500 ml-5 hover:bg-teal-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800">View Submission</button> */}
-            <div className="flex-grow"></div>
-                <div className="mx-4">{quiz.time}</div>
+                <div className="flex-grow"></div>
+                <div className="mx-10">{submission?.marks}</div>
+                <div className="mx-10">{quiz.time}</div>
                 <div>{quiz.marks}</div>
               </div>
-            ))}
+              )})
+            }
+
             </div>
           </div>
         </div>

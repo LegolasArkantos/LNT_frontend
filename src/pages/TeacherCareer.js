@@ -19,7 +19,7 @@ const TeacherCareerPage = () => {
           const careerDataResponse = await apiPrivate.get('/career/getCareerProfile');
           setTeacherCareerData(careerDataResponse.data);
         } else {
-          navigate('/teacher-home-page/careerSighup');
+          navigate('/teacher-home-page/careerSignup');
         }
       } catch (error) {
         console.error('Error fetching career counseling status:', error);
