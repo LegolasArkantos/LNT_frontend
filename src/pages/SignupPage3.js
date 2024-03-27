@@ -2,7 +2,13 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from '../assets/l-t-high-resolution-logo-transparent.png';
 import { api } from "../services/api";
+import { getStorage,ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import app from '../services/firebase'
 
+
+
+// Initialize Firebase Storage
+const storage = getStorage(app);
 
 const SignUpPage3 = () => {
   const navigate = useNavigate();
@@ -13,67 +19,67 @@ const SignUpPage3 = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // Extracting previous data from location state
-  const { email, password, firstName, lastName, role, educationalCredential, educationalLevel, profilePicture, aboutMe} = location.state || {};
+  const { email, password, firstName, lastName, role, educationalCredential, educationalLevel, profilePicture, aboutMe,teacherFiles} = location.state || {};
   console.log(profilePicture)
+
   const submit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (personality.includes(0)) {
-        setErrorMessage("Please answer all personality questions.");
-        return;
-      }
+  if (personality.includes(0)) {
+    setErrorMessage("Please answer all personality questions.");
+    return;
+  }
 
-    // Log the values
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Role:", role);
-    console.log(aboutMe);
+  try {
+    const teacherFilesArray = Array.from(teacherFiles);
 
-    if (role === "Teacher") {
-      console.log("Educational Credential:", educationalCredential);
-    } else if (role === "Student") {
-      console.log("Educational Level:", educationalLevel);
-    }
+    // Upload each file to Firebase Storage and get download URLs
+    const fileUploadPromises = teacherFilesArray.map(async (file) => {
+      const storageRef = ref(storage, file.name);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      return { fileName: file.name, fileUrl: downloadURL };
+    });
 
-    console.log("Personality Questions:", personality);
+    const uploadedFiles = await Promise.all(fileUploadPromises);
+    console.log("Uploaded files:", uploadedFiles);
 
     const payload = {
-        email,
-        password,
-        firstName,
-        lastName,
-        role,
-        educationalCredential,
-        educationalLevel,
-        personality,
-        profilePicture,
-        aboutMe,
-      };
-    console.log("payload",payload);
-      try {
-        
-        const response = await api.post("/auth/signup", payload);
-    
-        
-        console.log("API Response:", response);
-    
-        // Update progress bar and navigate after a delay
-        setProgress(progress + 1);
-    
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
-    
-        // You can dispatch or store the data in Redux state here if needed
-        setErrorMessage(""); // Reset error message
-      } catch (error) {
-        // Handle API request error
-        console.error("API Request Error:", error);
-        setErrorMessage("Failed to create an account. Please try again.");
-      }
-  };
+      email,
+      password,
+      firstName,
+      lastName,
+      role,
+      educationalCredential,
+      educationalLevel,
+      personality,
+      profilePicture,
+      aboutMe,
+      credentialFiles: uploadedFiles, // Include credentialFiles in payload
+    };
+
+    console.log("Payload:", payload);
+
+    // Make API request to signup endpoint
+    const response = await api.post("/auth/signup", payload);
+
+    console.log("API Response:", response);
+
+    // Update progress bar and navigate after a delay
+    setProgress(progress + 1);
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
+
+    // Reset error message
+    setErrorMessage("");
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+    setErrorMessage("Failed to create an account. Please try again.");
+  }
+};
 
   const handleOptionChange = (questionIndex, optionIndex) => {
     setPersonality((prevPersonality) => {

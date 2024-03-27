@@ -26,8 +26,23 @@ import TeacherAssignmentsPage from "./pages/TeacherAssignmentsPage";
 import StudentResponsesPage from "./pages/StudentResponsesPage";
 import AdminLayout from "./layouts/AdminLayout";
 import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
+import StudentSubmissionPage from "./pages/StudentSubmissionPage";
+import VideoCallPage from "./pages/VideoCallPage";
+
+import VideoCallPage2 from "./pages/VideoCallPage2";
+
+import GradeSubmissions from "./pages/GradeSubmissions";
+import ProgressPage from "./pages/TeacherProgress";
+import TeacherCareerPage from "./pages/TeacherCareer";
+import CareerSignupPage from "./pages/TeacherCareerSignup";
+import QuizPage from "./pages/QuizPage";
 
 const socket = io.connect("http://localhost:4000");
+
+
+
+
+
 
 function App() {
   return (
@@ -46,15 +61,25 @@ function App() {
         <Route element={<RequiredAuth allowedRole="Teacher" />}>
           <Route path="/teacher-home-page" element={<TeacherHomePageLayout/>}>
             <Route index element={<TeacherHomePage />} />
-            <Route path="sessions" element={<TeacherSessionPage />} />
+            <Route path="sessions" element={<TeacherSessionPage socket={socket}/>} />
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<TeacherProfilePage/>} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="assignments" element={<TeacherAssignmentsPage />} />
             <Route path="responses" element={<StudentResponsesPage />} />
 
+            <Route path="progress" element={<ProgressPage />} />
+
+            <Route path="submissons" element={<GradeSubmissions />} />
+            <Route path="career" element={<TeacherCareerPage />} />
+            <Route path="careerSignup" element={<CareerSignupPage />} />
+
+
+
+
 
           </Route>
+          <Route path="/teacher-home-page/live-session" element={<VideoCallPage2/>} />
         </Route>
 
         {/* Student routes */}
@@ -64,12 +89,15 @@ function App() {
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<StudentProfilePage/>} />
             <Route path="ai-career" element={<AICareerGenerator/>} />
-            <Route path="sessions" element={<StudentSessionsPage />} />
+            <Route path="sessions" element={<StudentSessionsPage socket={socket}/>} />
             <Route path="studentassignments" element={<StudentAssignmentsPage />} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="results" element={<SearchResultsPage/>}/>
+            <Route path="submission" element={<StudentSubmissionPage />} />
+            <Route path="quiz" element={<QuizPage />} />
 
           </Route>
+          <Route path="/student-home-page/live-session" element={<VideoCallPage2/>} />
         </Route>
 
         {/* admin routes */}

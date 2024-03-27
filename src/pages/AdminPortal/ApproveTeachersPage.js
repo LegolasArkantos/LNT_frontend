@@ -97,11 +97,22 @@ const ApproveTeachersPage = () => {
       Educational Credentials: {teacher.educationalCredential}
     </p>
     <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-      Available Time slots: {teacher.availableTimeSlots}
-    </p>
-    <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
       About Me: {teacher.aboutMe}
     </p>
+    <p class="text-sm font-medium text-gray-900 dark:text-gray-400">
+      Credentials files:
+    </p>
+    <div className='flex-col '>
+    {
+      teacher.credentialFiles.map((file, index) => (
+        <div>
+        <a key={index} href={file.fileUrl} className="text-blue-500 hover:underline">
+          {file.fileName}
+        </a>
+        </div>
+      ))
+    }
+    </div>
   </div>
   <div className='flex p-2 justify-end'>
   <button onClick={() => {

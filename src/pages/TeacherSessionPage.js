@@ -3,7 +3,7 @@ import { apiPrivate } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 
-const TeacherSessionsPage = () => {
+const TeacherSessionsPage = ({socket}) => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [isCreateSessionPopupOpen, setIsCreateSessionPopupOpen] = useState(false);
@@ -137,18 +137,21 @@ const TeacherSessionsPage = () => {
     navigate('/teacher-home-page/StudentProfileSecondary', { state: { studentId, otherRole: "Student" } });
   };
 
-  const handleAssignmentClick = (sessionId) => {
-    console.log("id "+sessionId)
-    navigate('/teacher-home-page/assignments', { state: { sessionId} });
+  const handleAssignmentClick = (sessionId,subject) => {
+    console.log("id "+sessionId+subject)
+    navigate('/teacher-home-page/assignments', { state: { sessionId,subject} });
   };
 
+  const handleJoinVideoCall = (roomID) => {
+    navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher"}});
+  }
 
   return (
     <div className=" max-h-screen max-w-screen">
      {/* Main Content */}
 <div className="p-8 flex  max-h-screen max-w-screen ">
   {/* Sessions Container */}
-  <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col overflow-x-auto h-[700px] max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
+  <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
     {/* Teacher Sessions */}
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-2xl font-bold">Teacher Sessions</h2>
@@ -160,15 +163,21 @@ const TeacherSessionsPage = () => {
       {/* Session Cards (Fetched Data) */}
       {sessions.map((session) => (
         <div key={session.sessionId} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
-          <h3 className="text-xl font-semibold mb-2">
-              
+          
+              <div className='flex justify-between'>
               <button
                 className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(session.sessionId)}
+                onClick={() =>handleAssignmentClick(session.sessionId,session.subject)}
               >
+                <h3 className="text-xl font-semibold mb-2">
                 {session.subject}
+                </h3>
               </button>
-            </h3>
+              <div onClick={() => handleJoinVideoCall(session.sessionId)} className='hover:bg-teal-200 rounded-full'>
+              <svg className='cursor-pointer' width="40px" height="40px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#f01919" d="M8,12h22c2.2,0,4,1.8,4,4v16c0,2.2-1.8,4-4,4H8c-2.2,0-4-1.8-4-4V16C4,13.8,5.8,12,8,12z"></path> <polygon fill="#f52424" points="44,35 34,29 34,19 44,13"></polygon> </g></svg>
+              </div>
+              </div>
+            
           <p className="text-gray-700">Start Time: {session.startTime}</p>
           <p className="text-gray-700">End Time: {session.endTime}</p>
           <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
