@@ -13,18 +13,23 @@ const QuizPage = () => {
 
     useEffect(() => {
         const timerDecrement = () => {
-            setTimer(timer - 1);
+            if (timer !== 0) {
+                setTimer(timer - 1);
+            }
         }
 
         const interval = setInterval(() => {
             timerDecrement();
         }, 1000);
 
+        if (timer === 0) {
+            handleSubmit();
+        }
+
         return () => clearInterval(interval);
 
     });
 
-    // Function to handle option selection
     const handleOptionSelect = (questionIndex, optionIndex) => {
         setAnswers(prevAnswers => {
             const newAnswers = [...prevAnswers];
