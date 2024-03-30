@@ -433,7 +433,7 @@ const TeacherAssignmentsPage = () => {
     </div>
     </div>
               <div className="flex justify-end">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded mr-auto">Submit</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded mr-auto">Create</button>
                 <button type="button" onClick={() => handleCloseCreateQuizPopup()} className="bg-gray-300 hover:bg-gray-500 text-gray-800 px-4 py-2 rounded">Close</button>
               </div>
             </form>
