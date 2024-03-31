@@ -36,12 +36,12 @@ const StudentSessionsPage = ({socket}) => {
     <div className="h-screen">
       <div className="p-8 flex flex-col h-full">
         {/* Sessions Container */}
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6" >
           {/* Student Sessions */}
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">My Sessions</h2>
           </div>
-          <div className="flex flex-wrap" style={{ paddingRight: '17px' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   mb-10 overflow-y-scroll scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
             {/* Session Rectangles (Fetched Data) */}
             {sessions.map((session) => (
               <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
