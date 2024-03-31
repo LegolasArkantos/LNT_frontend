@@ -213,12 +213,12 @@ const TeacherAssignmentsPage = () => {
             </button>
           </div>
           <div className="flex flex-col">
-            <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
+            {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Name</div>
               <div className="font-bold mx-4">Start Time</div>
               <div className="font-bold mx-4">End Time</div>
               <div className="font-bold">Marks</div>
-            </div>
+            </div> */}
             <div className='overflow-y-scroll scroll scrollbar-hide'>
             {assignments.map((assignment) => (
               <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
@@ -232,9 +232,18 @@ const TeacherAssignmentsPage = () => {
               </button>
             </h3>
             <div className="flex-grow"></div>
-                <div className="mx-4">{assignment.startTime}</div>
-                <div className="mx-4">{assignment.endTime}</div>
-                <div>{assignment.marks}</div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Start Time:</h>
+                  <p className="">{assignment.startTime}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">End Time:</h>
+                  <p className="">{assignment.endTime}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Marks:</h>
+                  <p className="">{assignment.marks}</p>
+                </div>
               </div>
             ))}
             </div>
@@ -328,11 +337,11 @@ const TeacherAssignmentsPage = () => {
             </button>
           </div>
           <div className="flex flex-col" >
-            <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
+            {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Title</div>
               <div className="font-bold mx-4">Time</div>
               <div className="font-bold">Marks</div>
-            </div>
+            </div> */}
             <div className='overflow-y-scroll scroll scrollbar-hide'>
             {quizes.map((quiz) => (
               <div key={quiz._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
@@ -340,8 +349,14 @@ const TeacherAssignmentsPage = () => {
                     {quiz.title}
                 </h3>
             <div className="flex-grow"></div>
-                <div className="mx-4">{quiz.time}</div>
-                <div>{quiz.marks}</div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Time:</h>
+                  <p className="">{quiz.time}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Marks:</h>
+                  <p className="">{quiz.marks}</p>
+                </div>
               </div>
             ))}
             </div>
