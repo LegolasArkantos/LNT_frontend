@@ -12,6 +12,8 @@ const QuizPage = () => {
     const apiPrivate = useAPIPrivate();
     const navigate = useNavigate();
 
+    const currentQuestion = quiz.questions[currentQuestionIndex];
+
     useEffect(() => {
         const timerDecrement = () => {
             if (timer !== 0) {
@@ -72,7 +74,7 @@ const QuizPage = () => {
         }
     };
 
-    const currentQuestion = quiz.questions[currentQuestionIndex];
+    
 
     return (
         <div className='flex-col items-center justify-center'>
