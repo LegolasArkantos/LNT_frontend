@@ -125,6 +125,13 @@ const StudentAssignmentsPage = () => {
                   {quiz.title}
                 </h3>
                 <div className="flex-grow"></div>
+                {
+                  submission && (
+                    <button onClick={ () => {
+                      navigate("/student-home-page/quiz-feedback-page", { state: { quiz, submission} })
+                    }} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Feedback</button>
+                  )
+                }
                 <div className='flex'>
                   <h className="font-bold mx-4">Marks Attained:</h>
                   <p className="">{!submission?.marks ? "Not Attempted" : submission?.marks}</p>
