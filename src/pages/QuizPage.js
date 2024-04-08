@@ -89,7 +89,7 @@ const QuizPage = () => {
                 <div className='max-w-lg my-8 p-2 bg-white'>
                     <div className='flex space-x-2'>
                         <div className='flex-col space-y-3 mb-3'>
-                            <h2 className='text-lg font-semibold mr-2'>Question</h2>
+                            <h2 className='text-lg font-semibold mr-2'>Question {currentQuestionIndex + 1}</h2>
                             <p className='px-2 py-1'>{currentQuestion.question}</p>
                         </div>
                     </div>
