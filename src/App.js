@@ -36,6 +36,7 @@ import ProgressPage from "./pages/TeacherProgress";
 import TeacherCareerPage from "./pages/TeacherCareer";
 import CareerSignupPage from "./pages/TeacherCareerSignup";
 import QuizPage from "./pages/QuizPage";
+import QuizFeedbackPage from "./pages/QuizFeedbackPage";
 
 
 import ShowCareerTeachers from "./pages/ShowCareerTeachers";
@@ -104,6 +105,7 @@ function App() {
             <Route path="Counselors" element={<SelectedCareerTeachers />} />
 
 
+            <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
 
           </Route>
           <Route path="/student-home-page/live-session" element={<VideoCallPage2/>} />
