@@ -66,22 +66,31 @@ const StudentAssignmentsPage = () => {
           <div className=" justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">Assignments</h2>
           </div>
-          <div className="flex flex-col" style={{ paddingRight: '17px' }}>
-            <div className="flex items-right bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
+          <div className="flex flex-col overflow-y-scroll scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
+            {/* <div className="flex items-right bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Name</div>
               <div className="font-bold mx-4">Start Time</div>
               <div className="font-bold mx-4">End Time</div>
               <div className="font-bold">Marks</div>
-            </div>
+            </div> */}
             {assignments.map((assignment) => (
               <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3 onClick={() =>handleAssignmentClick(assignment._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline">
                   {assignment.title}
                 </h3>
             <div className="flex-grow"></div>
-                <div className="mx-4">{assignment.startTime}</div>
-                <div className="mx-4">{assignment.endTime}</div>
-                <div>{assignment.marks}</div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Start Time:</h>
+                  <p className="">{assignment.startTime}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">End Time:</h>
+                  <p className="">{assignment.endTime}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Marks:</h>
+                  <p className="">{assignment.marks}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -93,12 +102,12 @@ const StudentAssignmentsPage = () => {
             <h2 className="text-2xl font-bold">Quizes</h2>
           </div>
           <div className="flex flex-col" >
-            <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
+            {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Title</div>
               <div className="font-bold mx-4">Marks Attained</div>
               <div className="font-bold mx-4">Time</div>
               <div className="font-bold">Marks</div>
-            </div>
+            </div> */}
             <div className='overflow-y-scroll scroll scrollbar-hide'>
             {quizes.map((quiz, index) => {
               const submission = submissions[index];
@@ -116,13 +125,28 @@ const StudentAssignmentsPage = () => {
                   {quiz.title}
                 </h3>
                 <div className="flex-grow"></div>
-                <div className="mx-10">{submission?.marks}</div>
-                <div className="mx-10">{quiz.time}</div>
-                <div>{quiz.marks}</div>
+                {
+                  submission && (
+                    <button onClick={ () => {
+                      navigate("/student-home-page/quiz-feedback-page", { state: { quiz, submission} })
+                    }} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Feedback</button>
+                  )
+                }
+                <div className='flex'>
+                  <h className="font-bold mx-4">Marks Attained:</h>
+                  <p className="">{!submission?.marks ? "Not Attempted" : submission?.marks}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Time:</h>
+                  <p className="">{quiz.time}</p>
+                </div>
+                <div className='flex'>
+                  <h className="font-bold mx-4">Marks:</h>
+                  <p className="">{quiz.marks}</p>
+                </div>
               </div>
               )})
             }
-
             </div>
           </div>
         </div>
