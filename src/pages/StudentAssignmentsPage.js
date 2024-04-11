@@ -75,7 +75,7 @@ const StudentAssignmentsPage = () => {
             </div> */}
             {assignments.map((assignment) => (
               <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() =>handleAssignmentClick(assignment._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline">
+                <h3 onClick={() =>handleAssignmentClick(assignment._id)} className="text-xl font-semibold mb-2 text-black-500 cursor-pointer hover:underline">
                   {assignment.title}
                 </h3>
             <div className="flex-grow"></div>

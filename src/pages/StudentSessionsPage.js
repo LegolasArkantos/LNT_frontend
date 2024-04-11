@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import ReviewsPopup from '../components/ReviewsPopup';
 
 const StudentSessionsPage = ({socket}) => {
   const [sessions, setSessions] = useState([]);
+  const [reviewPopUp, setReviewPopUp] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,25 +57,57 @@ const StudentSessionsPage = ({socket}) => {
                 <button onClick={() => handleJoinVideoCall(session._id)} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Join Video</button>
                 
                 </div>
-                <p className="text-gray-700">
+                <div className='flex'>
+                 <p className="text-gray-700 mr-1">
                   Teacher: 
+                  </p>
                   <button
                     className="text-blue-500 hover:underline"
                     onClick={() => handleTeacherClick(session.teacher)}
                   >
                     {session.teacherName}
                   </button>
-                </p>
+                
+                </div>
                 <p className="text-gray-700">
                   Timings: {session.startTime} - {session.endTime}
                 </p>
-                <p className="text-gray-700">Status: {session.status}</p>
-                <p className="text-gray-700">Number of Assignments: {}</p>
+                <div className="flex items-center mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+        <button
+          className="text-sm text-blue-500 hover:underline focus:outline-none"
+          onClick={() => {
+            setReviewPopUp(true)
+          }}
+        >
+          <span className="font-semibold">Reviews</span>
+        </button>
+      </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+
+      {
+        reviewPopUp && (
+          <ReviewsPopup setReviewPopUp={setReviewPopUp}/>
+        )
+      }
     </div>
   );
 };
