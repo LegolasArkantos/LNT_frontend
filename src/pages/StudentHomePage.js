@@ -29,6 +29,7 @@ const StudentHomePage = () => {
             setAvailableSessions(res.data.sessions);
           }
         });
+        console.log("process   :  "+process.env.REACT_APP_BASE_URL)
       } catch (error) {
         console.log(error);
       }
