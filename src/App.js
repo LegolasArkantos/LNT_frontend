@@ -38,6 +38,11 @@ import CareerSignupPage from "./pages/TeacherCareerSignup";
 import QuizPage from "./pages/QuizPage";
 import QuizFeedbackPage from "./pages/QuizFeedbackPage";
 
+
+import ShowCareerTeachers from "./pages/ShowCareerTeachers";
+import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
+
+
 const socket = io.connect("http://localhost:4000");
 
 
@@ -96,6 +101,10 @@ function App() {
             <Route path="results" element={<SearchResultsPage/>}/>
             <Route path="submission" element={<StudentSubmissionPage />} />
             <Route path="quiz" element={<QuizPage />} />
+            <Route path="teacherCareers" element={<ShowCareerTeachers />} />
+            <Route path="Counselors" element={<SelectedCareerTeachers />} />
+
+
             <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
 
           </Route>
