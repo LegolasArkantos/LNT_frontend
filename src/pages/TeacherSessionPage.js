@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-import ReviewsPopup from '../components/ReviewsPopup';
+import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 
 const TeacherSessionsPage = ({socket}) => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [reviewPopUp, setReviewPopUp] = useState(false);
+  const [reviewPopUpData, setReviewPopUpData] = useState(null);
   const [isCreateSessionPopupOpen, setIsCreateSessionPopupOpen] = useState(false);
   const [isUpdateSessionPopupOpen, setIsUpdateSessionPopupOpen] = useState(false);
   const [createSessionFormData, setCreateSessionFormData] = useState({
@@ -202,6 +203,12 @@ const TeacherSessionsPage = ({socket}) => {
         <button
           className="text-sm text-blue-500 hover:underline focus:outline-none"
           onClick={() => {
+            const data = {
+              teacherId: session.teacher,
+              sessionId: session.sessionId,
+              sessionName: session.subject
+            }
+            setReviewPopUpData(data);
             setReviewPopUp(true)
           }}
         >
@@ -224,7 +231,7 @@ const TeacherSessionsPage = ({socket}) => {
 
      {
         reviewPopUp && (
-          <ReviewsPopup setReviewPopUp={setReviewPopUp}/>
+          <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData}/>
         )
       }
       {/* Students Popup */}
