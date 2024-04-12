@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-
+import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 
 const TeacherSessionsPage = ({socket}) => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
+  const [reviewPopUp, setReviewPopUp] = useState(false);
+  const [reviewPopUpData, setReviewPopUpData] = useState(null);
   const [isCreateSessionPopupOpen, setIsCreateSessionPopupOpen] = useState(false);
   const [isUpdateSessionPopupOpen, setIsUpdateSessionPopupOpen] = useState(false);
   const [createSessionFormData, setCreateSessionFormData] = useState({
@@ -181,9 +183,38 @@ const TeacherSessionsPage = ({socket}) => {
           <p className="text-gray-700">Start Time: {session.startTime}</p>
           <p className="text-gray-700">End Time: {session.endTime}</p>
           <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
-          <p className="text-gray-700">Status: {session.status}</p>
           <p className="text-gray-700">Price: ${session.sessionPrice}</p>
           <p className="text-gray-700">No. of Students: {session.students.length}</p>
+          <div className="flex items-center mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+        <button
+          className="text-sm text-blue-500 hover:underline focus:outline-none"
+          onClick={() => {
+            const data = {
+              teacherId: session.teacher,
+              sessionId: session.sessionId,
+              sessionName: session.subject
+            }
+            setReviewPopUpData(data);
+            setReviewPopUp(true)
+          }}
+        >
+          <span className="font-semibold">Reviews</span>
+        </button>
+      </div>
           <div class="inline-flex rounded-md shadow-sm" role="group">
           <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-500 rounded-s-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
             Show Students
@@ -198,6 +229,11 @@ const TeacherSessionsPage = ({socket}) => {
   </div>
 </div>
 
+     {
+        reviewPopUp && (
+          <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData}/>
+        )
+      }
       {/* Students Popup */}
       {selectedSession && (
         <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
