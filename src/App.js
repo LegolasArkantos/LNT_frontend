@@ -43,7 +43,7 @@ import ShowCareerTeachers from "./pages/ShowCareerTeachers";
 import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
 
 
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 
 
