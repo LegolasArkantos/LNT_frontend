@@ -1,8 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 
 const TeacherProfilePage = () => {
   const profile = useSelector((state) => state.teacherProfile.value);
+  const [reviewPopUp, setReviewPopUp] = useState(false);
+  const [reviewPopUpData, setReviewPopUpData] = useState(null);
 
   return (
     <div class="">
@@ -24,11 +28,26 @@ const TeacherProfilePage = () => {
           <p className="ml-10 font-semibold">{profile.availableTimeSlots}</p>
           <p className="ml-10 font-semibold">{profile.rating} star</p>
           <p className="ml-10 font-semibold">{profile.personality}</p>
+          <p 
+            onClick={() => {
+              const data = {
+                teacherId: profile.profileID,
+                profilePage: true
+              }
+              setReviewPopUpData(data);
+              setReviewPopUp(true)
+            }}
+            className="ml-10 text-blue-700 cursor-pointer hover:underline font-semibold">Reviews</p>
         </div>
       </div>
       <p class="mb-4 text-m font-semibold text-teal-900 w-[1000px]">
         {profile.aboutMe}
       </p>
+      {
+        reviewPopUp && (
+          <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData}/>
+        )
+      }
     </div>
   );
 };
