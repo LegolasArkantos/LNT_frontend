@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import useAPIPrivte from "../hooks/useAPIPrivate";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 
 const StudentProfilePageSecondary = () => {
   const [profile, setProfile] = useState(null);
+  const [reviewPopUp, setReviewPopUp] = useState(false);
+  const [reviewPopUpData, setReviewPopUpData] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const apiPrivate = useAPIPrivte();
@@ -13,13 +16,13 @@ const StudentProfilePageSecondary = () => {
   
   const auth = useSelector((state) => state.auth.value);
   const otherRole = location.state.otherRole;
-  
+  const teacherId = location.state.teacherId; 
+  const studentId = location.state.studentId;
+
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const teacherId = location.state.teacherId; 
-        const studentId = location.state.studentId;
-        
+
         console.log(teacherId)
 
       if (auth.role === "Student") {
@@ -48,7 +51,7 @@ const StudentProfilePageSecondary = () => {
     };
 
     getProfile();
-  }, [location.state]); // Add location.state to the dependencies array
+  }, [location.state]); 
 
   const handleCreateChat = async () => {
     try {
@@ -151,11 +154,27 @@ const StudentProfilePageSecondary = () => {
               <p className="ml-10 font-semibold">{profile.subjectsTaught}</p>
               <p className="ml-10 font-semibold">{profile.availableTimeSlots}</p>
               <p className="ml-10 font-semibold">{profile.rating} star</p>
+              <p 
+               onClick={() => {
+                const data = {
+                  teacherId: teacherId,
+                  profilePage: true
+                }
+                setReviewPopUpData(data);
+                setReviewPopUp(true)
+              }}
+               className="ml-10 text-blue-700 cursor-pointer hover:underline font-semibold">Reviews</p>
             </div>
           </div>
           <p class="mb-4 text-m font-semibold text-teal-900 w-[1000px]">
             {profile.aboutMe}
           </p>
+
+          {
+           reviewPopUp && (
+            <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData}/>
+           )
+          }
         </div>
         ) 
       }
