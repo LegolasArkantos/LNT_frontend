@@ -28,7 +28,7 @@ const StudentHomePageNavBar = (props) => {
             <li>
               <Link
                 to="/student-home-page"
-                className={`block py-2 px-3   rounded md:bg-transparent  md:p-0  ${location.pathname.startsWith("/student-home-page") && !location.pathname.endsWith("/ai-career")  ? 'text-blue-700' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded md:bg-transparent md:p-0 ${location.pathname !== "/student-home-page/ai-career" ? 'text-blue-700' : 'text-gray-900'}`}
                 aria-current="page"
               >
                 Learn
@@ -36,7 +36,7 @@ const StudentHomePageNavBar = (props) => {
             </li>
             <li>
               <Link
-                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname == "/student-home-page/ai-career" ? 'text-blue-700' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/student-home-page/ai-career" || location.pathname === "/student-home-page/teacherCareers" || location.pathname === "/student-home-page/Counselors" ? 'text-blue-700' : 'text-gray-900'}`}
                 to="/student-home-page/ai-career"
               >
                 Career
