@@ -205,8 +205,8 @@ const TeacherSessionsPage = ({socket}) => {
           onClick={() => {
             const data = {
               teacherId: session.teacher,
-              sessionId: session.sessionId,
-              sessionName: session.subject
+              sessionName: session.subject,
+              profilePage: false
             }
             setReviewPopUpData(data);
             setReviewPopUp(true)
