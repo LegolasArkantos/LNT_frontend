@@ -22,6 +22,7 @@ const TeacherAssignmentsPage = () => {
   });
   const [quizSubmissions, setQuizSubmissions] = useState([]);
 
+  
   const location = useLocation();
   const navigate = useNavigate();
   const sessionId = location.state.sessionId;
@@ -111,7 +112,7 @@ const TeacherAssignmentsPage = () => {
   const addQuestion = () => {
     const newQuestion = {
       question: '',
-      options: [{ optionText: '' }, { optionText: '' }, { optionText: '' }, { optionText: '' }],
+      options: ['','','',''],
       correctAns: ''
     };
     
@@ -154,7 +155,7 @@ const TeacherAssignmentsPage = () => {
 
     const hasEmptyFields = createQuizFormData.questions.some(question =>
       question.question?.trim() === '' ||
-      question.options.some(option => option.optionText?.trim() === '') ||
+      question.options.some(option => option.trim() === '') ||
       question.correctAns === ''
     );
   
@@ -187,7 +188,7 @@ const TeacherAssignmentsPage = () => {
 
   const fetchQuizSubmissions = async (quizId) => {
     try {
-      apiPrivate.get(`quiz/get-quiz-submissions/${quizId}`).then((res) => {
+      await apiPrivate.get(`quiz/get-quiz-submissions/${quizId}`).then((res) => {
         if (res.status === 200) {
           setQuizSubmissions(res.data);
         }
@@ -198,6 +199,34 @@ const TeacherAssignmentsPage = () => {
     }
     
   }
+
+  const handleQuizUpload = async (e) => {
+    try {
+        const file = e.target.files[0];
+        console.log(file);
+
+        if (file) { 
+          const formData = new FormData();
+          formData.append('file', file);
+             await apiPrivate.post('quiz/upload-questions', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          })
+                .then((res) => {
+                    if (res.status === 200) {
+                      console.log(res.data)
+                      setCreateQuizFormData(prevState => ({
+                        ...prevState,
+                        questions: res.data
+                      }));
+                    }
+                });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
   
 
@@ -409,8 +438,18 @@ const TeacherAssignmentsPage = () => {
                   required
                 />
               </div>
+              <div className="flex flex-col ">
+                <label htmlFor="quiz-upload" className="block text-sm font-medium text-gray-900">Upload Quiz</label>
+                <input
+                  type="file"
+                  id="quiz-upload"
+                  name="quiz-upload"
+                  className="mt-1 w-[250px] border rounded-md"
+                  onChange={handleQuizUpload}
+                />
               </div>
-              <div className='overflow-x-scroll scroll scrollbar-hide flex p-2 space-x-8 w-[700px]' >
+              </div>
+              <div className='overflow-x-scroll scroll scrollbar-hide flex p-2 space-x-8 w-[880px]' >
                 {
                   createQuizFormData.questions.map((question,index) => (
                     <div className="max-w-lg my-8 p-2 bg-white shadow-md outline rounded-md">
@@ -427,7 +466,7 @@ const TeacherAssignmentsPage = () => {
                 <label className="text-lg font-semibold mr-2">{String.fromCharCode(65 + optionIndex)}.</label>
                 <input
                   type="text"
-                  value={option.optionText}
+                  value={option}
                   onChange={e => handleQuestionChange(index, 'options', { index: optionIndex, optionText: e.target.value })}
                   className="border rounded-md px-2 py-1 focus:outline-none"
                 />
