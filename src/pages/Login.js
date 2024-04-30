@@ -74,7 +74,7 @@ const Login = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-gray-50 border border-[#7179C6] text-gray-900 text-sm rounded-lg focus:ring-[#7179C6] focus:border-[#7179C6] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@gmail.com"
                 required
               />
@@ -93,21 +93,26 @@ const Login = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-gray-50 mb-5 border border-[#7179C6] text-gray-900 text-sm rounded-lg focus:ring-[#7179C6] focus:border-[#7179C6] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="•••••••••"
                 required
               />
-              <a href="signup" class="text-sm hover:underline cursor-pointer">
-                Dont have an account? Sign up
-              </a>
             </div>
             {error && <p className="text-red-500">{error}</p>} 
             <button
               type="submit"
-              class="text-white bg-teal-400 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="text-white bg-[#7179C6] hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-purple-500 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
             >
               Sign in
             </button>
+            <div className="mt-3 flex items-center">
+            <p className="text-gray-600">
+            Dont have an account?
+            </p>
+          <a href="signup" className="text-sm text-[#7179C6] ml-2 font-semibold hover:underline cursor-pointer">
+          Sign up
+            </a>
+          </div>
           </form>
         </div>
       </div>
