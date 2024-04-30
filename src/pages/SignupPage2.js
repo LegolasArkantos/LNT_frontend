@@ -3,14 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import logo from "../assets/l-t-high-resolution-logo-transparent.png";
 import lmage from "../assets/image-.png";
+import image from "../assets/signuppage2image.png"
 
 const SignUpPage2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [progress, setProgress] = useState(1);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [role, setRole] = useState("Teacher");
   const [educationalCredential, setEducationalCredential] = useState("");
   const [educationalLevel, setEducationalLevel] = useState("");
@@ -23,7 +22,7 @@ const SignUpPage2 = () => {
 const [teacherFileNames, setTeacherFileNames] = useState([]);
 
   // Extracting email and password data from location state
-  const { email, password } = location.state || {};
+  const { email, password, firstName, lastName } = location.state || {};
 
   const submit = (e) => {
     e.preventDefault();
@@ -115,12 +114,188 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
 
   return (
     <div className="  w-full bg-white rounded-lg min-h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
-      <div className="p-10">
+      
+      <div className="w-full z-20 h-full flex bg-[#7179C6] absolute inset-0">
+        <div className="w-2/5 h-full flex items-center justify-center">
+          <div className="flex-col">
+            <div className="flex items-center mb-10 justify-center">
+              <h className="text-3xl font-semibold text-white">
+                Step 2
+              </h>
+            </div>
+            <img src={image} class="w-85 h-70" />
+          </div>
+        
+        </div>
+      
+       </div>
+
+       <div className="w-full h-full z-30 flex absolute inset-0">
+    <div className="w-2/5 h-full">
+      
+    </div>
+    <div className=" w-3/5 rounded-tl-3xl rounded-bl-3xl h-full bg-white shadow-2xl">
+    <form className="max-w-sm mx-auto w-3/5 h-3/5 pt-5" onSubmit={submit}>
+              <div className="flex flex-col items-center mt-2">
+                <label htmlFor="imageUpload" className="cursor-pointer">
+                  {previewSource ? (
+                    <img
+                      src={previewSource}
+                      alt="Image"
+                      className="h-[100px] w-[100px] rounded-full text-gray-500 dark:text-gray-400 mb-2"
+                    />
+                  ) : (
+                    <img
+                      src={lmage}
+                      alt="Image"
+                      className="h-[100px] w-[100px] text-gray-500 dark:text-gray-400 mb-2"
+                    />
+                  )}
+                </label>
+                {/* <label
+                  htmlFor="imageUpload"
+                  className="cursor-pointer text-sm text-gray-700 dark:text-gray-300"
+                >
+                  Upload Image
+                </label> */}
+                <input
+                  type="file"
+                  id="imageUpload"
+                  className="hidden"
+                  onChange={handleFileInputChange}
+                  value={fileInputState}
+                />
+                {fileError && (
+                   <p className="text-red-500 text-xs mt-1">{fileError}</p>
+                )}
+              </div>
+
+          
+          
+          <div className="mb-5">
+                <label
+                  htmlFor="aboutMe"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  About Me
+                </label>
+                <textarea
+                  id="aboutMe"
+                  value={aboutMe}
+                  onChange={(e) => setAboutMe(e.target.value)}
+                  rows="4"
+                  className="bg-gray-50 border h-[70px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 resize-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Tell us about yourself..."
+                  required
+                />
+              </div>
+          <div className="mb-5">
+            <label
+              htmlFor="role"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Role
+            </label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            >
+              <option value="Teacher">Teacher</option>
+              <option value="Student">Student</option>
+            </select>
+          </div>
+          {role === "Teacher" ? (
+            <div>
+
+            
+            <div className="flex space-x-3 mb-5">
+              <div>
+
+              
+              <label
+                htmlFor="educationalCredential"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Educational Credential
+              </label>
+              <input
+                type="text"
+                id="educationalCredential"
+                value={educationalCredential}
+                onChange={(e) => setEducationalCredential(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="PhD-Computer Science"
+                required
+              />
+              </div>
+            
+            <div>
+            <label htmlFor="teacherFileInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Credential Files
+            </label>
+            <input
+              type="file"
+              multiple
+              onChange={handleTeacherFileInputChange}
+              id="teacherFileInput"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+            </div>
+
+          </div>
+          {teacherFileNames && teacherFileNames.length > 0 && (
+  <div className="mb-5">
+    {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+      Selected Files (Teacher):
+    </label> */}
+    <ul className="overflow-y-scroll scroll scrollbar-hide h-[50px] outline outline-[#7179C6] pl-2 pr-2 rounded">
+      {teacherFileNames.map((fileName, index) => (
+        <li key={index}>{fileName}</li>
+      ))}
+    </ul>
+  </div>
+)}
+          </div>
+            
+          ) : (
+            <div className="mb-5">
+              <label
+                htmlFor="educationalLevel"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Educational Level
+              </label>
+              <input
+                type="text"
+                id="educationalLevel"
+                value={educationalLevel}
+                onChange={(e) => setEducationalLevel(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="IBA-Undergraduate"
+                required
+              />
+            </div>
+          )}
+          <button
+            type="submit"
+            className="text-white bg-[#7179C6] hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-purple-500 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+          >
+            Next
+          </button>
+        </form>
+    
+    </div>
+</div>
+      
+      
+      {/* <div className="p-10">
         <div className="flex mb-10 items-center justify-center space-x-3 rtl:space-x-reverse">
           <img src={logo} alt="Logo" className="h-8" />
         </div>
 
-        {/* Progress Bar */}
         <div className="mb-5 relative pt-1 flex-col mb-2 items-center justify-between ">
           <ul className="flex relative pt-1">
             {[1, 2, 3].map((step) => (
@@ -134,9 +309,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
           </ul>
         </div>
 
-        {/* Form */}
         <form className="max-w-sm mx-auto pt-5" onSubmit={submit}>
-          {/* Upload Image Icon */}
               <div className="flex flex-col items-center mt-3">
                 <label htmlFor="imageUpload" className="cursor-pointer">
                   {previewSource ? (
@@ -159,54 +332,20 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
                 >
                   Upload Image
                 </label>
-                {/* Input for file upload */}
                 <input
                   type="file"
                   id="imageUpload"
                   className="hidden"
                   onChange={handleFileInputChange}
                   value={fileInputState}
-                  // Add event handlers for image upload if needed
                 />
                 {fileError && (
                    <p className="text-red-500 text-xs mt-1">{fileError}</p>
                 )}
               </div>
 
-          <div className="mb-5">
-            <label
-              htmlFor="firstName"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="John"
-              required
-            />
-          </div>
-          <div className="mb-5">
-            <label
-              htmlFor="lastName"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Doe"
-              required
-            />
-          </div>
+          
+          
           <div className="mb-5">
                 <label
                   htmlFor="aboutMe"
@@ -271,7 +410,6 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
               id="teacherFileInput"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
-            {/* Display selected file names for teacher */}
 {teacherFileNames && teacherFileNames.length > 0 && (
   <div className="mb-5">
     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -312,7 +450,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
             Next
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };
