@@ -135,6 +135,18 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
       
     </div>
     <div className=" w-3/5 rounded-tl-3xl rounded-bl-3xl h-full bg-white shadow-2xl">
+    <div className="mb-5 relative  p-5 flex-col mb-2 items-center justify-between ">
+          <ul className="flex relative ">
+            {[1, 2, 3].map((step) => (
+              <div
+                key={step}
+                className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
+                  progress >= step ? "bg-purple-400" : ""
+                }`}
+              ></div>
+            ))}
+          </ul>
+        </div>
     <form className="max-w-sm mx-auto w-3/5 h-3/5 pt-5" onSubmit={submit}>
               <div className="flex flex-col items-center mt-2">
                 <label htmlFor="imageUpload" className="cursor-pointer">
