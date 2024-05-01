@@ -3,10 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import { apiPrivate } from '../services/api';
 import Lottie from 'react-lottie';
 import loadingAnimation from '../assets/loading.json';
+
 const ShowCareerTeachers = () => {
   const navigate = useNavigate();
   const [careerTeachers, setCareerTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [joinStatus, setJoinStatus] = useState(null);
 
   useEffect(() => {
     const fetchCareerTeachers = async () => {
@@ -23,10 +25,25 @@ const ShowCareerTeachers = () => {
     fetchCareerTeachers();
   }, []);
 
-  const handleTeacherClick = (teacherId) => {
+  const handleTeacherClick = async (teacherId) => {
     console.log(`Clicked on teacher with ID: ${teacherId}`);
-    // Add logic to join career teacher session
+    try {
+      // Call the addCareerTeacher API
+      await apiPrivate.post('/career/addCareerTeacher', { careerTeacherId: teacherId });
+      // Set join status to 'success'
+      setJoinStatus('success');
+      // Optionally, you can navigate to a different page or perform any other action upon successful joining
+      console.log('Successfully joined career teacher');
+    } catch (error) {
+      // If teacher is already joined, set join status to 'alreadyJoined'
+      if (error.response && error.response.status === 400) {
+        setJoinStatus('alreadyJoined');
+      } else {
+        console.error('Error joining career teacher:', error);
+      }
+    }
   };
+  
 
   return (
     <div className="w-full h-screen/2 max-w-screen-xl bg-white rounded-lg shadow-lg p-6">
@@ -91,8 +108,15 @@ const ShowCareerTeachers = () => {
                   className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2"
                   onClick={() => handleTeacherClick(teacher._id)}
                 >
-                  View
+                  Join
                 </button>
+                {/* Render join status message */}
+                {joinStatus === 'success' && (
+                  <p className="text-green-500">Joined successfully!</p>
+                )}
+                {joinStatus === 'alreadyJoined' && (
+                  <p className="text-red-500">You have already joined this teacher!</p>
+                )}
               </div>
             </div>
           ))}
