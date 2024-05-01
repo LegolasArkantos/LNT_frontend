@@ -186,7 +186,7 @@ const SignUpPage3 = () => {
               <div
                 key={step}
                 className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
-                  progress >= step ? "bg-teal-400" : ""
+                  progress >= step ? "bg-purple-400" : ""
                 }`}
               ></div>
             ))}
