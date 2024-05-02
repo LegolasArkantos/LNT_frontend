@@ -52,7 +52,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
       reader.onloadend = () => {
         setTimeout(() => {
           // Navigate to the next page
-          navigate("/signup3", {
+          navigate("/personalityTestInformation", {
             state: {
               email,
               password,
@@ -113,7 +113,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
 
 
   return (
-    <div className="  w-full bg-white rounded-lg min-h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
+    <div className="  w-full bg-white rounded-lg h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
       
       <div className="w-full z-20 h-full flex bg-[#7179C6] absolute inset-0">
         <div className="w-2/5 h-full flex items-center justify-center">
@@ -134,7 +134,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
     <div className="w-2/5 h-full">
       
     </div>
-    <div className=" w-3/5 rounded-tl-3xl rounded-bl-3xl h-full bg-white shadow-2xl">
+    <div className=" w-3/5 h-full rounded-tl-3xl rounded-bl-3xl bg-white shadow-2xl">
     <div className="mb-5 relative  p-5 flex-col mb-2 items-center justify-between ">
           <ul className="flex relative ">
             {[1, 2, 3].map((step) => (
@@ -147,8 +147,9 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
             ))}
           </ul>
         </div>
-    <form className="max-w-sm mx-auto w-3/5 h-3/5 pt-5" onSubmit={submit}>
-              <div className="flex flex-col items-center mt-2">
+        <div className="flex items-center justify-center">
+    <form className="w-3/5 h-3/5 pt-5" onSubmit={submit}>
+              <div className="flex flex-col items-center">
                 <label htmlFor="imageUpload" className="cursor-pointer">
                   {previewSource ? (
                     <img
@@ -298,7 +299,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
             Next
           </button>
         </form>
-    
+        </div>
     </div>
 </div>
       
