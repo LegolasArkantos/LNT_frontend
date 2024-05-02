@@ -41,6 +41,7 @@ import QuizFeedbackPage from "./pages/QuizFeedbackPage";
 
 import ShowCareerTeachers from "./pages/ShowCareerTeachers";
 import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
+import PersonalityTestInformation from "./pages/PersonalityTestInformation";
 
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
@@ -59,6 +60,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUpPage1 />} />
         <Route path="/signup2" element={<SignUpPage2 />} />
+        <Route path="/personalityTestInformation" element={<PersonalityTestInformation/>} />
         <Route path="/signup3" element={<SignUpPage3 />} />
       </Route>
 
