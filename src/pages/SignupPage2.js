@@ -5,6 +5,7 @@ import logo from "../assets/l-t-high-resolution-logo-transparent.png";
 import lmage from "../assets/image-.png";
 import image from "../assets/signuppage2image.png"
 
+
 const SignUpPage2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -113,7 +114,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
 
 
   return (
-    <div className="  w-full bg-white rounded-lg h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
+    <div className="w-full bg-white rounded-lg h-full shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
       
       <div className="w-full z-20 h-full flex bg-[#7179C6] absolute inset-0">
         <div className="w-2/5 h-full flex items-center justify-center">
@@ -135,7 +136,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
       
     </div>
     <div className=" w-3/5 h-full rounded-tl-3xl rounded-bl-3xl bg-white shadow-2xl">
-    <div className="mb-5 relative  p-5 flex-col mb-2 items-center justify-between ">
+    <div className=" relative  p-5 flex-col items-center justify-between ">
           <ul className="flex relative ">
             {[1, 2, 3].map((step) => (
               <div
@@ -148,20 +149,20 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
           </ul>
         </div>
         <div className="flex items-center justify-center">
-    <form className="w-3/5 h-3/5 pt-5" onSubmit={submit}>
+    <form className="w-3/5 h-3/5 pt-2" onSubmit={submit}>
               <div className="flex flex-col items-center">
                 <label htmlFor="imageUpload" className="cursor-pointer">
                   {previewSource ? (
                     <img
                       src={previewSource}
                       alt="Image"
-                      className="h-[100px] w-[100px] rounded-full text-gray-500 dark:text-gray-400 mb-2"
+                      className="h-[100px] w-[100px] rounded-full text-gray-500 dark:text-gray-400 mb-5"
                     />
                   ) : (
                     <img
                       src={lmage}
                       alt="Image"
-                      className="h-[100px] w-[100px] text-gray-500 dark:text-gray-400 mb-2"
+                      className="h-[100px] w-[100px] text-gray-500 dark:text-gray-400 mb-5"
                     />
                   )}
                 </label>
@@ -185,7 +186,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
 
           
           
-          <div className="mb-5">
+          <div className="mb-3">
                 <label
                   htmlFor="aboutMe"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -202,7 +203,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
                   required
                 />
               </div>
-          <div className="mb-5">
+          <div className="mb-3">
             <label
               htmlFor="role"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -259,18 +260,15 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
             </div>
 
           </div>
-          {teacherFileNames && teacherFileNames.length > 0 && (
+          {/* {teacherFileNames && teacherFileNames.length > 0 && (
   <div className="mb-5">
-    {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-      Selected Files (Teacher):
-    </label> */}
     <ul className="overflow-y-scroll scroll scrollbar-hide h-[50px] outline outline-[#7179C6] pl-2 pr-2 rounded">
       {teacherFileNames.map((fileName, index) => (
         <li key={index}>{fileName}</li>
       ))}
     </ul>
   </div>
-)}
+)} */}
           </div>
             
           ) : (
