@@ -5,6 +5,16 @@ import image from "../assets/signuppage2image.png"
 import { api } from "../services/api";
 import { getStorage,ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '../services/firebase'
+import image1 from "../assets/pt1.png"
+import image2 from "../assets/pt2.png"
+import image3 from "../assets/pt3.png"
+import image4 from "../assets/pt4.png"
+import image5 from "../assets/pt5.png"
+import image6 from "../assets/pt6.png"
+import image7 from "../assets/pt7.png"
+import image8 from "../assets/pt8.png"
+import image9 from "../assets/pt9.png"
+import image10 from "../assets/pt10.png"
 
 // Initialize Firebase Storage
 const storage = getStorage(app);
@@ -101,6 +111,7 @@ const SignUpPage3 = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [personality, setPersonality] = useState(Array(questionList.length).fill(0));
   const [currentQuestionChecked, setCurrentQuestionChecked] = useState(false);
+  const imageArray = [image1,image2,image3,image4,image5,image6,image7,image8,image9,image10];
 
   const handleOptionChange = (questionIndex, optionIndex) => {
     const newPersonality = [...personality];
@@ -193,7 +204,11 @@ const SignUpPage3 = () => {
             Step 3
           </h>
         </div>
-        <img src={image} class="w-85 h-70" />
+        {imageArray.map((img,index) => (
+          <div key={index} className={`left-0 top-40 flex items-center justify-center ${index === currentQuestionIndex ? '' : 'hidden'}`}>
+            <img src={img} class="w-3/4 h-3/4" />
+          </div>
+        ))}
       </div>
     </div>
   </div>
