@@ -62,7 +62,7 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
               role,
               educationalCredential,
               educationalLevel,
-              profilePicture: reader.result,
+              profilePicture: selectedFile,
               aboutMe,
               teacherFiles,
               
@@ -74,10 +74,8 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
         console.error("AHHHHHHHH!!");
       };
     } else {
-      // Handle the case where no file is selected
       console.error("No file selected");
       setFileError("Please upload a profile picture.");
-      // You can show an error message or take other actions as needed
     }
   };
   const handleTeacherFileInputChange = (event) => {
