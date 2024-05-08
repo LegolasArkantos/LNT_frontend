@@ -122,7 +122,6 @@ const StudentProfilePageSecondary = () => {
           </div>
           <p className="ml-10 font-semibold">Student</p>
           <p className="ml-10 font-semibold">{profile.educationalLevel}</p>
-          <p className="ml-10 font-semibold">{profile.personality}</p>
         </div>
       </div>
       <p className="mb-4 text-m font-semibold text-teal-900 w-[1000px]">
