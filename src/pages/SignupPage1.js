@@ -53,7 +53,7 @@ const SignUpPage1 = () => {
   };
 
   return (
-    <div className="w-full flex bg-white rounded-lg h-screen shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
+    <div className="w-full flex bg-white rounded-lg h-full shadow dark:border dark:bg-gray-800 dark:border-gray-700 transition-all duration-1000 ease-in-out">
       <div className="w-full z-20 h-full flex bg-[#7179C6] absolute inset-0">
         <div className="w-2/5 h-full flex items-center justify-center">
           <div className="flex-col">
@@ -73,8 +73,19 @@ const SignUpPage1 = () => {
       
       </div>
     <div className=" w-3/5 rounded-tl-3xl rounded-bl-3xl h-full bg-white shadow-2xl">
-    
-    <form className="max-w-sm mx-auto w-3/5 h-3/5 mt-20 " onSubmit={submit}>
+    <div className="mb-5 relative p-5 flex-col mb-2 items-center justify-between ">
+          <ul className="flex relative ">
+            {[1, 2, 3].map((step) => (
+              <div
+                key={step}
+                className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
+                  progress >= step ? "bg-purple-400" : ""
+                }`}
+              ></div>
+            ))}
+          </ul>
+        </div>
+    <form className="max-w-sm mx-auto w-3/5 h-3/5 mt-12 " onSubmit={submit}>
     <h className="text-2xl font-bold">
           Create Account
         </h>
@@ -118,7 +129,7 @@ const SignUpPage1 = () => {
             />
             </div>
           </div>
-          <div className="mb-5">
+          <div className="mb-2">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
