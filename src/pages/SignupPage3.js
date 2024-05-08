@@ -44,6 +44,15 @@ const SignUpPage3 = () => {
     const uploadedFiles = await Promise.all(fileUploadPromises);
     console.log("Uploaded files:", uploadedFiles);
 
+    // Upload profile picture to Firebase Storage
+    const profileStorageRef = ref(storage, profilePicture.name);
+    await uploadBytes(profileStorageRef, profilePicture);
+    const profileDownloadURL = await getDownloadURL(profileStorageRef);
+    console.log("Profile Picture URL:", profileDownloadURL);
+   
+    
+
+
     const payload = {
       email,
       password,
@@ -53,9 +62,9 @@ const SignUpPage3 = () => {
       educationalCredential,
       educationalLevel,
       personality,
-      profilePicture,
+      profilePicture:profileDownloadURL,
       aboutMe,
-      credentialFiles: uploadedFiles, // Include credentialFiles in payload
+      credentialFiles: uploadedFiles, 
     };
 
     console.log("Payload:", payload);
