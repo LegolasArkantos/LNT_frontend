@@ -30,7 +30,7 @@ import StudentSubmissionPage from "./pages/StudentSubmissionPage";
 import VideoCallPage from "./pages/VideoCallPage";
 
 import VideoCallPage2 from "./pages/VideoCallPage2";
-
+import TeacherProgressAnalysis from "./pages/TeacherProgressAnalysis";
 import GradeSubmissions from "./pages/GradeSubmissions";
 import ProgressPage from "./pages/TeacherProgress";
 import TeacherCareerPage from "./pages/TeacherCareer";
@@ -81,6 +81,7 @@ function App() {
             <Route path="submissons" element={<GradeSubmissions />} />
             <Route path="career" element={<TeacherCareerPage />} />
             <Route path="careerSignup" element={<CareerSignupPage />} />
+            <Route path="analysis" element={<TeacherProgressAnalysis />} />
 
 
 
