@@ -4,7 +4,7 @@ import { setAuthValues } from "../features/auth";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import logo from '../assets/l-t-high-resolution-logo-transparent.png'
+import logo from '../assets/lntlogo-removebg-preview.png';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const Login = () => {
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Your email
+                Email
               </label>
               <input
                 type="email"
@@ -88,7 +88,7 @@ const Login = () => {
                 for="password"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Your password
+                Password
               </label>
               <input
                 type="password"
