@@ -136,8 +136,8 @@ const TeacherHomePageNavBar2 = (props) => {
   {/* Show notification count */}
   {notifications.length > 0 && (
     <text
-      x="17"
-      y="10"
+      x="17.5"
+      y="9.5"
       fontSize="10"
       fill="#ffffff"
       textAnchor="middle"
