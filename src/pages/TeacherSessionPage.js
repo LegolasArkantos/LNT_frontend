@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { apiPrivate } from '../services/api';
+import useApiPrivate from '../hooks/useAPIPrivate';
 import { useNavigate } from 'react-router-dom';
 import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 
@@ -27,7 +27,7 @@ const TeacherSessionsPage = ({socket}) => {
   });
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const navigate = useNavigate();
-
+  const apiPrivate = useApiPrivate();
 
   useEffect(() => {
     const getSessions = async () => {
@@ -144,8 +144,24 @@ const TeacherSessionsPage = ({socket}) => {
     navigate('/teacher-home-page/assignments', { state: { sessionId,subject} });
   };
 
-  const handleJoinVideoCall = (roomID) => {
-    navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher"}});
+  const handleJoinVideoCall = async (roomID) => {
+    try {
+      
+      await apiPrivate.post(`sessions/launch-session/${roomID}`).then((res) => {
+        console.log("HELLO Frontend")
+        console.log(res.status)
+        if (res.status === 200) {
+          navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher", purpose: "Session"}});
+        }
+      })
+    }
+    catch(error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        console.error("An error occurred:", error);
+      }
+    }
   }
 
   return (
