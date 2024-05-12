@@ -33,7 +33,7 @@ const TeacherSessionsPage = ({socket}) => {
     const getSessions = async () => {
       try {
         const response = await apiPrivate.get('teacher/myStudents');
-        setSessions(response.data.studentsData);
+        setSessions(response.data.sessions);
       } catch (error) {
         console.error(error);
       }
@@ -180,18 +180,18 @@ const TeacherSessionsPage = ({socket}) => {
     <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
       {/* Session Cards (Fetched Data) */}
       {sessions.map((session) => (
-        <div key={session.sessionId} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
+        <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
           
               <div className='flex justify-between'>
               <button
                 className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(session.sessionId,session.subject)}
+                onClick={() =>handleAssignmentClick(session._id,session.subject)}
               >
                 <h3 className="text-xl font-semibold mb-2">
                 {session.subject}
                 </h3>
               </button>
-              <div onClick={() => handleJoinVideoCall(session.sessionId)} className='hover:bg-teal-200 rounded-full'>
+              <div onClick={() => handleJoinVideoCall(session._id)} className='hover:bg-teal-200 rounded-full'>
               <svg className='cursor-pointer' width="40px" height="40px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#f01919" d="M8,12h22c2.2,0,4,1.8,4,4v16c0,2.2-1.8,4-4,4H8c-2.2,0-4-1.8-4-4V16C4,13.8,5.8,12,8,12z"></path> <polygon fill="#f52424" points="44,35 34,29 34,19 44,13"></polygon> </g></svg>
               </div>
               </div>
@@ -256,10 +256,10 @@ const TeacherSessionsPage = ({socket}) => {
           <div className="bg-white p-8 rounded">
             <h2 className="text-2xl font-bold mb-4">Students in Session {selectedSession.subject}</h2>
             {selectedSession.students.map((student) => (
-              <div key={student.studentId} className="mb-2">
+              <div key={student._id} className="mb-2">
                 <button
                     className="text-blue-500 hover:underline"
-                    onClick={() => handleTeacherClick(student.studentId)}
+                    onClick={() => handleTeacherClick(student._id)}
                   >
                 {`${student.firstName} ${student.lastName}`}
                 </button>
