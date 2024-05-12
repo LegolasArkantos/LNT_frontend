@@ -95,7 +95,7 @@ const GradeSubmissions = () => {
                 </div>
             </div>
             {selectedSubmission && (
-                <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
+                <div className="fixed z-30 top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
                     <div className="bg-white p-8 rounded-lg w-1/2">
                         <h2 className="text-lg font-semibold mb-4">Grade Submission</h2>
                         <div className="mb-4">
