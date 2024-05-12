@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { api } from "../services/api";
 import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
-import loadingAnimation from '../assets/delete.json'; // Adjust the path to your loading animation JSON file
-
+import loadingAnimation from '../assets/loading.json';
 const AICareerGenerator = () => {
   const [educationalBackground, setEducationalBackground] = useState('');
   const [workExperience, setWorkExperience] = useState('');
