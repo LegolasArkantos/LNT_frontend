@@ -28,7 +28,7 @@ const StudentHomePageNavBar = (props) => {
             <li>
               <Link
                 to="/student-home-page"
-                className={`block py-2 px-3 rounded md:bg-transparent md:p-0 ${location.pathname !== "/student-home-page/ai-career" ? 'text-blue-700' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded md:bg-transparent md:p-0 ${(location.pathname !== "/student-home-page/ai-career" && location.pathname !== "/student-home-page/teacherCareers" && location.pathname !== "/student-home-page/Counselors") ? 'text-blue-700' : 'text-gray-900'}`}
                 aria-current="page"
               >
                 Learn
