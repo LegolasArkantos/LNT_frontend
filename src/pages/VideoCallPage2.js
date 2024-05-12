@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import AgoraRTC from "agora-rtc-react";
+import useApiPrivate from '../hooks/useAPIPrivate';
 
 const VideoCallPage2 = () => {
 
@@ -19,7 +20,8 @@ const VideoCallPage2 = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {roomID, userType} = location.state;
+    const {roomID, userType, purpose} = location.state;
+    const apiPrivate = useApiPrivate();
 
     const profile = useSelector((state) => {
         if (userType === "Teacher"){
@@ -223,10 +225,46 @@ const VideoCallPage2 = () => {
         }
 
         if (userType === "Teacher") {
-            navigate('/teacher-home-page/sessions');
+            if (purpose === "Session") {
+                try {
+                    await apiPrivate.post(`sessions/end-session/${roomID}`).then((res) => {
+                      if (res.status === 200) {
+                        navigate('/teacher-home-page/sessions');
+                      }
+                    })
+                }
+                catch(error) {
+                    if (error.response && error.response.data) {
+                      alert(error.response.data.message);
+                    } else {
+                      console.error("An error occurred:", error);
+                    }
+                }
+            }
+            else {
+                try {
+                    await apiPrivate.post(`career/end-counselling/${roomID}`).then((res) => {
+                      if (res.status === 200) {
+                        navigate('/teacher-home-page/career');
+                      }
+                    })
+                }
+                catch(error) {
+                    if (error.response && error.response.data) {
+                      alert(error.response.data.message);
+                    } else {
+                      console.error("An error occurred:", error);
+                    }
+                }
+            }
         }
         else {
-            navigate('/student-home-page/sessions');
+            if (purpose === "Session") {
+                navigate('/student-home-page/sessions');
+            }
+            else {
+                navigate('/student-home-page/Counselors');
+            }
         }
         
     }

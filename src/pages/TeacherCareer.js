@@ -32,9 +32,24 @@ const TeacherCareerPage = () => {
     fetchCareerCounselingStatus();
   }, []);
 
-  const handleJoinVideoCall = () => {
-    const roomID = teacherCareerData._id;
-    navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher"}});
+  const handleJoinVideoCall = async () => {
+    try {
+      const roomID = teacherCareerData._id;
+      await apiPrivate.post(`career/launch-counselling/${roomID}`).then((res) => {
+        console.log("HELLO Frontend")
+        console.log(res.status)
+        if (res.status === 200) {
+          navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher", purpose: "Counselling"}});
+        }
+      })
+    }
+    catch(error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        console.error("An error occurred:", error);
+      }
+    }
   }
 
   return (
@@ -86,7 +101,7 @@ const TeacherCareerPage = () => {
                 </p>
               </div>
               <div className='p-3'>
-              <button onClick={() => handleJoinVideoCall()} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Join Video</button>
+              <button onClick={() => handleJoinVideoCall()} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Launch Counselling</button>
               </div>
             </div>
           ))}

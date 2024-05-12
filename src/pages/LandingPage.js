@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/l-t-high-resolution-logo-transparent.png';
+import logo from '../assets/lntlogo-removebg-preview.png';
 import image1 from "../assets/landingpageImage.png";
 import image2 from "../assets/studentStudyingLandingPage-removebg.png";
 
@@ -11,10 +11,10 @@ const LandingPage = () => {
     <div className="relative w-screen h-screen">
       <nav className="bg-white z-50 dark:bg-gray-900"> {/* Increased z-index value */}
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-3">
-          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+          <div className="flex w-1/5 items-center space-x-3 rtl:space-x-reverse">
             <img
               src={logo}
-              className="h-8"
+              className="h-15 w-full"
               alt="Logo"
             />
           </div>
