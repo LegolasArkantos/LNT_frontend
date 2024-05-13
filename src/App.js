@@ -44,6 +44,8 @@ import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
 import PersonalityTestInformation from "./pages/PersonalityTestInformation";
 import SessionOverviewPage from "./pages/SessionOverviewPage";
 
+import CreateSessionPage from "./pages/TeacherSessionCreate";
+import UpdateSessionPage from "./pages/TeacherSessionUpdate";
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
@@ -84,7 +86,9 @@ function App() {
             <Route path="careerSignup" element={<CareerSignupPage />} />
             <Route path="analysis" element={<TeacherProgressAnalysis />} />
 
-
+            
+            <Route path="create" element={<CreateSessionPage />} />
+            <Route path="update" element={<UpdateSessionPage />} />
 
 
 
