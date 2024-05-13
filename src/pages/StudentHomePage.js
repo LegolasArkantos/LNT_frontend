@@ -26,6 +26,7 @@ const StudentHomePage = () => {
       try {
         await apiPrivate.get("sessions/availableSessions").then((res) => {
           if (isMounted && res.status === 200) {
+            console.log(res.data.sessions)
             setAvailableSessions(res.data.sessions);
           }
         });
@@ -112,14 +113,22 @@ const StudentHomePage = () => {
     navigate('/student-home-page/StudentProfileSecondary', { state: { teacherId, otherRole: "Teacher" } });
   };
 
-  const joinSession = async (sessionId) => {
+  const viewSession = async (session) => {
     try {
-        const response = await apiPrivate.post(`/sessions/joinSession/${sessionId}`);
-        alert('Student joined session successfully');
+        navigate('/student-home-page/session-overview', {state: {session}});
     } catch (error) {
-        
+        console.log(error);
     }
 };
+
+// const joinSession = async (sessionId) => {
+//   try {
+//       const response = await apiPrivate.post(`/sessions/joinSession/${sessionId}`);
+//       alert('Student joined session successfully');
+//   } catch (error) {
+//       console.log(error);
+//   }
+// };
 
       
   
@@ -133,7 +142,7 @@ const StudentHomePage = () => {
       <SearchBar handleSearch={handleSearch} />
       <div className="mt-10">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
-          New Sessions:
+          Session Recommendations :
         </h1>
         <div className="flex items-center">
           <button className="hover:bg-teal-200 rounded-full" style={{ marginLeft: "-40px" }} onClick={() => slideLeft('slider1')}>
@@ -189,8 +198,8 @@ const StudentHomePage = () => {
         <span className="font-semibold">End:</span> {session.endTime}
       </p>
       <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-      onClick={() => joinSession(session._id)}>
-        Join
+      onClick={() => viewSession(session)}>
+        View
       </button>
     </div>
   </div>

@@ -210,7 +210,7 @@ const TeacherHomePage = () => {
 
     const interval = setInterval(() => {
         getPolls();
-    }, 2000); 
+    }, 10000); 
 
     return () => clearInterval(interval);
   }, []); 
