@@ -42,9 +42,9 @@ const Login = () => {
             if (decodedToken.role === "Admin") {
               navigate("/admin-dashboard");
             } else if (decodedToken.role === "Student") {
-              navigate("/home-page");
+              navigate("/student-home-page");
             } else {
-              navigate("/home-page");
+              navigate("/teacher-home-page");
             }
           }
         });
