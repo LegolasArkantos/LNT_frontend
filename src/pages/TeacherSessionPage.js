@@ -3,28 +3,11 @@ import useApiPrivate from '../hooks/useAPIPrivate';
 import { useNavigate } from 'react-router-dom';
 import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 
-const TeacherSessionsPage = ({socket}) => {
+const TeacherSessionsPage = ({ socket }) => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [reviewPopUp, setReviewPopUp] = useState(false);
   const [reviewPopUpData, setReviewPopUpData] = useState(null);
-  const [isCreateSessionPopupOpen, setIsCreateSessionPopupOpen] = useState(false);
-  const [isUpdateSessionPopupOpen, setIsUpdateSessionPopupOpen] = useState(false);
-  const [createSessionFormData, setCreateSessionFormData] = useState({
-    startTime: 'monday',
-    endTime: 'mondayS',
-    status: 'scheduled',
-    subject: '',
-    sessionPrice: '',
-  });
-  const [updateSessionFormData, setUpdateSessionFormData] = useState({
-    startTime: '',
-    endTime: '',
-    status: '',
-    paymentStatus: '',
-    subject: '',
-    sessionPrice: '',
-  });
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
@@ -50,112 +33,31 @@ const TeacherSessionsPage = ({socket}) => {
 
   const handleClosePopup = () => {
     setSelectedSession(null);
-    setIsCreateSessionPopupOpen(false);
-    setIsUpdateSessionPopupOpen(false);
-  };
-
-  const handleOpenCreateSessionPopup = () => {
-    setIsCreateSessionPopupOpen(true);
-  };
-
-  const handleOpenUpdateSessionPopup = (session) => {
-    setSelectedSessionId(session.sessionId);
-    setUpdateSessionFormData({
-      startTime: session.startTime,
-      endTime: session.endTime,
-      status: session.status,
-      paymentStatus: session.paymentStatus,
-      subject: session.subject,
-      sessionPrice: session.sessionPrice,
-    });
-    setIsUpdateSessionPopupOpen(true);
-  };
-
-  const handleCreateSessionFormChange = (e) => {
-    setCreateSessionFormData((prevFormData) => ({
-      ...prevFormData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleUpdateSessionFormChange = (e) => {
-    setUpdateSessionFormData((prevFormData) => ({
-      ...prevFormData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleCreateSessionSubmit = async (e) => {
-    e.preventDefault();
-
-    // Combine day, hour, and minute for startTime and endTime
-    const startTime = `${createSessionFormData.day} ${createSessionFormData.hour}:${createSessionFormData.minute}`;
-    const endTime = `${createSessionFormData.day} ${createSessionFormData.endHour}:${createSessionFormData.endMinute}`;
-
-    try {
-      await apiPrivate.post('/sessions/create', { ...createSessionFormData, startTime, endTime });
-
-      setCreateSessionFormData({
-        startTime: '',
-        endTime: '',
-        status: 'scheduled',
-        subject: '',
-        sessionPrice: '',
-        day: 'monday', 
-        hour: '00', 
-        minute: '00', 
-        endHour: '00', 
-        endMinute: '00', 
-      });
-      // Refresh sessions after creating a new session
-      const response = await apiPrivate.get('teacher/myStudents');
-      setSessions(response.data.studentsData);
-
-      // Close the popup after successful submission
-      setIsCreateSessionPopupOpen(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleUpdateSessionSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await apiPrivate.put(`/sessions/updateSession/${selectedSessionId}`, updateSessionFormData);
-      // Refresh sessions after updating the session
-      const response = await apiPrivate.get('teacher/myStudents');
-      setSessions(response.data.studentsData);
-
-      // Close the popup after successful submission
-      setIsUpdateSessionPopupOpen(false);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const handleTeacherClick = (studentId) => {
-    console.log("id "+studentId)
     navigate('/teacher-home-page/StudentProfileSecondary', { state: { studentId, otherRole: "Student" } });
   };
 
-  const handleAssignmentClick = (sessionId,subject) => {
-    console.log("id "+sessionId+subject)
-    navigate('/teacher-home-page/assignments', { state: { sessionId,subject} });
+  const handleAssignmentClick = (sessionId, subject) => {
+    navigate('/teacher-home-page/assignments', { state: { sessionId, subject } });
+  };
+
+  const handleUpdateClick = (session) => {
+    navigate('/teacher-home-page/update', { state: { session } });
   };
 
   const handleJoinVideoCall = async (roomID) => {
     try {
-      
       await apiPrivate.post(`sessions/launch-session/${roomID}`).then((res) => {
         console.log("HELLO Frontend")
         console.log(res.status)
         if (res.status === 200) {
-          navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher", purpose: "Session"}});
+          navigate('/teacher-home-page/live-session', { state: { roomID, userType: "Teacher", purpose: "Session" } });
         }
       })
     }
-    catch(error) {
+    catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message);
       } else {
@@ -164,88 +66,87 @@ const TeacherSessionsPage = ({socket}) => {
     }
   }
 
+
   return (
     <div className=" max-h-screen max-w-screen">
-     {/* Main Content */}
-<div className="p-8 flex  max-h-screen max-w-screen ">
-  {/* Sessions Container */}
-  <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
-    {/* Teacher Sessions */}
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-2xl font-bold">Teacher Sessions</h2>
-      <button onClick={handleOpenCreateSessionPopup} className="inline-flex items-center px-4 py-2 mt-2  text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ">
-        Create Session
-      </button>
-    </div>
-    <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
-      {/* Session Cards (Fetched Data) */}
-      {sessions.map((session) => (
-        <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
-          
-              <div className='flex justify-between'>
-              <button
-                className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(session._id,session.subject)}
-              >
-                <h3 className="text-xl font-semibold mb-2">
-                {session.subject}
-                </h3>
-              </button>
-              <div onClick={() => handleJoinVideoCall(session._id)} className='hover:bg-teal-200 rounded-full'>
-              <svg className='cursor-pointer' width="40px" height="40px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#f01919" d="M8,12h22c2.2,0,4,1.8,4,4v16c0,2.2-1.8,4-4,4H8c-2.2,0-4-1.8-4-4V16C4,13.8,5.8,12,8,12z"></path> <polygon fill="#f52424" points="44,35 34,29 34,19 44,13"></polygon> </g></svg>
-              </div>
-              </div>
-            
-          <p className="text-gray-700">Start Time: {session.startTime}</p>
-          <p className="text-gray-700">End Time: {session.endTime}</p>
-          <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
-          <p className="text-gray-700">Price: ${session.sessionPrice}</p>
-          <p className="text-gray-700">No. of Students: {session.students.length}</p>
-          <div className="flex items-center mb-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-        <button
-          className="text-sm text-blue-500 hover:underline focus:outline-none"
-          onClick={() => {
-            const data = {
-              teacherId: session.teacher,
-              sessionName: session.subject,
-              profilePage: false
-            }
-            setReviewPopUpData(data);
-            setReviewPopUp(true)
-          }}
-        >
-          <span className="font-semibold">Reviews</span>
-        </button>
-      </div>
-          <div class="inline-flex rounded-md shadow-sm" role="group">
-          <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-500 rounded-s-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            Show Students
-          </button>
-          <button onClick={() => handleOpenUpdateSessionPopup(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-green-500 rounded-e-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-                  Update Session
-                </button>
+      {/* Main Content */}
+      <div className="p-8 flex  max-h-screen max-w-screen ">
+        {/* Sessions Container */}
+        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
+          {/* Teacher Sessions */}
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold">Teacher Sessions</h2>
+            <button onClick={() => navigate('/teacher-home-page/create')} className="inline-flex items-center px-4 py-2 mt-2  text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ">
+              Create Session
+            </button>
+          </div>
+          <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
+            {/* Session Cards (Fetched Data) */}
+            {sessions.map((session) => (
+              <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
+                <div className='flex justify-between'>
+                  <button
+                    className="text-black-500 hover:underline"
+                    onClick={() => handleAssignmentClick(session._id, session.subject)}
+                  >
+                    <h3 className="text-xl font-semibold mb-2">
+                      {session.subject}
+                    </h3>
+                  </button>
+                  <div onClick={() => handleJoinVideoCall(session._id)} className='hover:bg-teal-200 rounded-full'>
+                    <svg className='cursor-pointer' width="40px" height="40px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#f01919" d="M8,12h22c2.2,0,4,1.8,4,4v16c0,2.2-1.8,4-4,4H8c-2.2,0-4-1.8-4-4V16C4,13.8,5.8,12,8,12z"></path> <polygon fill="#f52424" points="44,35 34,29 34,19 44,13"></polygon> </g></svg>
+                  </div>
                 </div>
+                <p className="text-gray-700">Start Time: {session.startTime}</p>
+                <p className="text-gray-700">End Time: {session.endTime}</p>
+                <p className="text-gray-700">Days: {session.day}</p>
+                <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
+                <p className="text-gray-700">Price: ${session.sessionPrice}</p>
+                <p className="text-gray-700">No. of Students: {session.students.length}</p>
+                <div className="flex items-center mb-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  <button
+                    className="text-sm text-blue-500 hover:underline focus:outline-none"
+                    onClick={() => {
+                      const data = {
+                        teacherId: session.teacher,
+                        sessionName: session.subject,
+                        profilePage: false
+                      }
+                      setReviewPopUpData(data);
+                      setReviewPopUp(true)
+                    }}
+                  >
+                    <span className="font-semibold">Reviews</span>
+                  </button>
+                </div>
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                  <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-500 rounded-s-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Show Students
+                  </button>
+                  <button onClick={() => handleUpdateClick(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-green-500 rounded-e-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                    Update Session
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
-
-     {
+      </div>
+      {
         reviewPopUp && (
           <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData}/>
         )
@@ -258,245 +159,16 @@ const TeacherSessionsPage = ({socket}) => {
             {selectedSession.students.map((student) => (
               <div key={student._id} className="mb-2">
                 <button
-                    className="text-blue-500 hover:underline"
-                    onClick={() => handleTeacherClick(student._id)}
-                  >
-                {`${student.firstName} ${student.lastName}`}
+                  className="text-blue-500 hover:underline"
+                  onClick={() => handleTeacherClick(student._id)}
+                >
+                  {`${student.firstName} ${student.lastName}`}
                 </button>
               </div>
             ))}
             <button onClick={handleClosePopup} className="text-blue-500 mt-4 underline">
               Close
             </button>
-          </div>
-        </div>
-      )}
-
-      {/* Create Session Popup */}
-      {isCreateSessionPopupOpen && (
-        <div className="fixed top-0 left-0 z-20 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8  h-[430px] rounded">
-            <h2 className="text-2xl font-bold mb-4">Create Session</h2>
-            <form onSubmit={handleCreateSessionSubmit}>
-              <div className="grid grid-cols-3 gap-4 mb-4">
-                <div className="mb-4">
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={createSessionFormData.subject}
-                    onChange={handleCreateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="sessionPrice" className="block text-sm font-medium text-gray-900">
-                    Session Price
-                  </label>
-                  <input
-                    type="text"
-                    id="sessionPrice"
-                    name="sessionPrice"
-                    value={createSessionFormData.sessionPrice}
-                    onChange={handleCreateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="day" className="block text-sm font-medium text-gray-900">
-                    Day
-                  </label>
-                  <select
-                    id="day"
-                    name="day"
-                    value={createSessionFormData.day}
-                    onChange={handleCreateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  >
-                    <option value="monday">Monday</option>
-                    <option value="tuesday">Tuesday</option>
-                    <option value="wednesday">Wednesday</option>
-                    <option value="thursday">Thursday</option>
-                    <option value="friday">Friday</option>
-                    <option value="saturday">Saturday</option>
-                    <option value="sunday">Sunday</option>
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="hour" className="block text-sm font-medium text-gray-900">
-                   Start Hour
-                  </label>
-                  <input
-                    type="number"
-                    id="hour"
-                    name="hour"
-                    value={createSessionFormData.hour}
-                    onChange={handleCreateSessionFormChange}
-                    min="0"
-                    max="24"
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="minute" className="block text-sm font-medium text-gray-900">
-                     Start Minute
-                  </label>
-                  <input
-                    type="number"
-                    id="minute"
-                    name="minute"
-                    value={createSessionFormData.minute}
-                    onChange={handleCreateSessionFormChange}
-                    min="0"
-                    max="59"
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="endHour" className="block text-sm font-medium text-gray-900">
-                    End Hour
-                  </label>
-                  <input
-                    type="number"
-                    id="endHour"
-                    name="endHour"
-                    value={createSessionFormData.endHour}
-                    onChange={handleCreateSessionFormChange}
-                    min="0"
-                    max="24"
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="endMinute" className="block text-sm font-medium text-gray-900">
-                    End Minute
-                  </label>
-                  <input
-                    type="number"
-                    id="endMinute"
-                    name="endMinute"
-                    value={createSessionFormData.endMinute}
-                    onChange={handleCreateSessionFormChange}
-                    min="0"
-                    max="59"
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex justify-end">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-auto">
-                  Submit
-                </button>
-                <button type="button" onClick={handleClosePopup} className="bg-gray-300 text-gray-800 px-4 py-2 rounded">
-                  Close
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      {/* Update Session Popup */}
-      {isUpdateSessionPopupOpen && (
-        <div className="fixed z-20 top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded">
-            <h2 className="text-2xl font-bold mb-4">Update Session</h2>
-            <form onSubmit={handleUpdateSessionSubmit}>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="mb-4">
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={updateSessionFormData.subject}
-                    onChange={handleUpdateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="sessionPrice" className="block text-sm font-medium text-gray-900">
-                    Session Price
-                  </label>
-                  <input
-                    type="text"
-                    id="sessionPrice"
-                    name="sessionPrice"
-                    value={updateSessionFormData.sessionPrice}
-                    onChange={handleUpdateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="mb-4">
-                  <label htmlFor="startTime" className="block text-sm font-medium text-gray-900">
-                    Start Time
-                  </label>
-                  <input
-                    type="text"
-                    id="startTime"
-                    name="startTime"
-                    value={updateSessionFormData.startTime}
-                    onChange={handleUpdateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="endTime" className="block text-sm font-medium text-gray-900">
-                    End Time
-                  </label>
-                  <input
-                    type="text"
-                    id="endTime"
-                    name="endTime"
-                    value={updateSessionFormData.endTime}
-                    onChange={handleUpdateSessionFormChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="mb-4">
-                <label htmlFor="status" className="block text-sm font-medium text-gray-900">
-                  Status
-                </label>
-                <select
-                  id="status"
-                  name="status"
-                  value={updateSessionFormData.status}
-                  onChange={handleUpdateSessionFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                >
-                  <option value="scheduled">Scheduled</option>
-                  <option value="completed">Completed</option>
-                  <option value="canceled">Canceled</option>
-                </select>
-              </div>
-              <div className="flex justify-end">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-auto">
-                  Submit
-                </button>
-                <button type="button" onClick={handleClosePopup} className="bg-gray-300 text-gray-800 px-4 py-2 rounded">
-                  Close
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}
