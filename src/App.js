@@ -42,6 +42,7 @@ import QuizFeedbackPage from "./pages/QuizFeedbackPage";
 import ShowCareerTeachers from "./pages/ShowCareerTeachers";
 import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
 import PersonalityTestInformation from "./pages/PersonalityTestInformation";
+import SessionOverviewPage from "./pages/SessionOverviewPage";
 
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
@@ -106,6 +107,7 @@ function App() {
             <Route path="quiz" element={<QuizPage />} />
             <Route path="teacherCareers" element={<ShowCareerTeachers />} />
             <Route path="Counselors" element={<SelectedCareerTeachers />} />
+            <Route path="session-overview" element={<SessionOverviewPage/>} />
 
 
             <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
