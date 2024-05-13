@@ -274,8 +274,8 @@ const TeacherSessionsPage = ({socket}) => {
 
       {/* Create Session Popup */}
       {isCreateSessionPopupOpen && (
-        <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 mt-[100px] h-[430px] rounded">
+        <div className="fixed top-0 left-0 z-20 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8  h-[430px] rounded">
             <h2 className="text-2xl font-bold mb-4">Create Session</h2>
             <form onSubmit={handleCreateSessionSubmit}>
               <div className="grid grid-cols-3 gap-4 mb-4">
@@ -407,8 +407,8 @@ const TeacherSessionsPage = ({socket}) => {
       )}
       {/* Update Session Popup */}
       {isUpdateSessionPopupOpen && (
-        <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 mt-[100px] rounded">
+        <div className="fixed z-20 top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded">
             <h2 className="text-2xl font-bold mb-4">Update Session</h2>
             <form onSubmit={handleUpdateSessionSubmit}>
               <div className="grid grid-cols-2 gap-4 mb-4">
