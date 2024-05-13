@@ -115,7 +115,7 @@ const StudentHomePage = () => {
 
   const viewSession = async (session) => {
     try {
-        navigate('/student-home-page/session-overview', {state: {session}});
+        navigate('/student-home-page/session-overview', {state: {session, enrolled: false}});
     } catch (error) {
         console.log(error);
     }

@@ -22,7 +22,6 @@ const StudentHomePageLayout = () => {
       if (response.status === 200) {
         dispatch(removeAuthValues());
         dispatch(removeStudentProfile());
-        window.location.replace('/');
       }
       console.log(response);
     } catch (error) {
