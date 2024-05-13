@@ -21,6 +21,7 @@ const TeacherHomePageLayout = () => {
       if (response.status === 200) {
         dispatch(removeAuthValues());
         dispatch(removeTeacherProfile());
+        window.location.replace('/');
       }
       console.log(response);
     } catch (error) {
