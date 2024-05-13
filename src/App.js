@@ -43,7 +43,7 @@ import ShowCareerTeachers from "./pages/ShowCareerTeachers";
 import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
 import PersonalityTestInformation from "./pages/PersonalityTestInformation";
 import SessionOverviewPage from "./pages/SessionOverviewPage";
-
+import QuizProgress from "./pages/TeacherProgressQuiz";
 import CreateSessionPage from "./pages/TeacherSessionCreate";
 import UpdateSessionPage from "./pages/TeacherSessionUpdate";
 
@@ -85,6 +85,7 @@ function App() {
             <Route path="career" element={<TeacherCareerPage />} />
             <Route path="careerSignup" element={<CareerSignupPage />} />
             <Route path="analysis" element={<TeacherProgressAnalysis />} />
+            <Route path="Quiz" element={<QuizProgress />} />
 
             
             <Route path="create" element={<CreateSessionPage />} />

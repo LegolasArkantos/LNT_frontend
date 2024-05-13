@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import Lottie from 'react-lottie';
 import loadingAnimation from '../assets/loading.json';
+import { useNavigate } from "react-router-dom";
+
 
 const TeacherProgressAnalysis = () => {
   const [analysisText, setAnalysisText] = useState('');
   const [loading, setLoading] = useState(true); 
+  const navigate = useNavigate();
 
   const fetchAnalysis = async () => {
     try {
@@ -35,13 +38,12 @@ const TeacherProgressAnalysis = () => {
             <div className="mb-4">
               {/* Navigation buttons */}
               <div class="inline-flex rounded-md shadow-sm" role="group">
-              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">Assignment</button>
-              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">Quizzes</button>
-              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"  >Analysis</button>
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress')}>Assignment</button>
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/Quiz')}>Quizzes</button>
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/analysis')} >Analysis</button>
             </div>
             </div>
             <h4 className="font-bold mt-4">Analysis</h4>
-            {/* Conditionally render the loading animation or the analysis text */}
             {loading? (
               <div className="mt-6 flex justify-center">
                 <Lottie
