@@ -115,7 +115,7 @@ const StudentHomePage = () => {
 
   const viewSession = async (session) => {
     try {
-        navigate('/student-home-page/session-overview', {state: {session}});
+        navigate('/student-home-page/session-overview', {state: {session, enrolled: false}});
     } catch (error) {
         console.log(error);
     }
@@ -155,13 +155,13 @@ const StudentHomePage = () => {
             availableSessions.map((session, index) => (
               <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
-    <a href="#">
+    {/* <a href="#">
       <img
         className="rounded-t-lg w-full"
         src="/docs/images/blog/image-1.jpg"
         alt=""
       />
-    </a>
+    </a> */}
     <div className="p-5">
       <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
         {session.subject}
@@ -186,7 +186,7 @@ const StudentHomePage = () => {
         </svg>
         <button
           className="text-sm text-blue-500 hover:underline focus:outline-none"
-          onClick={() => handleTeacherClick(session.teacher)}
+          onClick={() => handleTeacherClick(session.teacher._id)}
         >
           <span className="font-semibold">Teacher:</span> {session.teacherName}
         </button>
