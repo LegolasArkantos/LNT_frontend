@@ -43,10 +43,15 @@ import ShowCareerTeachers from "./pages/ShowCareerTeachers";
 import SelectedCareerTeachers from "./pages/SelectedCareerTeachers";
 import PersonalityTestInformation from "./pages/PersonalityTestInformation";
 import SessionOverviewPage from "./pages/SessionOverviewPage";
-
+import QuizProgress from "./pages/TeacherProgressQuiz";
 import CreateSessionPage from "./pages/TeacherSessionCreate";
 import UpdateSessionPage from "./pages/TeacherSessionUpdate";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+
+import StudentProgressAnalysis from "./pages/StudentProgressAnalysis";
+import StudentAssignmentProgress from "./pages/StudentProgressAssignment";
+import StudentQuizProgress from "./pages/StudentProgressQuiz";
+
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
@@ -87,6 +92,7 @@ function App() {
             <Route path="career" element={<TeacherCareerPage />} />
             <Route path="careerSignup" element={<CareerSignupPage />} />
             <Route path="analysis" element={<TeacherProgressAnalysis />} />
+            <Route path="Quiz" element={<QuizProgress />} />
 
             
             <Route path="create" element={<CreateSessionPage />} />
@@ -114,6 +120,9 @@ function App() {
             <Route path="teacherCareers" element={<ShowCareerTeachers />} />
             <Route path="Counselors" element={<SelectedCareerTeachers />} />
             <Route path="session-overview" element={<SessionOverviewPage/>} />
+            <Route path="assignment" element={<StudentAssignmentProgress/>} />
+            <Route path="analysis" element={<StudentProgressAnalysis/>} />
+            <Route path="ProgressQuiz" element={<StudentQuizProgress/>} />
 
 
             <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
