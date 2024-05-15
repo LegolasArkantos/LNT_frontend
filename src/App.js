@@ -47,6 +47,9 @@ import QuizProgress from "./pages/TeacherProgressQuiz";
 import CreateSessionPage from "./pages/TeacherSessionCreate";
 import UpdateSessionPage from "./pages/TeacherSessionUpdate";
 
+import StudentProgressAnalysis from "./pages/StudentProgressAnalysis";
+import StudentAssignmentProgress from "./pages/StudentProgressAssignment";
+
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 
@@ -113,6 +116,8 @@ function App() {
             <Route path="teacherCareers" element={<ShowCareerTeachers />} />
             <Route path="Counselors" element={<SelectedCareerTeachers />} />
             <Route path="session-overview" element={<SessionOverviewPage/>} />
+            <Route path="assignment" element={<StudentAssignmentProgress/>} />
+            <Route path="analysis" element={<StudentProgressAnalysis/>} />
 
 
             <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
