@@ -86,14 +86,14 @@ const StudentHomePageNavBar2 = (props) => {
           </li>
           <li>
             <Link
-              to="progress"
+              to="assignment"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
-                location.pathname === "/student-home-page/progress"
+                location.pathname === "/student-home-page/assignment"
                   ? "text-teal-500 underline"
                   : "hover:text-teal-500"
               }`}
             >
-              <span className="ml-3 text-xl font-bold">Statistics</span>
+              <span className="ml-3 text-xl font-bold">Progress</span>
             </Link>
           </li>
         </ul>
