@@ -51,8 +51,6 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import StudentProgressAnalysis from "./pages/StudentProgressAnalysis";
 import StudentAssignmentProgress from "./pages/StudentProgressAssignment";
 import StudentQuizProgress from "./pages/StudentProgressQuiz";
-
-
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 
