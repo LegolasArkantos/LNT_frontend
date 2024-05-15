@@ -46,6 +46,7 @@ import SessionOverviewPage from "./pages/SessionOverviewPage";
 import QuizProgress from "./pages/TeacherProgressQuiz";
 import CreateSessionPage from "./pages/TeacherSessionCreate";
 import UpdateSessionPage from "./pages/TeacherSessionUpdate";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 import StudentProgressAnalysis from "./pages/StudentProgressAnalysis";
 import StudentAssignmentProgress from "./pages/StudentProgressAssignment";
@@ -68,6 +69,7 @@ function App() {
         <Route path="/signup2" element={<SignUpPage2 />} />
         <Route path="/personalityTestInformation" element={<PersonalityTestInformation/>} />
         <Route path="/signup3" element={<SignUpPage3 />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
       </Route>
 
       <Route element={<PersistentLogin />}>
