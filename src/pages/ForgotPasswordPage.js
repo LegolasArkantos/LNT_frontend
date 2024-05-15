@@ -10,6 +10,7 @@ const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [passwordResetLink, setPasswordResetLink] = useState("");
 
     const navigate = useNavigate();
 
@@ -20,8 +21,8 @@ const ForgotPasswordPage = () => {
           const lowercasedEmail = email.toLowerCase()
           await api.post("auth/forgot-password", {email: lowercasedEmail}).then((res) => {
             if (res.status === 200) {
-                alert("Password Reset Email has been sent to the given email");
-                setLoading(false);
+                setPasswordResetLink(res.data);
+                setLoading(false)
             }
           })
         } catch (error) {
@@ -62,6 +63,12 @@ const ForgotPasswordPage = () => {
             <div className="flex justify-end mb-3">
             </div>
             {error && <p className="text-red-500">{error}</p>} 
+            { passwordResetLink !== "" 
+             && (
+              <div className='mb-4'>
+              <p>Click the link below to reset your password:</p>
+              <a className='hover:underline text-blue-800' href={passwordResetLink}>Reset Password</a>
+              </div>)}
             {
               loading 
               ? (
