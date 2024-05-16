@@ -10,7 +10,6 @@ const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [passwordResetLink, setPasswordResetLink] = useState("");
 
     const navigate = useNavigate();
 
@@ -21,8 +20,8 @@ const ForgotPasswordPage = () => {
           const lowercasedEmail = email.toLowerCase()
           await api.post("auth/forgot-password", {email: lowercasedEmail}).then((res) => {
             if (res.status === 200) {
-                setPasswordResetLink(res.data);
-                setLoading(false)
+              alert(res.data.message);
+              setLoading(false)
             }
           })
         } catch (error) {
@@ -60,15 +59,9 @@ const ForgotPasswordPage = () => {
                 required
               />
             </div>
-            <div className="flex justify-end mb-3">
+            <div className="flex justify-end mb-2">
             </div>
             {error && <p className="text-red-500">{error}</p>} 
-            { passwordResetLink !== "" 
-             && (
-              <div className='mb-4'>
-              <p>Click the link below to reset your password:</p>
-              <a className='hover:underline text-blue-800' href={passwordResetLink}>Reset Password</a>
-              </div>)}
             {
               loading 
               ? (
@@ -89,6 +82,9 @@ Loading...
             </button>
               )
             }
+            <p class="text-xs text-gray-600 mt-3">
+              Note: The email might be in your spam folder. Please check and mark it as not spam to ensure future emails are delivered to your inbox.
+              </p>
             
           </form>
         </div>
