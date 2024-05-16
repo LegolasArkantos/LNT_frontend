@@ -20,8 +20,8 @@ const ForgotPasswordPage = () => {
           const lowercasedEmail = email.toLowerCase()
           await api.post("auth/forgot-password", {email: lowercasedEmail}).then((res) => {
             if (res.status === 200) {
-                alert("Password Reset Email has been sent to the given email");
-                setLoading(false);
+              alert(res.data.message);
+              setLoading(false)
             }
           })
         } catch (error) {
@@ -59,7 +59,7 @@ const ForgotPasswordPage = () => {
                 required
               />
             </div>
-            <div className="flex justify-end mb-3">
+            <div className="flex justify-end mb-2">
             </div>
             {error && <p className="text-red-500">{error}</p>} 
             {
@@ -82,6 +82,9 @@ Loading...
             </button>
               )
             }
+            <p class="text-xs text-gray-600 mt-3">
+              Note: The email might be in your spam folder. Please check and mark it as not spam to ensure future emails are delivered to your inbox.
+              </p>
             
           </form>
         </div>
