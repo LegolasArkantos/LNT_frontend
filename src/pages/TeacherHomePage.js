@@ -7,6 +7,7 @@ const TeacherHomePage = () => {
   const [notes, setNotes] = useState([]);
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
+  const [category, setCategory] = useState();
   const [showPopup, setShowPopup] = useState(false);
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [title, setTitle] = useState("");
@@ -28,6 +29,7 @@ const TeacherHomePage = () => {
         const filteredOptions = options.filter((option) => option.option !== "");
           const pollData = {
             question: question,
+            category: category,
             options: filteredOptions
           }
      
@@ -250,6 +252,14 @@ const TeacherHomePage = () => {
                 className="border border-gray-300 p-2 mr-2 rounded-md"
                 required
               />
+              <input
+                type="text"
+                placeholder="Enter Category of the poll"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="border border-gray-300 p-2 mr-2 rounded-md"
+                required
+              />
               <ul className="flex-col space-y-3">
                 {options.map((option, index) => (
                   <li>
@@ -303,7 +313,10 @@ const TeacherHomePage = () => {
   {polls.length !== 0 ? (
     polls.map((poll, index) => (
       <li key={index} className="flex flex-col justify-between mb-4 ml-2 mt-2 outline outline-teal-800 rounded p-3 w-[300px]">
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <div className="flex bg-[#d8b4fe] p-2 rounded-full">
+            <p className="text-purple-800 text-xs">{poll.category}</p>
+          </div>
           <div onClick={() => handlePollDelete(poll._id)} className="hover:bg-blue-100 rounded-full w-fit">
             <svg className="cursor-pointer" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
