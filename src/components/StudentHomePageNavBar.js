@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 const StudentHomePageNavBar = (props) => {
   // const [careerClicked, setCareerClicked] = useState(false);
-
+  const [isHovered, setIsHovered] = useState(false);
+  const [career, setCareer] = useState(props.career);
   // const handleCareerClick = () => {
   //   setCareerClicked(true);
   //   navigate("/student-home-page/ai-career"); // Using navigate to go to the career page
   // };
 
   const location = useLocation();
+
 
   return (
     <nav className="top-0 z-20 fixed w-full bg-teal-300 border-gray-200 dark:bg-gray-900">
@@ -24,11 +26,11 @@ const StudentHomePageNavBar = (props) => {
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-user"
         >
-          <ul className="flex flex-col text-xl font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-teal-300 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-teal-300 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex  text-xl font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-teal-300 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-teal-300 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
                 to="/student-home-page"
-                className={`block py-2 px-3 rounded md:bg-transparent md:p-0 ${(location.pathname !== "/student-home-page/ai-career" && location.pathname !== "/student-home-page/teacherCareers" && location.pathname !== "/student-home-page/Counselors") ? 'text-blue-700' : 'text-gray-900'}`}
+                className={`block py-2 px-3 rounded md:bg-transparent md:p-0 ${(location.pathname !== "/student-career-page/ai-career" && location.pathname !== "/student-career-page/teacherCareers" && location.pathname !== "/student-career-page/Counselors") ? 'text-blue-700' : 'text-gray-900'}`}
                 aria-current="page"
               >
                 Learn
@@ -36,15 +38,16 @@ const StudentHomePageNavBar = (props) => {
             </li>
             <li>
               <Link
-                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/student-home-page/ai-career" || location.pathname === "/student-home-page/teacherCareers" || location.pathname === "/student-home-page/Counselors" ? 'text-blue-700' : 'text-gray-900'}`}
-                to="/student-home-page/ai-career"
+                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/student-career-page/ai-career" || location.pathname === "/student-career-page/teacherCareers" || location.pathname === "/student-career-page/Counselors" ? 'text-blue-700' : 'text-gray-900'}`}
+                to="/student-career-page/ai-career"
+                // onClick={() => setCareer(true)}
               >
                 Career
               </Link>
             </li>
             <li className="">
               <Link
-                to="my-profile"
+                to="/student-home-page/my-profile"
                 className="flex py-2 px-3 text-gray-900 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 <img
@@ -57,6 +60,38 @@ const StudentHomePageNavBar = (props) => {
                 </div>
               </Link>
             </li>
+            {
+              career
+              && (
+                <li>
+            <button
+          onClick={props.handleLogOut}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div className="rounded-lg">
+            <svg
+              fill={isHovered ? "#115e59" : "#000000"}
+              width="25px"
+              height="25px"
+              viewBox="0 0 20 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path>
+              </g>
+            </svg>
+          </div>
+        </button>
+            </li>
+              )
+            }
           </ul>
         </div>
       </div>
