@@ -22,7 +22,7 @@ const TeacherCareerPage = () => {
           const studentsResponse = await apiPrivate.get(`/career/getCareerTeacherStudents/${careerDataResponse.data._id}`);
           setStudents(studentsResponse.data.students);
         } else {
-          navigate('/teacher-home-page/careerSignup');
+          navigate('/teacher-career-page/careerSignup');
         }
       } catch (error) {
         console.error('Error fetching career counseling status:', error);

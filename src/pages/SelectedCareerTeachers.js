@@ -32,9 +32,9 @@ const SelectedCareerTeachers = () => {
     <div className="w-full h-screen/2 max-w-screen-xl bg-white rounded-lg shadow-lg p-6">
       {/* Navigation buttons */}
       <div className="mb-5 text-center mx-auto rounded-md shadow-sm" role="group">
-        <Link to="/student-home-page/ai-career" className="bg-teal-300 text-white py-2 px-4 rounded-l-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">AI Career</Link>
-        <Link to="/student-home-page/teacherCareers" className="bg-teal-300 text-white py-2 px-4 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Career Teachers</Link>
-        <Link to="/student-home-page/Counselors" className="bg-teal-300 text-white py-2 px-4 rounded-r-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        <Link to="/student-career-page/ai-career" className="bg-teal-300 text-white py-2 px-4 rounded-l-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">AI Career</Link>
+        <Link to="/student-career-page/teacherCareers" className="bg-teal-300 text-white py-2 px-4 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Career Teachers</Link>
+        <Link to="/student-career-page/Counselors" className="bg-teal-300 text-white py-2 px-4 rounded-r-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
         <span className="border-b-2 border-red-500">Career Students</span>
         </Link>
       </div>
