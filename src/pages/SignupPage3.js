@@ -255,7 +255,7 @@ const SignUpPage3 = () => {
               </div>
               <div className="flex flex-col space-y-3">
                 {questionObj.options.map((option, optionIndex) => (
-                  <label key={optionIndex} className="flex shadow w-full h-[50px] bg-[#F4F3F6] rounded p-1 items-center">
+                  <label key={optionIndex} className="flex shadow w-full cursor-pointer h-[50px] bg-[#F4F3F6] rounded p-1 items-center">
                     <input
                       type="radio"
                       name={`question${questionIndex}`}
