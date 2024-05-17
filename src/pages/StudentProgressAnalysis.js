@@ -3,7 +3,7 @@ import { apiPrivate } from '../services/api';
 import Lottie from 'react-lottie';
 import loadingAnimation from '../assets/loading.json';
 import { useNavigate } from "react-router-dom";
-
+import ReactPlayer from 'react-player';
 
 const StudentProgressAnalysis = () => {
   const [analysisText, setAnalysisText] = useState('');
@@ -25,6 +25,33 @@ const StudentProgressAnalysis = () => {
     fetchAnalysis();
   }, []);
 
+  const renderContent = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+  
+    return parts.map((part, index) => {
+      if (urlRegex.test(part)) {
+        if (ReactPlayer.canPlay(part)) {
+          return (
+            <div key={index} style={{ width: '50vw', height: '50vh', margin: 'auto' }}>
+              <ReactPlayer
+                url={part}
+                width="100%"
+                height="100%"
+              />
+            </div>
+          );
+        }
+        return (
+          <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   const sanitizeText = (text) => {
     // Replace all '*' characters with an empty string
     return text.replace(/\*/g, '');
@@ -37,14 +64,14 @@ const StudentProgressAnalysis = () => {
           <div className="card-body">
             <div className="mb-4">
               {/* Navigation buttons */}
-              <div class="inline-flex rounded-md shadow-sm" role="group">
-              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/student-home-page/assignment')}>Assignment</button>
-              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/ProgressQuiz')}>Quizzes</button>
-              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-700  hover:bg-blue-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/analysis')} >Analysis</button>
-            </div>
+              <div className="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-teal-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/assignment')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:z-10 focus:ring-2 focus:ring-teal-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/teacher-home-page/ProgressQuiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-teal-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/teacher-home-page/analysis')}>Analysis</button>
+              </div>
             </div>
             <h4 className="font-bold mt-4">Analysis</h4>
-            {loading? (
+            {loading ? (
               <div className="mt-6 flex justify-center">
                 <Lottie
                   options={{
@@ -60,9 +87,9 @@ const StudentProgressAnalysis = () => {
                 />
               </div>
             ) : (
-              <p className="font-thin" style={{ whiteSpace: 'pre-wrap' }}>
-                {sanitizeText(analysisText)}
-              </p>
+              <div className="font-thin" style={{ whiteSpace: 'pre-wrap' }}>
+                {renderContent(sanitizeText(analysisText))}
+              </div>
             )}
           </div>
         </div>
