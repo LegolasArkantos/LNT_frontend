@@ -47,15 +47,15 @@ const TeacherHomePageNavBar2 = (props) => {
 
   return (
     <nav className="fixed top-0 w-screen z-20">
-      <div className="bg-teal-100 flex items-center justify-between dark:bg-gray-800">
+      <div className="bg-[#7179C6] flex items-center justify-between dark:bg-gray-800">
         <ul className="relative flex font-medium w-screen">
           <li>
             <Link
               to="/teacher-home-page"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
                 location.pathname === "/teacher-home-page"
-                  ? "text-teal-500 underline"
-                  : "hover:text-teal-500"
+                  ? "text-white underline"
+                  : "hover:text-white"
               }`}
             >
               <span className="ml-3 text-xl font-bold">Home</span>
@@ -66,8 +66,8 @@ const TeacherHomePageNavBar2 = (props) => {
               to="sessions"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
                 location.pathname === "/teacher-home-page/sessions"
-                  ? "text-teal-500 underline"
-                  : "hover:text-teal-500"
+                  ? "text-white underline"
+                  : "hover:text-white"
               }`}
             >
               <span className="ml-3 text-xl font-bold">Sessions</span>
@@ -78,8 +78,8 @@ const TeacherHomePageNavBar2 = (props) => {
               to="chats"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
                 location.pathname === "/teacher-home-page/chats"
-                  ? "text-teal-500 underline"
-                  : "hover:text-teal-500"
+                  ? "text-white underline"
+                  : "hover:text-white"
               }`}
             >
               <span className="ml-3 text-xl font-bold">Chats</span>
@@ -90,8 +90,8 @@ const TeacherHomePageNavBar2 = (props) => {
               to="progress"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
                 location.pathname === "/teacher-home-page/progress"
-                  ? "text-teal-500 underline"
-                  : "hover:text-teal-500"
+                  ? "text-white underline"
+                  : "hover:text-white"
               }`}
             >
               <span className="ml-3 text-xl font-bold">Statistics</span>
@@ -154,7 +154,7 @@ const TeacherHomePageNavBar2 = (props) => {
         >
           <div className="scale-50 mr-3 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
             <svg
-              fill={isHovered ? "#4fd1c5" : "#000000"}
+              fill={isHovered ? "#FFFFFF" : "#000000"}
               width="50px"
               height="50px"
               viewBox="0 0 24 24"
