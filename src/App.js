@@ -51,6 +51,8 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import StudentProgressAnalysis from "./pages/StudentProgressAnalysis";
 import StudentAssignmentProgress from "./pages/StudentProgressAssignment";
 import StudentQuizProgress from "./pages/StudentProgressQuiz";
+import StudentCareerPageLayout from "./layouts/StudentCareerPageLayout";
+import TeacherCareerPageLayout from "./layouts/TeacherCareerPageLayout";
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 
@@ -83,22 +85,19 @@ function App() {
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="assignments" element={<TeacherAssignmentsPage />} />
             <Route path="responses" element={<StudentResponsesPage />} />
-
             <Route path="progress" element={<ProgressPage />} />
-
             <Route path="submissons" element={<GradeSubmissions />} />
-            <Route path="career" element={<TeacherCareerPage />} />
-            <Route path="careerSignup" element={<CareerSignupPage />} />
             <Route path="analysis" element={<TeacherProgressAnalysis />} />
             <Route path="Quiz" element={<QuizProgress />} />
-
-            
             <Route path="create" element={<CreateSessionPage />} />
             <Route path="update" element={<UpdateSessionPage />} />
-
-
-
           </Route>
+
+          <Route path="/teacher-career-page" element={<TeacherCareerPageLayout/>}>
+            <Route path="career" element={<TeacherCareerPage />} />
+            <Route path="careerSignup" element={<CareerSignupPage />} />
+          </Route>
+
           <Route path="/teacher-home-page/live-session" element={<VideoCallPage2/>} />
         </Route>
 
@@ -108,24 +107,25 @@ function App() {
             <Route index element={<StudentHomePage />} />
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<StudentProfilePage/>} />
-            <Route path="ai-career" element={<AICareerGenerator/>} />
             <Route path="sessions" element={<StudentSessionsPage socket={socket}/>} />
             <Route path="studentassignments" element={<StudentAssignmentsPage />} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="results" element={<SearchResultsPage/>}/>
             <Route path="submission" element={<StudentSubmissionPage />} />
             <Route path="quiz" element={<QuizPage />} />
-            <Route path="teacherCareers" element={<ShowCareerTeachers />} />
-            <Route path="Counselors" element={<SelectedCareerTeachers />} />
             <Route path="session-overview" element={<SessionOverviewPage/>} />
             <Route path="assignment" element={<StudentAssignmentProgress/>} />
             <Route path="analysis" element={<StudentProgressAnalysis/>} />
             <Route path="ProgressQuiz" element={<StudentQuizProgress/>} />
-
-
             <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
-
           </Route>
+
+          <Route path="/student-career-page" element={<StudentCareerPageLayout/>}>
+            <Route path="ai-career" element={<AICareerGenerator/>} />
+            <Route path="teacherCareers" element={<ShowCareerTeachers />} />
+            <Route path="Counselors" element={<SelectedCareerTeachers />} />
+          </Route>
+          
           <Route path="/student-home-page/live-session" element={<VideoCallPage2/>} />
         </Route>
 

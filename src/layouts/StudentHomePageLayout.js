@@ -32,7 +32,7 @@ const StudentHomePageLayout = () => {
   return (
     <div className="bg-white">
       <div className="flex-col space-y-16">
-        <StudentHomePageNavBar profile={profile} />
+        <StudentHomePageNavBar profile={profile} career={false}/>
         <StudentHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} />
       </div>
 
