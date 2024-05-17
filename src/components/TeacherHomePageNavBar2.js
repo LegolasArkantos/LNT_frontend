@@ -126,7 +126,7 @@ const TeacherHomePageNavBar2 = (props) => {
   {notifications.length > 0 && (
     <circle
       cx="17.5"
-      cy="6"
+      cy="7"
       r="8"
       fill="#ff0000"
       stroke="#ffffff"
@@ -137,7 +137,7 @@ const TeacherHomePageNavBar2 = (props) => {
   {notifications.length > 0 && (
     <text
       x="17.5"
-      y="9.5"
+      y="10"
       fontSize="10"
       fill="#ffffff"
       textAnchor="middle"
