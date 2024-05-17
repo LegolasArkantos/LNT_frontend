@@ -274,6 +274,9 @@ const StudentHomePage = () => {
         {polls.length !== 0 ? (
   polls.map((poll, index) => (
     <li key={index} className="mb-4 ml-2 mt-2 border border-gray-200 rounded-lg shadow p-3 w-[300px] h-fit">
+      <div className="flex w-fit bg-[#d8b4fe] p-2 rounded-full">
+        <p className="text-purple-800 text-xs">{poll.category}</p>
+      </div>
       <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll.question}</h3>
       <ul className="mt-5 ">
         {poll.options.map((option, optionIndex) => (
