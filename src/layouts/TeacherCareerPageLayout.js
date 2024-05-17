@@ -5,11 +5,11 @@ import useApiPrivate from "../hooks/useAPIPrivate";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
 import { removeTeacherProfile } from "../features/teacherProfile";
-import TeacherHomePageNavBar2 from "../components/TeacherHomePageNavBar2";
 import Footer from "../components/Footer";
 
-const TeacherHomePageLayout = () => {
-  const apiPrivate = useApiPrivate();
+const TeacherCareerPageLayout = () => {
+
+    const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
   const profile = useSelector((state) => state.teacherProfile.value);
@@ -31,8 +31,7 @@ const TeacherHomePageLayout = () => {
   return (
     <div className="bg-white">
       <div className="flex-col space-y-16">
-        <TeacherHomePageNavBar profile={profile} career={false}/>
-        <TeacherHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} />
+        <TeacherHomePageNavBar profile={profile} handleLogOut={handleLogOut} career={true} />
       </div>
 
       <div className="ml-20 mr-20 mb-10 mt-20">
@@ -43,7 +42,7 @@ const TeacherHomePageLayout = () => {
       <Footer/>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TeacherHomePageLayout;
+export default TeacherCareerPageLayout
