@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { apiPrivate } from '../services/api';
 import Lottie from 'react-lottie';
-import loadingAnimation from '../assets/loading.json';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const ShowCareerTeachers = () => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const ShowCareerTeachers = () => {
             options={{
               loop: true,
               autoplay: true,
-              animationData: loadingAnimation,
+              animationData: loadingPurple,
               rendererSettings: {
                 preserveAspectRatio: 'xMidYMid slice'
               }
