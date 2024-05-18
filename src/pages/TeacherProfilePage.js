@@ -16,18 +16,27 @@ const TeacherProfilePage = () => {
           src={profile?.profilePicture}
           alt="Jese Leos"
         />
-        <div>
-          <p class="text-4xl ml-10 font-bold leading-none text-gray-900 dark:text-white">
+        <div className="flex flex-col justify-between space-y-0.5">
+          <p class="text-4xl ml-10 mb-5 font-bold leading-none text-gray-900 dark:text-white">
             {profile?.firstName} {profile?.lastName}
           </p>
-          <p className="ml-10 font-semibold">Teacher</p>
+          <p className="ml-10 font-semibold">Role: Teacher</p>
           <p className="ml-10 font-semibold">
             {profile?.educationalCredentials}
           </p>
-          <p className="ml-10 font-semibold">{profile?.subjectsTaught}</p>
-          <p className="ml-10 font-semibold">{profile?.availableTimeSlots}</p>
-          <p className="ml-10 font-semibold">{profile?.rating} star</p>
-          <p className="ml-10 font-semibold">{profile?.personality}</p>
+          <p className="ml-10 font-bold underline">
+            Subjects:
+          </p>
+          <div className="flex flex-col">
+          {
+            profile?.subjectsTaught.map((subject, index) => (
+              <small>
+              <p key={index} className="ml-20 font-semibold">{subject}</p>
+              </small>
+            ))
+          }
+          </div>
+          <p className="ml-10 font-semibold">Rating: {profile?.rating}</p>
           <p 
             onClick={() => {
               const data = {
