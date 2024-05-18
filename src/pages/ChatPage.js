@@ -167,13 +167,13 @@ const ChatPage = ({ socket }) => {
               >
                 <div class="flex items-center">
                   <div class="flex-1 min-w-0 ms-4">
-                    {chat.participants.map((participant, index) => {
-                      if (participant.participant !== profile.profileID) {
+                    {chat?.participants.map((participant, index) => {
+                      if (participant?.participant !== profile?.profileID) {
                         return (
                           <div class="flex">
                             <img
                               class="w-8 h-8 rounded-full"
-                              src={participant.profilePicture}
+                              src={participant?.profilePicture}
                               alt="Neil image"
                             />
 
@@ -181,7 +181,7 @@ const ChatPage = ({ socket }) => {
                               key={index}
                               class="text-lg ml-3 font-semibold text-gray-900 truncate dark:text-white"
                             >
-                              {participant.name}
+                              {participant?.name}
                             </p>
                           </div>
                         );
@@ -271,7 +271,7 @@ const ChatPage = ({ socket }) => {
                   <button
                     data-modal-hide="popup-modal"
                     type="button"
-                    onClick={() => handleDeleteChat(deleteChat._id)}
+                    onClick={() => handleDeleteChat(deleteChat?._id)}
                     class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
                   >
                     Yes, I'm sure
@@ -294,14 +294,14 @@ const ChatPage = ({ socket }) => {
         <div className="w-3/5 flex-col">
           <div className="flex">
             {selectedChat.participants.map((participant, index) => {
-              if (participant.participant != profile.profileID) {
+              if (participant?.participant != profile?.profileID) {
                 return (
                   <div key={index} className="bg-teal-500 w-full">
                     <h1 className="ml-10 mt-3 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
-                      {participant.name}
+                      {participant?.name}
                     </h1>
                     <p className="ml-10 font-semibold tracking-tight text-teal-900">
-                      {participant.role}
+                      {participant?.role}
                     </p>
                   </div>
                 );
@@ -311,7 +311,7 @@ const ChatPage = ({ socket }) => {
           <div className="h-[550px] p-3 w-full">
             <ScrollToBottom className="h-full w-full flex-col">
               {messageList.map((messageContent, index) => {
-                return messageContent.user.ID !== profile.profileID ? (
+                return messageContent?.user?.ID !== profile?.profileID ? (
                   <li
                     key={index}
                     className="flex 
@@ -328,14 +328,14 @@ const ChatPage = ({ socket }) => {
                     >
                       <div class="flex items-center space-x-2 rtl:space-x-reverse">
                         <span class="text-sm font-semibold text-gray-900 dark:text-white">
-                          {messageContent.user.name}
+                          {messageContent.user?.name}
                         </span>
                         <span class="text-sm font-normal text-gray-900 dark:text-gray-400">
-                          {messageContent.timestamp}
+                          {messageContent?.timestamp}
                         </span>
                       </div>
                       <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                        {messageContent.message}
+                        {messageContent?.message}
                       </p>
                     </div>
                     
@@ -355,16 +355,16 @@ const ChatPage = ({ socket }) => {
                           You
                         </span>
                         <span class="text-sm font-normal text-gray-900 dark:text-gray-400">
-                          {messageContent.timestamp}
+                          {messageContent?.timestamp}
                         </span>
                       </div>
                       <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                        {messageContent.message}
+                        {messageContent?.message}
                       </p>
                     </div>
                     <img
                       class="w-8 h-8 rounded-full"
-                      src={profile.profilePicture}
+                      src={profile?.profilePicture}
                       alt="Jese image"
                     />
                   </li>

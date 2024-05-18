@@ -249,29 +249,29 @@ const TeacherAssignmentsPage = () => {
               <div className="font-bold">Marks</div>
             </div> */}
             <div className='overflow-y-scroll scroll scrollbar-hide'>
-            {assignments.map((assignment) => (
-              <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
+            {assignments?.map((assignment) => (
+              <div key={assignment?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3 className="text-xl font-semibold mb-2">
               
               <button
                 className="text-black-500 hover:underline"
-                onClick={() =>handleAssignmentClick(assignment._id,sessionId,subject)}
+                onClick={() =>handleAssignmentClick(assignment?._id,sessionId,subject)}
               >
-                {assignment.title}
+                {assignment?.title}
               </button>
             </h3>
             <div className="flex-grow"></div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Start Time:</h>
-                  <p className="">{assignment.startTime}</p>
+                  <p className="">{assignment?.startTime}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">End Time:</h>
-                  <p className="">{assignment.endTime}</p>
+                  <p className="">{assignment?.endTime}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{assignment.marks}</p>
+                  <p className="">{assignment?.marks}</p>
                 </div>
               </div>
             ))}
@@ -291,7 +291,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="title"
                   name="title"
-                  value={createAssignmentFormData.title}
+                  value={createAssignmentFormData?.title}
                   onChange={handleCreateAssignmentFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -303,7 +303,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="startTime"
                   name="startTime"
-                  value={createAssignmentFormData.startTime}
+                  value={createAssignmentFormData?.startTime}
                   onChange={handleCreateAssignmentFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -315,7 +315,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="endTime"
                   name="endTime"
-                  value={createAssignmentFormData.endTime}
+                  value={createAssignmentFormData?.endTime}
                   onChange={handleCreateAssignmentFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -327,7 +327,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="description"
                   name="description"
-                  value={createAssignmentFormData.description}
+                  value={createAssignmentFormData?.description}
                   onChange={handleCreateAssignmentFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -339,7 +339,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="marks"
                   name="marks"
-                  value={createAssignmentFormData.marks}
+                  value={createAssignmentFormData?.marks}
                   onChange={handleCreateAssignmentFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -373,18 +373,18 @@ const TeacherAssignmentsPage = () => {
             </div> */}
             <div className='overflow-y-scroll scroll scrollbar-hide'>
             {quizes.map((quiz) => (
-              <div key={quiz._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() =>fetchQuizSubmissions(quiz._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline cursor-pointer">
-                    {quiz.title}
+              <div key={quiz?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
+                <h3 onClick={() =>fetchQuizSubmissions(quiz?._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline cursor-pointer">
+                    {quiz?.title}
                 </h3>
             <div className="flex-grow"></div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Time:</h>
-                  <p className="">{quiz.time}</p>
+                  <p className="">{quiz?.time}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{quiz.marks}</p>
+                  <p className="">{quiz?.marks}</p>
                 </div>
               </div>
             ))}
@@ -407,7 +407,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="title"
                   name="title"
-                  value={createQuizFormData.title}
+                  value={createQuizFormData?.title}
                   onChange={handleCreateQuizFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -420,7 +420,7 @@ const TeacherAssignmentsPage = () => {
                   placeholder='Minutes'
                   id="time"
                   name="time"
-                  value={createQuizFormData.time}
+                  value={createQuizFormData?.time}
                   onChange={handleCreateQuizFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -432,7 +432,7 @@ const TeacherAssignmentsPage = () => {
                   type="text"
                   id="marks"
                   name="marks"
-                  value={createQuizFormData.marks}
+                  value={createQuizFormData?.marks}
                   onChange={handleCreateQuizFormChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
@@ -451,17 +451,17 @@ const TeacherAssignmentsPage = () => {
               </div>
               <div className='overflow-x-scroll scroll scrollbar-hide flex p-2 space-x-8 w-[880px]' >
                 {
-                  createQuizFormData.questions.map((question,index) => (
+                  createQuizFormData?.questions?.map((question,index) => (
                     <div className="max-w-lg my-8 p-2 bg-white shadow-md outline rounded-md">
                       <div className='flex space-x-2'>
                 <div className='flex-col space-y-3 mb-3'>
                   <h2 className="text-lg font-semibold mr-2">Question</h2>
-                  <input type="text" value={question.question} onChange={(e) => handleQuestionChange(index, 'question', e.target.value)} className="border rounded-md px-2 py-1 focus:outline-none" />
+                  <input type="text" value={question?.question} onChange={(e) => handleQuestionChange(index, 'question', e.target.value)} className="border rounded-md px-2 py-1 focus:outline-none" />
                 </div>
                 </div>
                 <div className='flex'>
       <div className="flex-col space-y-2">
-      {question.options.map((option, optionIndex) => (
+      {question?.options?.map((option, optionIndex) => (
               <div key={optionIndex} className="flex items-center">
                 <label className="text-lg font-semibold mr-2">{String.fromCharCode(65 + optionIndex)}.</label>
                 <input
@@ -475,7 +475,7 @@ const TeacherAssignmentsPage = () => {
       </div>
       <div className='flex-col ml-4'>
            <h2 className="text-lg font-semibold mr-2">Answer</h2>
-           <input type="text" value={question.correctAns.toUpperCase()} maxLength={1} placeholder='A' onChange={(e) => handleQuestionChange(index, 'correctAns', e.target.value.toUpperCase())} className="border rounded-md w-7 ml-4 px-2 py-1 focus:outline-none" />
+           <input type="text" value={question?.correctAns?.toUpperCase()} maxLength={1} placeholder='A' onChange={(e) => handleQuestionChange(index, 'correctAns', e.target.value.toUpperCase())} className="border rounded-md w-7 ml-4 px-2 py-1 focus:outline-none" />
         </div>
         </div>
     </div>
@@ -497,20 +497,20 @@ const TeacherAssignmentsPage = () => {
       }
 
 {
-  quizSubmissions.length !== 0 && (
+  quizSubmissions?.length !== 0 && (
     <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded">
         <h2 className="text-2xl font-bold mb-4">Student Submissions</h2>
-        {quizSubmissions.map((submission, index) => (
+        {quizSubmissions?.map((submission, index) => (
           <div key={index} className="flex items-center mb-2">
             <div className="flex items-center justify-center h-8 w-8 bg-gray-300 rounded-full overflow-hidden mr-2">
-              <img src={submission.student.profilePicture} alt="Profile" className="h-full w-full object-cover" />
+              <img src={submission?.student?.profilePicture} alt="Profile" className="h-full w-full object-cover" />
             </div>
             <h3 className="text-blue-500">
-              {`${submission.student.firstName} ${submission.student.lastName}`}
+              {`${submission?.student?.firstName} ${submission?.student?.lastName}`}
             </h3>
             <h3 className="text-blue-500 ml-10">
-              {"Marks: "}{submission.marks}
+              {"Marks: "}{submission?.marks}
             </h3>
           </div>
         ))}

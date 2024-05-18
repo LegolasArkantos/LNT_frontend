@@ -28,15 +28,15 @@ const StudentQuizProgress = () => {
 
   useEffect(() => {
     if (selectedSession) {
-      const selectedSessionData = sessions.find((session) => session.session === selectedSession);
+      const selectedSessionData = sessions.find((session) => session?.session === selectedSession);
       if (selectedSessionData) {
         const chartData = {
           series: [
             {
               name: 'Average Grade',
-              data: selectedSessionData.quizzes.map((quiz) => ({
-                x: quiz.title,
-                y: quiz.averageGrade,
+              data: selectedSessionData?.quizzes.map((quiz) => ({
+                x: quiz?.title,
+                y: quiz?.averageGrade,
               })),
             },
           ],
@@ -55,7 +55,7 @@ const StudentQuizProgress = () => {
           },
           xaxis: {
             type: 'category',
-            categories: selectedSessionData.quizzes.map((quiz) => quiz.title),
+            categories: selectedSessionData?.quizzes.map((quiz) => quiz?.title),
             labels: {
               rotate: -45,
               style: {
@@ -89,7 +89,7 @@ const StudentQuizProgress = () => {
   useEffect(() => {
     // Set the default selected session to the first session
     if (sessions.length > 0) {
-      setSelectedSession(sessions[0].session);
+      setSelectedSession(sessions[0]?.session);
     }
   }, [sessions]);
 
@@ -131,8 +131,8 @@ const StudentQuizProgress = () => {
           <div className="card-body">
             <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
               {sessions.map((session) => (
-                <option key={session.session} value={session.session}>
-                  {session.subject}
+                <option key={session?.session} value={session?.session}>
+                  {session?.subject}
                 </option>
               ))}
             </select>

@@ -13,7 +13,7 @@ const StudentProgressAnalysis = () => {
   const fetchAnalysis = async () => {
     try {
       const response = await apiPrivate.get('/ai/generate-analysis-student');
-      setAnalysisText(response.data.text);
+      setAnalysisText(response?.data?.text);
       setLoading(false); 
     } catch (error) {
       console.error('Error fetching analysis:', error);
