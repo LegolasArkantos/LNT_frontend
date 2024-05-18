@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import ApexCharts from 'apexcharts';
 import { apiPrivate } from '../services/api';
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+
+
 
 const AssignmentProgress = () => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const fetchAssignmentProgress = async () => {
       try {
-        const response = await apiPrivate.get('/progress/getAssignmentData'); // Updated API endpoint
+        const response = await apiPrivate.get('/progress/getAssignmentData');
         setSessions(response.data.sessions);
       } catch (error) {
         console.error('Error fetching assignment progress:', error);
@@ -40,8 +43,8 @@ const AssignmentProgress = () => {
           series: [{
             data: selectedSessionData.assignments.map(assignment => {
               return {
-                x: assignment.title,
-                y: calculateAverageScore(assignment.totalMarks, assignment.submissions.map(submission => submission.grade))
+                x: assignment.title, 
+                y: calculateAverageScore(assignment.total, assignment.grades) 
               };
             })
           }],
@@ -52,7 +55,7 @@ const AssignmentProgress = () => {
           plotOptions: {
             bar: {
               borderRadius: 4,
-              horizontal: false
+              horizontal: false 
             }
           },
           dataLabels: {
@@ -62,7 +65,7 @@ const AssignmentProgress = () => {
             type: 'category',
             categories: selectedSessionData.assignments.map(assignment => assignment.title),
             labels: {
-              rotate: -45,
+              rotate: -45, 
               style: {
                 fontSize: '12px'
               }
@@ -74,7 +77,7 @@ const AssignmentProgress = () => {
             tickAmount: 10,
             labels: {
               formatter: function (value) {
-                return value.toFixed(0) + '%';
+                return value.toFixed(0) + '%'; 
               }
             }
           }
@@ -89,14 +92,14 @@ const AssignmentProgress = () => {
         };
       }
     }
-  }, [selectedSession, sessions]);
+  }, [selectedSession, sessions]); 
 
   useEffect(() => {
     const avgChartData = {
       series: [{
         data: sessions.map(session => {
           const sessionAvg = session.assignments.reduce((acc, assignment) => {
-            return acc + calculateAverageScore(assignment.totalMarks, assignment.submissions.map(submission => submission.grade));
+            return acc + calculateAverageScore(assignment.total, assignment.grades);
           }, 0) / session.assignments.length;
           return {
             x: session.subject,
@@ -111,7 +114,7 @@ const AssignmentProgress = () => {
       plotOptions: {
         bar: {
           borderRadius: 4,
-          horizontal: false
+          horizontal: false 
         }
       },
       dataLabels: {
@@ -121,7 +124,7 @@ const AssignmentProgress = () => {
         type: 'category',
         categories: sessions.map(session => session.subject),
         labels: {
-          rotate: -45,
+          rotate: -45, 
           style: {
             fontSize: '12px'
           }
@@ -133,7 +136,7 @@ const AssignmentProgress = () => {
         tickAmount: 10,
         labels: {
           formatter: function (value) {
-            return value.toFixed(0) + '%';
+            return value.toFixed(0) + '%'; 
           }
         }
       }
@@ -148,12 +151,13 @@ const AssignmentProgress = () => {
     };
   }, [sessions]);
 
-  useEffect(() => {
-    // Set the default selected session to the first session
-    if (sessions.length > 0) {
-      setSelectedSession(sessions[0]._id);
-    }
-  }, [sessions]);
+
+useEffect(() => {
+  // Set the default selected session to the first session
+  if (sessions.length > 0) {
+    setSelectedSession(sessions[0]._id);
+  }
+}, [sessions]);
 
 
 
@@ -178,8 +182,8 @@ return (
       <div className="card" style={{ width: '50%', height: '100%' }}>
         <div className="card-body">
           <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
-            {sessions?.map(session => (
-              <option key={session?._id} value={session?._id}>{session?.subject}</option>
+            {sessions.map(session => (
+              <option key={session._id} value={session._id}>{session.subject}</option>
             ))}
           </select>
           <h4 className="ml-5">Assignment Progress</h4>
