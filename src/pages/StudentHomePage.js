@@ -142,7 +142,7 @@ const StudentHomePage = () => {
       <SearchBar handleSearch={handleSearch} />
       <div className="mt-10">
         <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
-          Session Recommendations :
+          Session Recommendations:
         </h1>
         <div className="flex items-center">
           <button className="hover:bg-teal-200 rounded-full" style={{ marginLeft: "-40px" }} onClick={() => slideLeft('slider1')}>
@@ -150,7 +150,9 @@ const StudentHomePage = () => {
         </button>
         <div id="slider1" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {availableSessions.length === 0 ? (
+            <div className="flex w-full h-[150px] items-center justify-center">
             <p className="text-xl font-normal">No Sessions Available</p>
+            </div>
           ) : (
             availableSessions.map((session, index) => (
               <div key={index} className="w-[250px] flex flex-col justify-between bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
@@ -227,7 +229,9 @@ const StudentHomePage = () => {
         </button>
         <div id="slider2" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {topRatedTeachers.length === 0 ? (
+            <div className="flex w-full h-[150px] items-center justify-center">
             <p className="text-xl font-normal">No Teachers</p>
+            </div>
           ) : (
             topRatedTeachers.map((teacher, index) => (
               <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
@@ -320,7 +324,11 @@ const StudentHomePage = () => {
       </ul>
     </li>
   ))
-) : (<p>No current polls</p>)}
+) : (
+  <div className="flex w-full h-[150px] items-center justify-center">
+    <p className="text-xl font-normal">No Polls</p>
+  </div>
+)}
 
         </ul>
         <button className="hover:bg-teal-200 rounded-full" style={{ marginRight: "-40px" }} onClick={() => slideRight('slider3')}>

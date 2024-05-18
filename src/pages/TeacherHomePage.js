@@ -7,7 +7,7 @@ const TeacherHomePage = () => {
   const [notes, setNotes] = useState([]);
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [title, setTitle] = useState("");
@@ -32,17 +32,19 @@ const TeacherHomePage = () => {
             category: category,
             options: filteredOptions
           }
-     
+          setPolls((prevPolls) => [
+            ...prevPolls,
+            {
+              question,
+              options: filteredOptions,
+            },
+          ]);
           await apiPrivate.post("poll/create", {
            pollData
            }).then((res) => {
              if (res.status === 200) {
-               polls.push({
-                 question,
-                 options: filteredOptions,
-               });
-               setPolls(polls);
                setQuestion("");
+               setCategory("")
                setOptions([]);
                setShowPopup(false);
              } 
@@ -76,6 +78,7 @@ const TeacherHomePage = () => {
     setShowPopup(false);
     setOptions([]);
     setQuestion("");
+    setCategory("");
   };
 
   const handlePollDelete = async (pollID) => {
