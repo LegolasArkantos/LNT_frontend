@@ -79,7 +79,7 @@ function App() {
         <Route element={<RequiredAuth allowedRole="Teacher" />}>
           <Route path="/teacher-home-page" element={<TeacherHomePageLayout/>}>
             <Route index element={<TeacherHomePage />} />
-            <Route path="sessions" element={<TeacherSessionPage socket={socket}/>} />
+            <Route path="sessions" element={<TeacherSessionPage/>} />
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<TeacherProfilePage/>} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />

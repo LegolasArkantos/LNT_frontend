@@ -61,35 +61,35 @@ const SelectedCareerTeachers = () => {
       {/* Display Career Teachers */}
       {!loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {careerTeachers.map((teacher, index) => (
+          {careerTeachers?.map((teacher, index) => (
             <div key={index} className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center justify-center">
                 <img
                   className="w-40 h-40 mt-4 rounded-full border-4 border-white"
-                  src={teacher.profilePic}
+                  src={teacher?.profilePic}
                   alt=""
                 />
               </div>
               <div className="p-5 text-wrap">
                 <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                  {teacher.name}
+                  {teacher?.name}
                 </h2>
                 <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-                  Description: {teacher.description}
+                  Description: {teacher?.description}
                 </p>
                 <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-                  Timing: {teacher.timing}
+                  Timing: {teacher?.timing}
                 </p>
                 {/* Assuming rating is available in the teacher object */}
                 {teacher.teacher.rating && (
                   <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-                    Rating: {teacher.teacher.rating}
+                    Rating: {teacher?.teacher?.rating}
                   </p>
                 )}
                 {
                   teacher.counsellingSessionStarted 
                   && (
-                    <button onClick={() => handleJoinVideoCall(teacher._id)} 
+                    <button onClick={() => handleJoinVideoCall(teacher?._id)} 
                     type="button" 
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                       Join Video

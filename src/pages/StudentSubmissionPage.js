@@ -101,36 +101,36 @@ const StudentSubmissionPage = () => {
     <div className="p-8">
       {assignment && (
       <div>
-          <h2 className="text-3xl font-bold mb-4">{assignment.title}</h2>
-          <p className="text-lg">Start Time: <span className="ml-2">{assignment.startTime}</span></p>
-          <p className="text-lg">End Time: <span className="ml-4">{assignment.endTime}</span></p>
-          <p className="text-lg">Marks: <span className="ml-6">{assignment.marks}</span></p>
+          <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
+          <p className="text-lg">Start Time: <span className="ml-2">{assignment?.startTime}</span></p>
+          <p className="text-lg">End Time: <span className="ml-4">{assignment?.endTime}</span></p>
+          <p className="text-lg">Marks: <span className="ml-6">{assignment?.marks}</span></p>
           <div className="mt-4">
             <h3 className="text-xl font-semibold mb-2">Description:</h3>
-            <div className="bg-gray-100 p-4 rounded-lg">{assignment.description}</div>
+            <div className="bg-gray-100 p-4 rounded-lg">{assignment?.description}</div>
           </div>
 
           {/* Display uploaded files */}
-          {assignment.files.length > 0 && (
+          {assignment?.files?.length > 0 && (
             <div className="mt-4">
               <h3 className="text-xl font-semibold mb-2">Assignment Files:</h3>
               <ul>
-                {assignment.files.map((file, index) => (
+                {assignment?.files?.map((file, index) => (
                   <li key={index}>
-                    <a href={file.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file.fileName}</a>
+                    <a href={file?.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file.fileName}</a>
                   </li>
                 ))}
               </ul>
             </div>
           )}
           {/* Display student's submission files */}
-          {submissionFiles.length > 0 && (
+          {submissionFiles?.length > 0 && (
                         <div className="mt-4">
                             <h3 className="text-xl font-semibold mb-2">Your Submission Files:</h3>
                             <ul>
-                                {submissionFiles.map((file, index) => (
+                                {submissionFiles?.map((file, index) => (
                                     <li key={index}>
-                                        <a href={file.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file.fileName}</a>
+                                        <a href={file?.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file?.fileName}</a>
                                     </li>
                                 ))}
                             </ul>

@@ -178,8 +178,8 @@ return (
       <div className="card" style={{ width: '50%', height: '100%' }}>
         <div className="card-body">
           <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
-            {sessions.map(session => (
-              <option key={session._id} value={session._id}>{session.subject}</option>
+            {sessions?.map(session => (
+              <option key={session?._id} value={session?._id}>{session?.subject}</option>
             ))}
           </select>
           <h4 className="ml-5">Assignment Progress</h4>

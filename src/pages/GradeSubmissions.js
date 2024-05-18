@@ -71,18 +71,18 @@ const GradeSubmissions = () => {
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-5 gap-4">
                     {submissions.map(submission => (
-                        <div key={submission._id} className=" bg-gray-100 p-4 rounded-lg shadow-lg mr-2 mb-2 mt-4 flex flex-col">
-                            <h3 className="text-lg font-semibold mb-4">{submission.studentName}</h3>
+                        <div key={submission?._id} className=" bg-gray-100 p-4 rounded-lg shadow-lg mr-2 mb-2 mt-4 flex flex-col">
+                            <h3 className="text-lg font-semibold mb-4">{submission?.studentName}</h3>
                             <ul>
                                 {submission.files.map((file, index) => (
                                     <li key={index}>
-                                        <a href={file.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file.fileName}</a>
+                                        <a href={file?.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file?.fileName}</a>
                                     </li>
                                 ))}
                             </ul>
-                            {submission.grade !== -1 ? (
+                            {submission?.grade !== -1 ? (
                                 <p className="text-gray-600 mt-2 mb-2">
-                                    Grade: {submission.grade} out of {location.state.total}
+                                    Grade: {submission?.grade} out of {location.state?.total}
                                 </p>
                             ) : (
                                 <p className="text-red-500 mt-2 mb-2">Not graded</p>
