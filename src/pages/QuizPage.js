@@ -90,12 +90,12 @@ const QuizPage = () => {
                     <div className='flex space-x-2'>
                         <div className='flex-col space-y-3 mb-3'>
                             <h2 className='text-lg font-semibold mr-2'>Question {currentQuestionIndex + 1}</h2>
-                            <p className='px-2 py-1'>{currentQuestion.question}</p>
+                            <p className='px-2 py-1'>{currentQuestion?.question}</p>
                         </div>
                     </div>
                     <div className='flex'>
                         <div className='flex-col space-y-2'>
-                            {currentQuestion.options.map((option, optionIndex) => (
+                            {currentQuestion?.options.map((option, optionIndex) => (
                                 <div key={optionIndex} className='flex items-center'>
                                     <input
                                         type='radio'
@@ -119,7 +119,7 @@ const QuizPage = () => {
                 >
                     Previous
                 </button>
-                {currentQuestionIndex < quiz.questions.length - 1 ? (
+                {currentQuestionIndex < quiz?.questions.length - 1 ? (
                     <button
                         onClick={handleNext}
                         className='text-white ml-5 bg-teal-500 hover:bg-teal-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800'

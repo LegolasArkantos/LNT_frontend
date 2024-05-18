@@ -153,7 +153,7 @@ const StudentHomePage = () => {
             <p className="text-xl font-normal">No Sessions Available</p>
           ) : (
             availableSessions.map((session, index) => (
-              <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+              <div key={index} className="w-[250px] flex flex-col justify-between bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
     {/* <a href="#">
       <img
@@ -164,10 +164,10 @@ const StudentHomePage = () => {
     </a> */}
     <div className="p-5">
       <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-        {session.subject}
+        {session?.subject}
       </h2>
       <p className="mb-2 text-sm font-medium text-green-500 dark:text-green-400">
-        Price: {session.sessionPrice}
+        Price: {session?.sessionPrice}
       </p>
       <div className="flex items-center mb-2">
         <svg
@@ -186,16 +186,16 @@ const StudentHomePage = () => {
         </svg>
         <button
           className="text-sm text-blue-500 hover:underline focus:outline-none"
-          onClick={() => handleTeacherClick(session.teacher._id)}
+          onClick={() => handleTeacherClick(session?.teacher?._id)}
         >
-          <span className="font-semibold">Teacher:</span> {session.teacherName}
+          <span className="font-semibold">Teacher:</span> {session?.teacherName}
         </button>
       </div>
       <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">
-        <span className="font-semibold">Start:</span> {session.startTime}
+        <span className="font-semibold">Start:</span> {session?.startTime}
       </p>
       <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
-        <span className="font-semibold">End:</span> {session.endTime}
+        <span className="font-semibold">End:</span> {session?.endTime}
       </p>
       <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
       onClick={() => viewSession(session)}>
@@ -230,28 +230,35 @@ const StudentHomePage = () => {
             <p className="text-xl font-normal">No Teachers</p>
           ) : (
             topRatedTeachers.map((teacher, index) => (
-              <div key={index} class="w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-  
-    <div class="flex items-center justify-center">
+              <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
+  <div>
+    <div className="flex items-center justify-center">
       <img
-        class="w-40 h-40 mt-4 rounded-full border-4 border-white"
-        src={teacher.profilePicture}
+        className="w-40 h-40 mt-4 rounded-full border-4 border-white"
+        src={teacher?.profilePicture}
         alt=""
       />
     </div>
-  <div class="p-5 text-wrap">
-    <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-      {teacher.firstName} {teacher.lastName}
-    </h2>
-    <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-      Subjects: {teacher.subjectsTaught}
-    </p>
-      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 " 
-        onClick={() => handleTeacherClick(teacher._id)}>
-        View
-      </button>
+    <div className="p-5 text-wrap">
+      <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+        {teacher?.firstName} {teacher?.lastName}
+      </h2>
+      <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400 break-words">
+        Subjects: {teacher?.subjectsTaught}
+      </p>
+    </div>
+  </div>
+  <div className="p-5">
+    <button
+      type="button"
+      className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+      onClick={() => handleTeacherClick(teacher?._id)}
+    >
+      View
+    </button>
   </div>
 </div>
+
 
             ))
           )}
@@ -273,11 +280,11 @@ const StudentHomePage = () => {
         <ul id="slider3" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-10 space-x-8">
         {polls.length !== 0 ? (
   polls.map((poll, index) => (
-    <li key={index} className="mb-4 ml-2 mt-2 border border-gray-200 rounded-lg shadow p-3 w-[300px] h-fit">
+    <li key={index} className="mb-4 ml-2 mt-2 border border-gray-200 flex flex-col justify-between rounded-lg shadow p-3 w-[300px]">
       <div className="flex w-fit bg-[#d8b4fe] p-2 rounded-full">
-        <p className="text-purple-800 text-xs">{poll.category}</p>
+        <p className="text-purple-800 text-xs">{poll?.category}</p>
       </div>
-      <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll.question}</h3>
+      <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll?.question}</h3>
       <ul className="mt-5 ">
         {poll.options.map((option, optionIndex) => (
           <li className="w-[300px]" key={optionIndex}>
@@ -286,25 +293,25 @@ const StudentHomePage = () => {
                 Only render the radio input if the student has not voted
                 Check if the student's profileID exists in the poll's users array
               */}
-              {!poll.users.includes(profile.profileID) && (
+              {!poll?.users.includes(profile?.profileID) && (
                 <input
-                  onClick={() => handleOptionClicked(poll._id, option._id)}
-                  id={`option-${option._id}`}
+                  onClick={() => handleOptionClicked(poll?._id, option?._id)}
+                  id={`option-${option?._id}`}
                   type="radio"
                   value=""
-                  name={`poll-${poll._id}`}
+                  name={`poll-${poll?._id}`}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                 />
               )}
-              <p className="font-bold">{option.option}</p>
+              <p className="font-bold">{option?.option}</p>
             </div>
             <span>
               <div class="w-[270px] bg-blue-400 rounded-full dark:bg-gray-700">
                 <div
-                  class={`${option.percentage === 0 ? ("bg-blue-400") : ("bg-blue-600")} text-xs font-medium text-blue-200 text-center p-0.5 leading-none rounded-full`}
-                  style={option.percentage !== 0 ? { width: `${option.percentage}%` } : null}
+                  class={`${option?.percentage === 0 ? ("bg-blue-400") : ("bg-blue-600")} text-xs font-medium text-blue-200 text-center p-0.5 leading-none rounded-full`}
+                  style={option?.percentage !== 0 ? { width: `${option?.percentage}%` } : null}
                 >
-                  {option.percentage}%
+                  {option?.percentage}%
                 </div>
               </div>
             </span>

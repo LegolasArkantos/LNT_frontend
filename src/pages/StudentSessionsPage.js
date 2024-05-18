@@ -45,23 +45,15 @@ const StudentSessionsPage = ({socket}) => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3   mb-10 overflow-y-scroll scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
             
-            {sessions.map((session) => (
-              <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
+            {sessions?.map((session) => (
+              <div key={session?._id} className="max-w-md bg-gray-100 p-6 flex flex-col justify-between rounded-lg shadow-lg mr-4 mb-4">
                 <div className='flex justify-between'>
                 <button
                   className="text-xl font-semibold mb-2 hover:underline"
-                  onClick={() => handleSessionClick(session._id)}
+                  onClick={() => handleSessionClick(session?._id)}
                 >
-                  {session.subject}
+                  {session?.subject}
                 </button>
-                {
-                  session.sessionStarted
-                  && (<button onClick={() => handleJoinVideoCall(session._id)} 
-                  type="button" 
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Join Video
-                    </button>)
-                }
                 
                 
                 </div>
@@ -71,14 +63,17 @@ const StudentSessionsPage = ({socket}) => {
                   </p>
                   <button
                     className="text-blue-500 hover:underline"
-                    onClick={() => handleTeacherClick(session.teacher)}
+                    onClick={() => handleTeacherClick(session?.teacher)}
                   >
-                    {session.teacherName}
+                    {session?.teacherName}
                   </button>
                 
                 </div>
                 <p className="text-gray-700">
-                  Timings: {session.startTime} - {session.endTime}
+                  Timings: {session?.startTime} - {session?.endTime}
+                </p>
+                <p className="text-gray-700">
+                  Day: {session?.day}
                 </p>
                 <div className="flex items-center mb-2">
         <svg
@@ -99,9 +94,9 @@ const StudentSessionsPage = ({socket}) => {
           className="text-sm text-blue-500 hover:underline focus:outline-none"
           onClick={() => {
             const data = {
-              teacherId: session.teacher,
-              sessionId: session._id,
-              sessionName: session.subject
+              teacherId: session?.teacher,
+              sessionId: session?._id,
+              sessionName: session?.subject
             }
             setReviewPopUpData(data);
             setReviewPopUp(true);
@@ -117,6 +112,14 @@ const StudentSessionsPage = ({socket}) => {
         }} >
             Overview
             </button>
+            {
+                  session.sessionStarted
+                  && (<button onClick={() => handleJoinVideoCall(session?._id)} 
+                  type="button" 
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Join Video
+                    </button>)
+                }
               </div>
             ))}
           </div>
