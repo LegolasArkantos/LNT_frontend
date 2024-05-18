@@ -42,7 +42,7 @@ const SearchResultsPage = () => {
       <SearchBar handleSearch={handleSearch}/>
         <h1 className="mb-4  mt-10 text-2xl font-extrabold dark:text-white">search results</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  mb-10 space-x-12 gap-5">
-        {sessions.length === 0 
+        {sessions?.length === 0 
         ? (
         <p>No Sessions Found</p>
         ) 
@@ -59,10 +59,10 @@ const SearchResultsPage = () => {
     </a>
     <div className="p-5">
       <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-        {session.session.subject}
+        {session?.session?.subject}
       </h2>
       <p className="mb-2 text-sm font-medium text-green-500 dark:text-green-400">
-        Price: {session.session.sessionPrice}
+        Price: {session?.session?.sessionPrice}
       </p>
       <div className="flex items-center mb-2">
         <svg
@@ -81,16 +81,16 @@ const SearchResultsPage = () => {
         </svg>
         <button
           className="text-sm text-blue-500 hover:underline focus:outline-none"
-          onClick={() => handleTeacherClick(session.session.teacher._id)}
+          onClick={() => handleTeacherClick(session?.session?.teacher._id)}
         >
-          <span className="font-semibold">Teacher:</span> {session.session.teacherName}
+          <span className="font-semibold">Teacher:</span> {session?.session?.teacherName}
         </button>
       </div>
       <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">
-        <span className="font-semibold">Start:</span> {session.session.startTime}
+        <span className="font-semibold">Start:</span> {session?.session?.startTime}
       </p>
       <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
-        <span className="font-semibold">End:</span> {session.session.endTime}
+        <span className="font-semibold">End:</span> {session?.session?.endTime}
       </p>
       <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
         Join

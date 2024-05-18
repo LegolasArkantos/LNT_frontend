@@ -45,7 +45,7 @@ const CreateSessionPage = () => {
               type="time"
               id="startTime"
               name="startTime"
-              value={formData.startTime}
+              value={formData?.startTime}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
@@ -59,7 +59,7 @@ const CreateSessionPage = () => {
               type="time"
               id="endTime"
               name="endTime"
-              value={formData.endTime}
+              value={formData?.endTime}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
@@ -73,7 +73,7 @@ const CreateSessionPage = () => {
               type="text"
               id="day"
               name="day"
-              value={formData.day}
+              value={formData?.day}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
@@ -87,7 +87,7 @@ const CreateSessionPage = () => {
               type="text"
               id="subject"
               name="subject"
-              value={formData.subject}
+              value={formData?.subject}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
@@ -101,7 +101,7 @@ const CreateSessionPage = () => {
               type="text"
               id="sessionPrice"
               name="sessionPrice"
-              value={formData.sessionPrice}
+              value={formData?.sessionPrice}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
@@ -114,7 +114,7 @@ const CreateSessionPage = () => {
             <textarea
               id="sessionDescription"
               name="sessionDescription"
-              value={formData.sessionDescription}
+              value={formData?.sessionDescription}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
