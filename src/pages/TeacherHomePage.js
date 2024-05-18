@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import useAPIPrivate from "../hooks/useAPIPrivate";
+import Lottie from 'react-lottie';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const TeacherHomePage = () => {
   const [polls, setPolls] = useState([]);
@@ -361,8 +363,19 @@ const TeacherHomePage = () => {
       </li>
     ))
   ) : (
-    <div className="flex w-full h-[150px] items-center justify-center">
-      <p className="text-xl font-normal">No Polls</p>
+    <div className="flex w-full h-[200px] items-center justify-center">
+      <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
     </div>
   )}
 </ul>
@@ -499,8 +512,19 @@ const TeacherHomePage = () => {
             </li>
           )))
         : (
-          <div className="flex w-full h-[150px] items-center justify-center">
-            <p className="text-xl font-normal">No Notes</p>
+          <div className="flex w-full h-[200px] items-center justify-center">
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
           </div>
         )}
         </ul>

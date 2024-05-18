@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useLocation,useNavigate } from 'react-router-dom';
 import ConfirmationPopupQuiz from '../components/ConfirmationPopupQuiz';
+import Lottie from 'react-lottie';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const StudentAssignmentsPage = () => {
   const [assignments, setAssignments] = useState([]);
@@ -66,14 +68,16 @@ const StudentAssignmentsPage = () => {
           <div className=" justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">Assignments</h2>
           </div>
-          <div className="flex flex-col overflow-y-scroll scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
+          <div className="flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
             {/* <div className="flex items-right bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Name</div>
               <div className="font-bold mx-4">Start Time</div>
               <div className="font-bold mx-4">End Time</div>
               <div className="font-bold">Marks</div>
             </div> */}
-            {assignments?.map((assignment) => (
+            {assignments?.length !== 0
+            ? (
+            assignments?.map((assignment) => (
               <div key={assignment?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3 onClick={() =>handleAssignmentClick(assignment?._id)} className="text-xl font-semibold mb-2 text-black-500 cursor-pointer hover:underline">
                   {assignment?.title}
@@ -92,7 +96,23 @@ const StudentAssignmentsPage = () => {
                   <p className="">{assignment?.marks}</p>
                 </div>
               </div>
-            ))}
+            )))
+          : (
+            <div className="flex w-full h-[350px] items-center justify-center">
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+          </div>
+          )}
           </div>
         </div>
 
@@ -108,8 +128,10 @@ const StudentAssignmentsPage = () => {
               <div className="font-bold mx-4">Time</div>
               <div className="font-bold">Marks</div>
             </div> */}
-            <div className='overflow-y-scroll scroll scrollbar-hide'>
-            {quizes.map((quiz, index) => {
+            <div className='overflow-y-scroll h-[350px] scroll scrollbar-hide'>
+            { quizes?.length !== 0 
+            ? (
+            quizes.map((quiz, index) => {
               const submission = submissions[index];
               return (
               <div key={quiz?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
@@ -145,7 +167,23 @@ const StudentAssignmentsPage = () => {
                   <p className="">{quiz?.marks}</p>
                 </div>
               </div>
-              )})
+              )}))
+              : (
+                <div className="flex w-full h-[350px] items-center justify-center">
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+          </div>
+              )
             }
             </div>
           </div>

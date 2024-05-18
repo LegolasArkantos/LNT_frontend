@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { apiPrivate } from '../services/api';
 import app from '../services/firebase';
+import Lottie from 'react-lottie';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const storage = getStorage(app);
 
@@ -98,8 +100,8 @@ const StudentSubmissionPage = () => {
   
 
   return (
-    <div className="p-8">
-      {assignment && (
+    <div className="p-8 h-4/5 w-full flex flex-col justify-between">
+      {assignment ? (
       <div>
           <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
           <p className="text-lg">Start Time: <span className="ml-2">{assignment?.startTime}</span></p>
@@ -154,12 +156,32 @@ const StudentSubmissionPage = () => {
         {Grade !== -1 && Grade !== undefined && (
     <div className="">
         <p className="text-xl font-semibold mb-2 mt-4">Feedback:</p>
-        <p className="bg-gray-100 p-4 rounded-lg">{Feedback}</p>
-        <p className="bg-gray-100 p-4 rounded-lg"> Grade: {Grade}</p>
+        <div className='flex bg-gray-100'>
+            <div className='flex flex-col'>
+            <p className="p-4">{Feedback}</p>
+            <p className="p-4"> Grade: {Grade}</p>
+            </div>
+        </div>
     </div>
 )}
       </div>
-      )}
+      )
+    : (
+        <div className="flex w-full h-[500px] items-center justify-center">
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+          </div>
+    )}
               
 
     </div>
