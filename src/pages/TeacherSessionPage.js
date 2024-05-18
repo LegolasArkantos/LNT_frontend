@@ -3,7 +3,7 @@ import useApiPrivate from '../hooks/useAPIPrivate';
 import { useNavigate } from 'react-router-dom';
 import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 import Lottie from 'react-lottie';
-import loadingCardAnimation from '../assets/cardLoadingAnimation.json';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const TeacherSessionsPage = () => {
   const [sessions, setSessions] = useState([]);
@@ -86,7 +86,7 @@ const TeacherSessionsPage = () => {
             {/* Session Cards (Fetched Data) */}
             {sessions.length !== 0 ? (
             sessions?.map((session) => (
-              <div key={session?._id} className="max-w-md bg-gray-100 p-6 rounded-lg flex flex-col justify-between shadow-lg mr-4 mb-4">
+              <div key={session?._id} className="w-2/5 h-full bg-gray-100 p-6 rounded-lg flex flex-col justify-between shadow-lg mr-4 mb-4">
                 <div className='flex justify-between'>
                   <button
                     className="text-black-500 hover:underline"
@@ -148,13 +148,12 @@ const TeacherSessionsPage = () => {
             )))
           :
           (
-            sessions?.map((index) => (
-            <div key={index} className='flex'>
+            <div className="flex w-full h-[500px] items-center justify-center">
             <Lottie
                   options={{
                     loop: true,
                     autoplay: true,
-                    animationData: loadingCardAnimation,
+                    animationData: loadingPurple,
                     rendererSettings: {
                       preserveAspectRatio: 'xMidYMid slice',
                     },
@@ -162,8 +161,7 @@ const TeacherSessionsPage = () => {
                   height={200}
                   width={200}
                 />
-            </div>
-            ))
+          </div>
           )}
           </div>
         </div>
