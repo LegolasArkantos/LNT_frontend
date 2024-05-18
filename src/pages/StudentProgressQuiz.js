@@ -33,7 +33,7 @@ const StudentQuizProgress = () => {
   useEffect(() => {
     if (selectedSession) {
 
-      const selectedSessionData = sessions.find((session) => session?.session === selectedSession);
+      const selectedSessionData = sessions.find(session => session.sessionId === selectedSession);
 
       if (selectedSessionData) {
         const quizData = selectedSessionData.quizzes.map(quiz => ({
@@ -63,11 +63,7 @@ const StudentQuizProgress = () => {
           },
           xaxis: {
             type: 'category',
-
-            categories: selectedSessionData?.quizzes.map((quiz) => quiz?.title),
-
             categories: selectedSessionData.quizzes.map(quiz => quiz.title),
-
             labels: {
               rotate: -45,
               style: {
@@ -176,29 +172,18 @@ const StudentQuizProgress = () => {
         </div>
         <div className="card" style={{ width: '50%', height: '100%' }}>
           <div className="card-body">
-
-            <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
-              {sessions.map((session) => (
-                <option key={session?.session} value={session?.session}>
-                  {session?.subject}
-                </option>
-              ))}
-            </select>
-            <h4 className="ml-5">Quiz Progress</h4>
-            <div id="session-chart"></div>
-
-            {sessions?.length > 0 && (
+            {sessions.length > 0 && (
               <>
                 <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
-                  {sessions?.map(session => (
-                    <option key={session?.sessionId} value={session?.sessionId}>{session?.subject}</option>
+                {sessions.map(session => (
+                    <option key={session.sessionId} value={session.sessionId}>{session.subject}</option>
                   ))}
                 </select>
                 <h4 className="ml-5">Individual Quiz Grades</h4>
                 <div id="quiz-chart"></div>
               </>
             )}
-            {sessions?.length === 0 && (
+            {sessions.length === 0 && (
               <p>No quiz data available.</p>
             )}
 
