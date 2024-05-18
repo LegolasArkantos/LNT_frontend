@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import useAPIPrivte from "../hooks/useAPIPrivate";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+import Lottie from 'react-lottie';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const StudentHomePage = () => {
 
@@ -61,6 +63,8 @@ const StudentHomePage = () => {
     getSessions();
     getTopRatedTeachers();
     getPolls();
+
+    
 
     return () => {
       isMounted = false;
@@ -150,8 +154,20 @@ const StudentHomePage = () => {
         </button>
         <div id="slider1" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {availableSessions.length === 0 ? (
-            <div className="flex w-full h-[150px] items-center justify-center">
-            <p className="text-xl font-normal">No Sessions Available</p>
+            <div className="flex w-full h-[200px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
             </div>
           ) : (
             availableSessions.map((session, index) => (
@@ -229,8 +245,20 @@ const StudentHomePage = () => {
         </button>
         <div id="slider2" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {topRatedTeachers.length === 0 ? (
-            <div className="flex w-full h-[150px] items-center justify-center">
-            <p className="text-xl font-normal">No Teachers</p>
+            <div className="flex w-full h-[200px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Teachers</p> */}
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
             </div>
           ) : (
             topRatedTeachers.map((teacher, index) => (
@@ -325,8 +353,20 @@ const StudentHomePage = () => {
     </li>
   ))
 ) : (
-  <div className="flex w-full h-[150px] items-center justify-center">
-    <p className="text-xl font-normal">No Polls</p>
+  <div className="flex w-full h-[200px] items-center justify-center">
+    {/* <p className="text-xl font-normal">No Polls</p> */}
+    <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
   </div>
 )}
 
