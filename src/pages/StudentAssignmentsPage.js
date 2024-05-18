@@ -73,23 +73,23 @@ const StudentAssignmentsPage = () => {
               <div className="font-bold mx-4">End Time</div>
               <div className="font-bold">Marks</div>
             </div> */}
-            {assignments.map((assignment) => (
-              <div key={assignment._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() =>handleAssignmentClick(assignment._id)} className="text-xl font-semibold mb-2 text-black-500 cursor-pointer hover:underline">
-                  {assignment.title}
+            {assignments?.map((assignment) => (
+              <div key={assignment?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
+                <h3 onClick={() =>handleAssignmentClick(assignment?._id)} className="text-xl font-semibold mb-2 text-black-500 cursor-pointer hover:underline">
+                  {assignment?.title}
                 </h3>
             <div className="flex-grow"></div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Start Time:</h>
-                  <p className="">{assignment.startTime}</p>
+                  <p className="">{assignment?.startTime}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">End Time:</h>
-                  <p className="">{assignment.endTime}</p>
+                  <p className="">{assignment?.endTime}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{assignment.marks}</p>
+                  <p className="">{assignment?.marks}</p>
                 </div>
               </div>
             ))}
@@ -112,7 +112,7 @@ const StudentAssignmentsPage = () => {
             {quizes.map((quiz, index) => {
               const submission = submissions[index];
               return (
-              <div key={quiz._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
+              <div key={quiz?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3
                 onClick={() => {
                   if (!submission) {
@@ -122,7 +122,7 @@ const StudentAssignmentsPage = () => {
                 }}
                 className={`text-xl ${!submission ? 'hover:underline cursor-pointer' : ''} font-semibold mb-2`}
                 >
-                  {quiz.title}
+                  {quiz?.title}
                 </h3>
                 <div className="flex-grow"></div>
                 {
@@ -138,11 +138,11 @@ const StudentAssignmentsPage = () => {
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Time:</h>
-                  <p className="">{quiz.time}</p>
+                  <p className="">{quiz?.time}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{quiz.marks}</p>
+                  <p className="">{quiz?.marks}</p>
                 </div>
               </div>
               )})

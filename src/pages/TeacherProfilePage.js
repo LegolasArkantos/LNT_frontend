@@ -13,25 +13,25 @@ const TeacherProfilePage = () => {
       <div class="flex items-center  mb-8">
         <img
           class="bg-teal-200 rounded-full outline outline-teal-700 w-[350px] h-[350px]"
-          src={profile.profilePicture}
+          src={profile?.profilePicture}
           alt="Jese Leos"
         />
         <div>
           <p class="text-4xl ml-10 font-bold leading-none text-gray-900 dark:text-white">
-            {profile.firstName} {profile.lastName}
+            {profile?.firstName} {profile?.lastName}
           </p>
           <p className="ml-10 font-semibold">Teacher</p>
           <p className="ml-10 font-semibold">
-            {profile.educationalCredentials}
+            {profile?.educationalCredentials}
           </p>
-          <p className="ml-10 font-semibold">{profile.subjectsTaught}</p>
-          <p className="ml-10 font-semibold">{profile.availableTimeSlots}</p>
-          <p className="ml-10 font-semibold">{profile.rating} star</p>
-          <p className="ml-10 font-semibold">{profile.personality}</p>
+          <p className="ml-10 font-semibold">{profile?.subjectsTaught}</p>
+          <p className="ml-10 font-semibold">{profile?.availableTimeSlots}</p>
+          <p className="ml-10 font-semibold">{profile?.rating} star</p>
+          <p className="ml-10 font-semibold">{profile?.personality}</p>
           <p 
             onClick={() => {
               const data = {
-                teacherId: profile.profileID,
+                teacherId: profile?.profileID,
                 profilePage: true
               }
               setReviewPopUpData(data);
@@ -41,7 +41,7 @@ const TeacherProfilePage = () => {
         </div>
       </div>
       <p class="mb-4 text-m font-semibold text-teal-900 w-[1000px]">
-        {profile.aboutMe}
+        {profile?.aboutMe}
       </p>
       {
         reviewPopUp && (

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import useApiPrivate from '../hooks/useAPIPrivate';
 import { useNavigate } from 'react-router-dom';
 import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
+import Lottie from 'react-lottie';
+import loadingCardAnimation from '../assets/cardLoadingAnimation.json';
 
-const TeacherSessionsPage = ({ socket }) => {
+const TeacherSessionsPage = () => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [reviewPopUp, setReviewPopUp] = useState(false);
@@ -82,27 +84,28 @@ const TeacherSessionsPage = ({ socket }) => {
           </div>
           <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
             {/* Session Cards (Fetched Data) */}
-            {sessions.map((session) => (
-              <div key={session._id} className="max-w-md bg-gray-100 p-6 rounded-lg shadow-lg mr-4 mb-4">
+            {sessions.length !== 0 ? (
+            sessions?.map((session) => (
+              <div key={session?._id} className="max-w-md bg-gray-100 p-6 rounded-lg flex flex-col justify-between shadow-lg mr-4 mb-4">
                 <div className='flex justify-between'>
                   <button
                     className="text-black-500 hover:underline"
-                    onClick={() => handleAssignmentClick(session._id, session.subject)}
+                    onClick={() => handleAssignmentClick(session?._id, session?.subject)}
                   >
                     <h3 className="text-xl font-semibold mb-2">
-                      {session.subject}
+                      {session?.subject}
                     </h3>
                   </button>
-                  <div onClick={() => handleJoinVideoCall(session._id)} className='hover:bg-teal-200 rounded-full'>
+                  <div onClick={() => handleJoinVideoCall(session?._id)} className='hover:bg-teal-200 rounded-full'>
                     <svg className='cursor-pointer' width="40px" height="40px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#f01919" d="M8,12h22c2.2,0,4,1.8,4,4v16c0,2.2-1.8,4-4,4H8c-2.2,0-4-1.8-4-4V16C4,13.8,5.8,12,8,12z"></path> <polygon fill="#f52424" points="44,35 34,29 34,19 44,13"></polygon> </g></svg>
                   </div>
                 </div>
-                <p className="text-gray-700">Start Time: {session.startTime}</p>
-                <p className="text-gray-700">End Time: {session.endTime}</p>
-                <p className="text-gray-700">Days: {session.day}</p>
-                <p className="text-gray-700">Payment Status: {session.paymentStatus}</p>
-                <p className="text-gray-700">Price: ${session.sessionPrice}</p>
-                <p className="text-gray-700">No. of Students: {session.students.length}</p>
+                <p className="text-gray-700">Start Time: {session?.startTime}</p>
+                <p className="text-gray-700">End Time: {session?.endTime}</p>
+                <p className="text-gray-700">Days: {session?.day}</p>
+                <p className="text-gray-700">Payment Status: {session?.paymentStatus}</p>
+                <p className="text-gray-700">Price: ${session?.sessionPrice}</p>
+                <p className="text-gray-700">No. of Students: {session?.students?.length}</p>
                 <div className="flex items-center mb-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +125,8 @@ const TeacherSessionsPage = ({ socket }) => {
                     className="text-sm text-blue-500 hover:underline focus:outline-none"
                     onClick={() => {
                       const data = {
-                        teacherId: session.teacher,
-                        sessionName: session.subject,
+                        teacherId: session?.teacher,
+                        sessionName: session?.subject,
                         profilePage: false
                       }
                       setReviewPopUpData(data);
@@ -142,7 +145,26 @@ const TeacherSessionsPage = ({ socket }) => {
                   </button>
                 </div>
               </div>
-            ))}
+            )))
+          :
+          (
+            sessions?.map((index) => (
+            <div key={index} className='flex'>
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingCardAnimation,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+            </div>
+            ))
+          )}
           </div>
         </div>
       </div>
@@ -155,14 +177,14 @@ const TeacherSessionsPage = ({ socket }) => {
       {selectedSession && (
         <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded">
-            <h2 className="text-2xl font-bold mb-4">Students in Session {selectedSession.subject}</h2>
-            {selectedSession.students.map((student) => (
-              <div key={student._id} className="mb-2">
+            <h2 className="text-2xl font-bold mb-4">Students in Session {selectedSession?.subject}</h2>
+            {selectedSession?.students?.map((student) => (
+              <div key={student?._id} className="mb-2">
                 <button
                   className="text-blue-500 hover:underline"
-                  onClick={() => handleTeacherClick(student._id)}
+                  onClick={() => handleTeacherClick(student?._id)}
                 >
-                  {`${student.firstName} ${student.lastName}`}
+                  {`${student?.firstName} ${student?.lastName}`}
                 </button>
               </div>
             ))}

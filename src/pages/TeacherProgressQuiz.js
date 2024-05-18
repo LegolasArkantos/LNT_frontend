@@ -12,7 +12,7 @@ const QuizProgress = () => {
     const fetchQuizProgress = async () => {
       try {
         const response = await apiPrivate.get('/progress/getQuizData');
-        setSessions(response.data.quizData);
+        setSessions(response?.data?.quizData);
       } catch (error) {
         console.error('Error fetching quiz progress:', error);
       }
@@ -34,14 +34,14 @@ const QuizProgress = () => {
 
   useEffect(() => {
     if (selectedSession) {
-      const selectedSessionData = sessions.find(session => session.session === selectedSession);
+      const selectedSessionData = sessions.find(session => session?.session === selectedSession);
       if (selectedSessionData) {
         const chartData = {
           series: [{
-            data: selectedSessionData.quizzes.map(quiz => {
+            data: selectedSessionData?.quizzes.map(quiz => {
               return {
-                x: quiz.title,
-                y: calculateAverageScore(quiz.submissions)
+                x: quiz?.title,
+                y: calculateAverageScore(quiz?.submissions)
               };
             })
           }],
@@ -60,7 +60,7 @@ const QuizProgress = () => {
           },
           xaxis: {
             type: 'category',
-            categories: selectedSessionData.quizzes.map(quiz => quiz.title),
+            categories: selectedSessionData?.quizzes.map(quiz => quiz?.title),
             labels: {
               rotate: -45,
               style: {
@@ -90,8 +90,8 @@ const QuizProgress = () => {
 
   useEffect(() => {
     // Set the default selected session to the first session
-    if (sessions.length > 0) {
-      setSelectedSession(sessions[0].session);
+    if (sessions?.length > 0) {
+      setSelectedSession(sessions[0]?.session);
     }
   }, [sessions]);
 
@@ -103,13 +103,13 @@ const QuizProgress = () => {
 useEffect(() => {
     const avgChartData = {
       series: [{
-        data: sessions.map(session => {
-          const averageGrade = session.quizzes.reduce((acc, quiz) => {
-            const totalGrades = quiz.submissions.reduce((total, submission) => total + submission, 0);
-            return acc + (totalGrades / quiz.submissions.length);
-          }, 0) / session.quizzes.length;
+        data: sessions?.map(session => {
+          const averageGrade = session?.quizzes.reduce((acc, quiz) => {
+            const totalGrades = quiz?.submissions?.reduce((total, submission) => total + submission, 0);
+            return acc + (totalGrades / quiz?.submissions?.length);
+          }, 0) / session?.quizzes?.length;
           return {
-            x: session.subject,
+            x: session?.subject,
             y: averageGrade || 0 // Default to 0 if no quizzes or submissions
           };
         })
@@ -129,7 +129,7 @@ useEffect(() => {
       },
       xaxis: {
         type: 'category',
-        categories: sessions.map(session => session.subject),
+        categories: sessions?.map(session => session?.subject),
         labels: {
           rotate: -45, 
           style: {
@@ -176,8 +176,8 @@ useEffect(() => {
         <div className="card" style={{ width: '50%', height: '100%' }}>
           <div className="card-body">
             <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
-              {sessions.map(session => (
-                <option key={session.session} value={session.session}>{session.subject}</option>
+              {sessions?.map(session => (
+                <option key={session?.session} value={session?.session}>{session?.subject}</option>
               ))}
             </select>
             <h4 className="ml-5">Quiz Progress</h4>

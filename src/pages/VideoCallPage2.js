@@ -245,7 +245,7 @@ const VideoCallPage2 = () => {
                 try {
                     await apiPrivate.post(`career/end-counselling/${roomID}`).then((res) => {
                       if (res.status === 200) {
-                        navigate('/teacher-home-page/career');
+                        navigate('/teacher-career-page/career');
                       }
                     })
                 }
@@ -263,7 +263,7 @@ const VideoCallPage2 = () => {
                 navigate('/student-home-page/sessions');
             }
             else {
-                navigate('/student-home-page/Counselors');
+                navigate('/student-career-page/Counselors');
             }
         }
         
@@ -312,7 +312,7 @@ const VideoCallPage2 = () => {
         
         <div className='flex justify-end font-bold'>
             <div className='bg-gray-500'>
-                {profile.firstName} {profile.lastName}
+                {profile?.firstName} {profile?.lastName}
             </div>
         </div>
     </div>
@@ -366,7 +366,7 @@ const VideoCallPage2 = () => {
             <div className='flex-col outline h-4/5 flex-1 bg-teal-200 overflow-y-scroll scroll scrollbar-hide rounded outline outline-teal-700 p-5 space-y-5'>
                {
                  remoteUsers && (
-                   Object.keys(remoteUsers).map((uid) => (
+                   Object?.keys(remoteUsers).map((uid) => (
                      <div onClick={() => expandVideoFrame(remoteUsers[uid])} className='flex justify-center cursor-pointer' key={uid}>
                         <div className='w-[150px] h-[150px] rounded-full outline overflow-hidden' id={`user-${uid}`}>
 

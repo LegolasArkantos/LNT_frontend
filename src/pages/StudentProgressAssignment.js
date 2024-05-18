@@ -100,10 +100,10 @@ const StudentAssignmentProgress = () => {
       const avgChartData = {
         series: [{
           data: sessions.map(session => {
-            const validAssignments = session.assignments.filter(assignment => assignment.submissions.length > 0);
+            const validAssignments = session.assignments.filter(assignment => assignment?.submissions.length > 0);
             if (validAssignments.length === 0) return null;
             const sessionAvg = validAssignments.reduce((acc, assignment) => {
-              return acc + calculateAverageScore(parseFloat(assignment.totalMarks), assignment.submissions.map(s => s.grade));
+              return acc + calculateAverageScore(parseFloat(assignment?.totalMarks), assignment?.submissions.map(s => s.grade));
             }, 0) / validAssignments.length;
             return {
               x: session.subject,
@@ -126,7 +126,7 @@ const StudentAssignmentProgress = () => {
         },
         xaxis: {
           type: 'category',
-          categories: sessions.map(session => session.subject),
+          categories: sessions.map(session => session?.subject),
           labels: {
             rotate: -45,
             style: {
@@ -178,7 +178,7 @@ const StudentAssignmentProgress = () => {
               <>
                 <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
                   {sessions.map(session => (
-                    <option key={session.sessionId} value={session.sessionId}>{session.subject}</option>
+                    <option key={session?.sessionId} value={session?.sessionId}>{session?.subject}</option>
                   ))}
                 </select>
                 <h4 className="ml-5">Assignment Progress</h4>

@@ -32,7 +32,7 @@ const AICareerGenerator = () => {
         throw new Error('Failed to generate');
       }
 
-      const storyPartsArray = response.data.story.split('&');
+      const storyPartsArray = response.data.story?.split('&');
       setStoryParts(storyPartsArray);
       setStory(response.data.story);
     } catch (error) {

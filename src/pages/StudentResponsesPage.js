@@ -98,23 +98,23 @@ const StudentResponsesPage = () => {
     <div className="p-8">
       {assignment && (
         <div>
-          <h2 className="text-3xl font-bold mb-4">{assignment.title}</h2>
-          <p className="text-lg">Start Time: <span className="ml-2">{assignment.startTime}</span></p>
-          <p className="text-lg">End Time: <span className="ml-4">{assignment.endTime}</span></p>
-          <p className="text-lg">Marks: <span className="ml-6">{assignment.marks}</span></p>
+          <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
+          <p className="text-lg">Start Time: <span className="ml-2">{assignment?.startTime}</span></p>
+          <p className="text-lg">End Time: <span className="ml-4">{assignment?.endTime}</span></p>
+          <p className="text-lg">Marks: <span className="ml-6">{assignment?.marks}</span></p>
           <div className="mt-4">
             <h3 className="text-xl font-semibold mb-2">Description:</h3>
-            <div className="bg-gray-100 p-4 rounded-lg">{assignment.description}</div>
+            <div className="bg-gray-100 p-4 rounded-lg">{assignment?.description}</div>
           </div>
 
           {/* Display uploaded files */}
-          {assignment.files.length > 0 && (
+          {assignment?.files?.length > 0 && (
             <div className="mt-4">
               <h3 className="text-xl font-semibold mb-2">Uploaded Files:</h3>
               <ul>
-                {assignment.files.map((file, index) => (
+                {assignment?.files?.map((file, index) => (
                   <li key={index}>
-                    <a href={file.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file.fileName}</a>
+                    <a href={file?.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file?.fileName}</a>
                   </li>
                 ))}
               </ul>
@@ -126,7 +126,7 @@ const StudentResponsesPage = () => {
             <div className="mt-4">
               <h3 className="text-xl font-semibold mb-2">Selected Files:</h3>
               <ul>
-                {fileNames.map((fileName, index) => (
+                {fileNames?.map((fileName, index) => (
                   <li key={index}>{fileName}</li>
                 ))}
               </ul>
@@ -161,7 +161,7 @@ const StudentResponsesPage = () => {
 
       <button 
       type="button" 
-      onClick={() =>handleSubmissionClick(assignmentId,assignment.marks,assignment.title,sessionId,subject)} 
+      onClick={() =>handleSubmissionClick(assignmentId,assignment?.marks,assignment?.title,sessionId,subject)} 
       class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-8 "
   
       >View Submissions</button>
