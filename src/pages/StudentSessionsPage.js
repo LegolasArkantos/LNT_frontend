@@ -47,16 +47,17 @@ const StudentSessionsPage = ({socket}) => {
       <div className="flex w-full" style={{ paddingRight: "17px" }}>
         {sessions?.length !== 0 ? (
           sessions?.map((session) => (
-            <div key={session?._id} className="bg-gray-100 w-2/5 h-full p-6 flex flex-col justify-between rounded-lg shadow-lg mr-4 mb-4">
+            <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
               <div className="flex justify-between">
                 <button
-                  className="text-xl font-semibold mb-2 hover:underline"
+                  className="text-4/5 font-semibold mb-2 hover:underline"
                   onClick={() => handleSessionClick(session?._id)}
                 >
                   {session?.subject}
                 </button>
               </div>
-              <div className="flex">
+              <div className='flex w-full flex-col space-y-3 mb-3 justify-start'>
+              <div className="flex w-full">
                 <p className="text-gray-700 mr-1">
                   Teacher:
                 </p>
@@ -103,9 +104,10 @@ const StudentSessionsPage = ({socket}) => {
                   <span className="font-semibold">Reviews</span>
                 </button>
               </div>
+              </div>
               <button
                 type="button"
-                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-4 py-2.5 text-center me-2 mb-2"
+                className="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2"
                 onClick={() => {
                   navigate('/student-home-page/session-overview', { state: { session, enrolled: true } });
                 }}
