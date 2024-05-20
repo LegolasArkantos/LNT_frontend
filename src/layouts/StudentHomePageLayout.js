@@ -41,7 +41,7 @@ const StudentHomePageLayout = () => {
       </div>
 
       
-      <div className="bg-teal-100">
+      <div className="bg-[#7179C6]">
       <Footer/>
       </div>
     </div>
