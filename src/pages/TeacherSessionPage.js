@@ -17,7 +17,7 @@ const TeacherSessionsPage = () => {
   useEffect(() => {
     const getSessions = async () => {
       try {
-        const response = await apiPrivate.get('teacher/myStudents');
+        const response = await apiPrivate.get('teacher/my-sessions');
         setSessions(response.data.sessions);
       } catch (error) {
         console.error(error);
@@ -68,6 +68,17 @@ const TeacherSessionsPage = () => {
     }
   }
 
+  const handleFinishSession = async (sessionID) => {
+    try {
+      await apiPrivate.patch(`sessions/session-completed/${sessionID}`).then((res) => {
+        if (res.status === 200) {
+          setSessions((sessions) => sessions.filter((session) => session?._id != sessionID))
+        }
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className=" max-h-screen max-w-screen">
@@ -86,25 +97,24 @@ const TeacherSessionsPage = () => {
             {/* Session Cards (Fetched Data) */}
             {sessions.length !== 0 ? (
             sessions?.map((session) => (
-              <div key={session?._id} className="w-2/5 h-full bg-gray-100 p-6 rounded-lg flex flex-col justify-between shadow-lg mr-4 mb-4">
-                <div className='flex justify-between'>
+              <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
+                <div className='flex justify-start'>
                   <button
                     className="text-black-500 hover:underline"
                     onClick={() => handleAssignmentClick(session?._id, session?.subject)}
                   >
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-4/5 font-semibold mb-2">
                       {session?.subject}
                     </h3>
                   </button>
-                  <div onClick={() => handleJoinVideoCall(session?._id)} className='hover:bg-teal-200 rounded-full'>
-                    <svg className='cursor-pointer' width="40px" height="40px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#f01919" d="M8,12h22c2.2,0,4,1.8,4,4v16c0,2.2-1.8,4-4,4H8c-2.2,0-4-1.8-4-4V16C4,13.8,5.8,12,8,12z"></path> <polygon fill="#f52424" points="44,35 34,29 34,19 44,13"></polygon> </g></svg>
-                  </div>
+                  
                 </div>
+                <div className='flex w-full flex-col justify-start'>
                 <p className="text-gray-700">Start Time: {session?.startTime}</p>
                 <p className="text-gray-700">End Time: {session?.endTime}</p>
                 <p className="text-gray-700">Days: {session?.day}</p>
-                <p className="text-gray-700">Payment Status: {session?.paymentStatus}</p>
-                <p className="text-gray-700">Price: ${session?.sessionPrice}</p>
+                <p className="text-gray-700">Total Sessions: {session?.sessionCounter?.sessionCount}</p>
+                <p className="text-gray-700">Sessions Completed: {session?.sessionCounter?.currentCount}</p>
                 <p className="text-gray-700">No. of Students: {session?.students?.length}</p>
                 <div className="flex items-center mb-2">
                   <svg
@@ -136,7 +146,13 @@ const TeacherSessionsPage = () => {
                     <span className="font-semibold">Reviews</span>
                   </button>
                 </div>
-                <div class="inline-flex rounded-md shadow-sm" role="group">
+                {
+                session?.sessionCounter?.currentCount < session?.sessionCounter?.sessionCount
+                ? (<button onClick={() => handleJoinVideoCall(session?._id)} type="button" class="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Launch Session</button>)
+                : (<button onClick={() => handleFinishSession(session?._id)} type="button" class="text-white w-2/5 bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Finish</button>)
+                }
+                </div>
+                <div class="inline-flex items-center justify-center rounded-md shadow-sm" role="group">
                   <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-500 rounded-s-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     Show Students
                   </button>

@@ -28,7 +28,7 @@ const AdminLayout = () => {
 
   return (
     <div className="bg-white">
-      <div className="flex-col space-y-16">
+      <div className=" flex flex-col space-y-12">
         <AdminNavBar handleLogOut={handleLogOut}/>
         <AdminSidebar/>
       </div>
