@@ -85,11 +85,11 @@ const TeacherSessionsPage = () => {
       {/* Main Content */}
       <div className="p-8 flex  max-h-screen max-w-screen ">
         {/* Sessions Container */}
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
+        <div className="bg-white rounded-lg flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
           {/* Teacher Sessions */}
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Teacher Sessions</h2>
-            <button onClick={() => navigate('/teacher-home-page/create')} className="inline-flex items-center px-4 py-2 mt-2  text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
+            <button onClick={() => navigate('/teacher-home-page/create')} className=" items-center px-4 py-2 mt-2  text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 ">
               Create Session
             </button>
           </div>
@@ -100,7 +100,7 @@ const TeacherSessionsPage = () => {
               <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
                 <div className='flex justify-start'>
                   <button
-                    className="text-black-500 hover:underline"
+                    className="text-purple-800 hover:underline"
                     onClick={() => handleAssignmentClick(session?._id, session?.subject)}
                   >
                     <h3 className="text-4/5 font-semibold mb-2">
@@ -109,20 +109,44 @@ const TeacherSessionsPage = () => {
                   </button>
                   
                 </div>
-                <div className='flex w-full flex-col justify-start'>
-                <p className="text-gray-700">Start Time: {session?.startTime}</p>
-                <p className="text-gray-700">End Time: {session?.endTime}</p>
-                <p className="text-gray-700">Days: {session?.day}</p>
-                <p className="text-gray-700">Total Sessions: {session?.sessionCounter?.sessionCount}</p>
-                <p className="text-gray-700">Sessions Completed: {session?.sessionCounter?.currentCount}</p>
-                <p className="text-gray-700">No. of Students: {session?.students?.length}</p>
+                <div className='flex w-full flex-col space-y-2 justify-start'>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Timings:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.startTime} - {session?.endTime}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Days:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.day}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.sessionCounter?.sessionCount}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Sessions Completed:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.sessionCounter?.currentCount}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">No. of Students:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.students?.length}</p>
+                  </small>
+                  </div>
                 <div className="flex items-center mb-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    stroke="#7179C6"
                   >
                     <path
                       strokeLinecap="round"
@@ -132,7 +156,7 @@ const TeacherSessionsPage = () => {
                     />
                   </svg>
                   <button
-                    className="text-sm text-blue-500 hover:underline focus:outline-none"
+                    className="text-sm focus:outline-none"
                     onClick={() => {
                       const data = {
                         teacherId: session?.teacher,
@@ -143,7 +167,7 @@ const TeacherSessionsPage = () => {
                       setReviewPopUp(true)
                     }}
                   >
-                    <span className="font-semibold">Reviews</span>
+                    <span className="font-semibold hover:border-b-2 hover:border-[#7179C6] text-[#7179C6]">Reviews</span>
                   </button>
                 </div>
                 {
@@ -153,10 +177,10 @@ const TeacherSessionsPage = () => {
                 }
                 </div>
                 <div class="inline-flex items-center justify-center rounded-md shadow-sm" role="group">
-                  <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-500 rounded-s-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                  <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-[#7179C6] rounded-s-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
                     Show Students
                   </button>
-                  <button onClick={() => handleUpdateClick(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-green-500 rounded-e-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                  <button onClick={() => handleUpdateClick(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-[#7179C6] rounded-e-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
                     Update Session
                   </button>
                 </div>
