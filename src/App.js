@@ -53,6 +53,7 @@ import StudentAssignmentProgress from "./pages/StudentProgressAssignment";
 import StudentQuizProgress from "./pages/StudentProgressQuiz";
 import StudentCareerPageLayout from "./layouts/StudentCareerPageLayout";
 import TeacherCareerPageLayout from "./layouts/TeacherCareerPageLayout";
+import ApproveSessionsPage from "./pages/AdminPortal/ApproveSessionsPage";
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 
@@ -133,6 +134,7 @@ function App() {
         <Route element={<RequiredAuth allowedRole="Admin" />}>
           <Route path="/admin-home-page" element={<AdminLayout/>}>
             <Route index element={<ApproveTeachersPage/>} />
+            <Route path="sessions" element={<ApproveSessionsPage/>}/>
           </Route>
         </Route>
       </Route>
