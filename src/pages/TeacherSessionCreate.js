@@ -10,6 +10,7 @@ const CreateSessionPage = () => {
     subject: '',
     sessionPrice: '',
     sessionDescription: '',
+    sessionCount: ''
   });
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
@@ -37,6 +38,34 @@ const CreateSessionPage = () => {
       <h1 className="text-2xl font-bold mb-4">Create Session</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
+        <div className="mb-4">
+            <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
+              Subject
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={formData?.subject}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+        <div className="mb-4">
+            <label htmlFor="day" className="block text-sm font-medium text-gray-900">
+              Day
+            </label>
+            <input
+              type="text"
+              id="day"
+              name="day"
+              value={formData?.day}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="startTime" className="block text-sm font-medium text-gray-900">
               Start Time
@@ -66,34 +95,6 @@ const CreateSessionPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="day" className="block text-sm font-medium text-gray-900">
-              Day
-            </label>
-            <input
-              type="text"
-              id="day"
-              name="day"
-              value={formData?.day}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
-              Subject
-            </label>
-            <input
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData?.subject}
-              onChange={handleInputChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
             <label htmlFor="sessionPrice" className="block text-sm font-medium text-gray-900">
               Session Price
             </label>
@@ -102,6 +103,20 @@ const CreateSessionPage = () => {
               id="sessionPrice"
               name="sessionPrice"
               value={formData?.sessionPrice}
+              onChange={handleInputChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="sessionCount" className="block text-sm font-medium text-gray-900">
+              Number of Sessions
+            </label>
+            <input
+              type="number"
+              id="sessionCount"
+              name="sessionCount"
+              value={formData?.sessionCount}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
               required
@@ -117,6 +132,7 @@ const CreateSessionPage = () => {
               value={formData?.sessionDescription}
               onChange={handleInputChange}
               className="mt-1 p-2 w-full border rounded-md"
+              placeholder='Please give a detailed course outline to increase chances of course being approved by Admin'
               required
             />
           </div>
