@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import useAPIPrivate from "../hooks/useAPIPrivate";
+import Lottie from 'react-lottie';
+import loadingPurple from '../assets/loadingPurple.json';
 
 const ReviewsPopupTeacher = ({setReviewPopUp, reviewPopUpData}) => {
 
@@ -58,9 +60,9 @@ const ReviewsPopupTeacher = ({setReviewPopUp, reviewPopUpData}) => {
 
   return (
     <div onClick={handleClickOutside} className="fixed z-40  flex top-0 left-0 justify-center items-center bg-opacity-50 bg-gray-900 w-screen h-screen">
-    <div className='rounded p-5 bg-teal-100 overflow-hidden w-3/4 h-3/4'>
+    <div className='rounded p-5 bg-white overflow-hidden w-3/4 h-3/4'>
         <div className='flex justify-center'>
-    <h1 className="text-2xl text-teal-800 font-bold">Reviews</h1>
+    <h1 className="text-2xl text-[#7179C6] font-bold">Reviews</h1>
     </div>
     <ul className='p-5 h-full space-y-5 overflow-y-scroll scrollbar-hide scroll'>
                 {
@@ -69,13 +71,14 @@ const ReviewsPopupTeacher = ({setReviewPopUp, reviewPopUpData}) => {
                         <li key={index}>
     <div class="flex items-center mb-4">
         <img class="w-10 h-10 me-4 rounded-full" src={review.student.profilePicture} alt=""/>
-        <div class="font-medium dark:text-white">
+        <div class="font-medium text-purple-800">
             <p>{review.student.firstName} {review.student.lastName}</p>
         </div>
     </div>
     {
         reviewPopUpData.profilePage && (<h className="font-medium">{review.sessionName}</h>)
     }
+    <div className='flex flex-col justify-start p-2'>
     <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
         <svg class={`w-4 h-4 ${review.rating >= 1 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
             <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
@@ -95,8 +98,9 @@ const ReviewsPopupTeacher = ({setReviewPopUp, reviewPopUpData}) => {
         
     </div>
 
-    <p class="mb-2 text-gray-500 dark:text-gray-400">{review.comment}</p>
-    <hr/>
+    <p class="mb-2 tex-semibold text-purple-800">{review.comment}</p>
+    </div>
+    <hr className='border-[#7179C6] border-b-1 rounded-full'/>
         </li>
                     ))
                         
@@ -104,9 +108,18 @@ const ReviewsPopupTeacher = ({setReviewPopUp, reviewPopUpData}) => {
                     
                     : (
                         <div className="flex h-full items-center justify-center">
-                            <p className="text-xl text-teal-800">
-                                No Reviews
-                            </p>
+                            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={150}
+                  width={150}
+                />
                         </div>
                     )
                 }

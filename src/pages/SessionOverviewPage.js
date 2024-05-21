@@ -32,7 +32,7 @@ const SessionOverviewPage = () => {
   return (
     <div>
         <div className='flex space-x-20 justify-between'>
-        <h1 className='mb-2 text-3xl font-bold tracking-tight text-teal-900'>
+        <h1 className='mb-2 text-3xl font text-[#7179C6]'>
             {session?.subject}
         </h1>
         {
@@ -46,11 +46,8 @@ const SessionOverviewPage = () => {
         </div>
         
         <p className="text-sm text-teal-500 hover:underline cursor-pointer font-semibold"
-        onClick={() => handleTeacherClick(session?.teacher?._id)}>
+        onClick={() => handleTeacherClick(session?.teacher)}>
             Instructor: {session?.teacherName}
-        </p>
-        <p className="mb-2 text-sm font-medium text-green-500 dark:text-green-400">
-            Price: {session?.sessionPrice}
         </p>
         <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">
             <span className="font-semibold">Start:</span> {session?.startTime}
