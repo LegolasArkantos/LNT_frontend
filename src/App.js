@@ -54,6 +54,8 @@ import StudentQuizProgress from "./pages/StudentProgressQuiz";
 import StudentCareerPageLayout from "./layouts/StudentCareerPageLayout";
 import TeacherCareerPageLayout from "./layouts/TeacherCareerPageLayout";
 import ApproveSessionsPage from "./pages/AdminPortal/ApproveSessionsPage";
+import TeacherSessionHistoryPage from "./pages/TeacherHistoryPage";
+
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 
@@ -92,6 +94,8 @@ function App() {
             <Route path="Quiz" element={<QuizProgress />} />
             <Route path="create" element={<CreateSessionPage />} />
             <Route path="update" element={<UpdateSessionPage />} />
+            <Route path="history" element={<TeacherSessionHistoryPage />} />
+
           </Route>
 
           <Route path="/teacher-career-page" element={<TeacherCareerPageLayout/>}>
