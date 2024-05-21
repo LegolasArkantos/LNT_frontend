@@ -72,8 +72,10 @@ const StudentSessionsPage = ({socket}) => {
                 Timings: {session?.startTime} - {session?.endTime}
               </p>
               <p className="text-gray-700">
-                Day: {session?.day}
+                Days: {session?.day}
               </p>
+              <p className="text-gray-700">Total Sessions: {session?.sessionCounter?.sessionCount}</p>
+              <p className="text-gray-700">Sessions Completed: {session?.sessionCounter?.currentCount}</p>
               <div className="flex items-center mb-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
