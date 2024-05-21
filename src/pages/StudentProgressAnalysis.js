@@ -7,17 +7,19 @@ import ReactPlayer from 'react-player';
 
 const StudentProgressAnalysis = () => {
   const [analysisText, setAnalysisText] = useState('');
-  const [loading, setLoading] = useState(true); 
+  const [youtubeVideos, setYoutubeVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const fetchAnalysis = async () => {
     try {
       const response = await apiPrivate.get('/ai/generate-analysis-student');
       setAnalysisText(response?.data?.text);
-      setLoading(false); 
+      setYoutubeVideos(response?.data?.youtubeVideos || []);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching analysis:', error);
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -28,20 +30,9 @@ const StudentProgressAnalysis = () => {
   const renderContent = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const parts = text.split(urlRegex);
-  
+
     return parts.map((part, index) => {
       if (urlRegex.test(part)) {
-        if (ReactPlayer.canPlay(part)) {
-          return (
-            <div key={index} style={{ width: '50vw', height: '50vh', margin: 'auto' }}>
-              <ReactPlayer
-                url={part}
-                width="100%"
-                height="100%"
-              />
-            </div>
-          );
-        }
         return (
           <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
             {part}
@@ -53,7 +44,6 @@ const StudentProgressAnalysis = () => {
   };
 
   const sanitizeText = (text) => {
-    // Replace all '*' characters with an empty string
     return text.replace(/\*/g, '');
   };
 
@@ -91,6 +81,25 @@ const StudentProgressAnalysis = () => {
                 {renderContent(sanitizeText(analysisText))}
               </div>
             )}
+            <h4 className="font-bold mt-4">Recommended Videos</h4>
+            <div className="flex overflow-x-auto gap-4 py-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#4A5568 #CBD5E0' }}>
+              {youtubeVideos.length > 0 ? (
+                youtubeVideos.map((video, index) => (
+                  <div key={index} className="flex flex-col items-center">
+                    <div style={{ width: '200px', height: '150px', marginBottom: '8px' }}>
+                      <ReactPlayer
+                        url={video.url}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                    <h5 className="text-center font-thin">{video.title}</h5>
+                  </div>
+                ))
+              ) : (
+                <p>No recommended videos available.</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
