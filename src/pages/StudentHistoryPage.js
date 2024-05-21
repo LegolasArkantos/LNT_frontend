@@ -81,36 +81,6 @@ const StudentSessionsHistoryPage = ({  }) => {
                     </p>
                     <p className="text-gray-700">Total Sessions: {session?.sessionCounter?.sessionCount}</p>
                     <p className="text-gray-700">Sessions Completed: {session?.sessionCounter?.currentCount}</p>
-                    <div className="flex items-center mb-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                      <button
-                        className="text-sm text-blue-500 hover:underline focus:outline-none"
-                        onClick={() => {
-                            const data = {
-                              teacherId: session?.teacher,
-                              sessionId: session?._id,
-                              sessionName: session?.subject
-                            };
-                            setReviewPopUpData(data);
-                            setReviewPopUp(true);
-                          }}
-                      >
-                        <span className="font-semibold">Reviews</span>
-                      </button>
-                    </div>
                   </div>
                   <button
                     type="button"
