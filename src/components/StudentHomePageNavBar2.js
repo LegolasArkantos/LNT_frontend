@@ -152,7 +152,7 @@ const StudentHomePageNavBar2 = (props) => {
         >
           <div className="scale-50 text-gray-900 mr-3 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
             <svg
-              fill={isHovered ? "#4fd1c5" : "#000000"}
+              fill={isHovered ? "#FFFFFF" : "#000000"}
               width="50px"
               height="50px"
               viewBox="0 0 24 24"

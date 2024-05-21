@@ -61,6 +61,7 @@ const ApproveTeachersPage = () => {
     };
 
     getUnApproveTeachers();
+
   }, [])
 
   return (
@@ -73,7 +74,7 @@ const ApproveTeachersPage = () => {
       {
         unApproveTeachers?.length == 0 
         ? (
-          <p className="text-xl font-normal">No teachers</p>
+          <p className="text-xl font-normal">No Teachers</p>
         )
         : (
           unApproveTeachers?.map((teacher, index) => (
@@ -133,6 +134,7 @@ const ApproveTeachersPage = () => {
         <ConfirmationPopup
           setConfirmationPopup={setConfirmationPopup}
           buttonType={buttonType}
+          purpose="Teacher"
           onConfirm={buttonType === 'approve' ? handleApproveTeacher : handleRejectTeacher}
         />
       )
