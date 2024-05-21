@@ -96,6 +96,18 @@ const StudentHomePageNavBar2 = (props) => {
               <span className="ml-3 text-xl font-bold">Progress</span>
             </Link>
           </li>
+          <li>
+            <Link
+              to="StudentHistory"
+              className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
+                location.pathname === "/student-home-page/StudentHistory"
+                  ? "text-white underline"
+                  : "hover:text-white"
+              }`}
+            >
+              <span className="ml-3 text-xl font-bold">History</span>
+            </Link>
+          </li>
         </ul>
         <svg
   onClick={toggleNotification}
