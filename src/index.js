@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ReduxProvider } from './provider/ReduxProvider';
+    // import dotenv from 'dotenv'; // Import dotenv
+    // dotenv.config({ path: process.env.NODE_ENV === 'production'? '.env' : '.env.local' }); // Load environment variables
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
