@@ -145,7 +145,7 @@ const StudentHomePage = () => {
     <div>
       <SearchBar handleSearch={handleSearch} />
       <div className="mt-10">
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
+        <h1 className="mb-2 text-2xl font-bold tracking-tight text-[#7179C6] dark:text-white">
           Session Recommendations:
         </h1>
         <div className="flex items-center">
@@ -236,7 +236,7 @@ const StudentHomePage = () => {
       </div>
 
       <div className="mt-10">
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
+        <h1 className="mb-2 text-2xl font-bold tracking-tight text-[#7179C6] dark:text-white">
           Top Rated Teachers:
         </h1>
         <div className="flex items-center">
@@ -275,15 +275,42 @@ const StudentHomePage = () => {
       <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
         {teacher?.firstName} {teacher?.lastName}
       </h2>
-      <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400 break-words">
-        Subjects: {teacher?.subjectsTaught}
-      </p>
+      <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
+        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 1 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 2 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 3 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 4 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 5 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        
+    </div>
+      <p className="font-bold underline">
+            Subjects:
+          </p>
+          <div className="flex flex-col">
+          {
+            teacher?.subjectsTaught.map((subject, index) => (
+              <small>
+              <p key={index} className="font-semibold">{subject}</p>
+              </small>
+            ))
+          }
+          </div>
     </div>
   </div>
   <div className="p-5">
     <button
       type="button"
-      className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+      className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
       onClick={() => handleTeacherClick(teacher?._id)}
     >
       View
@@ -302,7 +329,7 @@ const StudentHomePage = () => {
       </div>
 
       <div className="mt-10">
-      <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
+      <h1 className="mb-2 text-2xl font-bold text-[#7179C6] dark:text-white">
           Polls:
         </h1>
         <div className="flex items-center">
@@ -338,9 +365,9 @@ const StudentHomePage = () => {
               <p className="font-bold">{option?.option}</p>
             </div>
             <span>
-              <div class="w-[270px] bg-blue-400 rounded-full dark:bg-gray-700">
+              <div class="w-[270px] bg-gray-300 rounded-full dark:bg-gray-700">
                 <div
-                  class={`${option?.percentage === 0 ? ("bg-blue-400") : ("bg-blue-600")} text-xs font-medium text-blue-200 text-center p-0.5 leading-none rounded-full`}
+                  class={`${option?.percentage === 0 ? ("bg-gray-300") : ("bg-[#7179C6]")} text-xs font-medium text-blue-200 text-center p-0.5 leading-none rounded-full`}
                   style={option?.percentage !== 0 ? { width: `${option?.percentage}%` } : null}
                 >
                   {option?.percentage}%

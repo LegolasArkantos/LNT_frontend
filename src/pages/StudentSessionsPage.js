@@ -40,49 +40,67 @@ const StudentSessionsPage = ({socket}) => {
   return (
     <div className="h-screen">
   <div className="p-8 flex flex-col h-full">
-    <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">My Sessions</h2>
+    <div className="bg-white rounded-lg flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" >
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
       </div>
       <div className="flex w-full" style={{ paddingRight: "17px" }}>
         {sessions?.length !== 0 ? (
           sessions?.map((session) => (
-            <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
+            <div key={session?._id} className="w-[280px] h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
               <div className="flex justify-between">
                 <button
-                  className="text-4/5 font-semibold mb-2 hover:underline"
+                  className="text-4/5 text-purple-800 font-semibold mb-2 hover:underline"
                   onClick={() => handleSessionClick(session?._id)}
                 >
                   {session?.subject}
                 </button>
               </div>
-              <div className='flex w-full flex-col space-y-3 mb-3 justify-start'>
-              <div className="flex w-full">
-                <p className="text-gray-700 mr-1">
+              <div className='flex w-full flex-col space-y-2 justify-start'>
+              <div className="flex justify-between">
+                <p className="text-gray-700 text-sm font-bold">
                   Teacher:
                 </p>
                 <button
-                  className="text-blue-500 hover:underline"
+                  className="text-blue-500 font-semibold"
                   onClick={() => handleTeacherClick(session?.teacher)}
                 >
+                  <small className='text-purple-500 hover:border-b-2 hover:border-purple-500'>
                   {session?.teacherName}
+                  </small>
                 </button>
               </div>
-              <p className="text-gray-700">
-                Timings: {session?.startTime} - {session?.endTime}
-              </p>
-              <p className="text-gray-700">
-                Days: {session?.day}
-              </p>
-              <p className="text-gray-700">Total Sessions: {session?.sessionCounter?.sessionCount}</p>
-              <p className="text-gray-700">Sessions Completed: {session?.sessionCounter?.currentCount}</p>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Timings:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.startTime} - {session?.endTime}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Days:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.day}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.sessionCounter?.sessionCount}</p>
+                  </small>
+                  </div>
+                  <div className='flex justify-between'>
+                  <p className="text-gray-700 text-sm font-bold">Sessions Completed:</p>
+                  <small>
+                  <p className='font-semibold'>{session?.sessionCounter?.currentCount}</p>
+                  </small>
+                  </div>
               <div className="flex items-center mb-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  stroke="#7179C6"
                 >
                   <path
                     strokeLinecap="round"
@@ -92,7 +110,7 @@ const StudentSessionsPage = ({socket}) => {
                   />
                 </svg>
                 <button
-                  className="text-sm text-blue-500 hover:underline focus:outline-none"
+                  className="text-sm text-blue-500 focus:outline-none"
                   onClick={() => {
                     const data = {
                       teacherId: session?.teacher,
@@ -103,13 +121,13 @@ const StudentSessionsPage = ({socket}) => {
                     setReviewPopUp(true);
                   }}
                 >
-                  <span className="font-semibold">Reviews</span>
+                  <span className="font-semibold hover:border-b-2 hover:border-[#7179C6] text-[#7179C6]">Reviews</span>
                 </button>
               </div>
               </div>
               <button
                 type="button"
-                className="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2"
+                className="text-white mt-3 w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2"
                 onClick={() => {
                   navigate('/student-home-page/session-overview', { state: { session, enrolled: true } });
                 }}

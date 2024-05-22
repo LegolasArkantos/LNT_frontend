@@ -193,7 +193,7 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
     <div
       className={`fixed top-30 right-4 ${isNotificationOpen ? "block" : "hidden"}`}
     >
-      <ul className="bg-teal-200 p-4 h-[300px] rounded-lg shadow-lg">
+      <ul className="bg-purple-200 p-4 h-[300px] rounded-lg shadow-lg">
         <ScrollToBottom className="h-full  flex-col">
         {
           notifications.length == 0 
