@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { apiPrivate } from '../services/api';
 import Lottie from 'react-lottie';
 import loadingAnimation from '../assets/loading.json';
@@ -8,24 +8,23 @@ import ReactPlayer from 'react-player';
 const StudentProgressAnalysis = () => {
   const [analysisText, setAnalysisText] = useState('');
   const [youtubeVideos, setYoutubeVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [fetched, setFetched] = useState(false);
   const navigate = useNavigate();
 
   const fetchAnalysis = async () => {
+    setLoading(true);
     try {
       const response = await apiPrivate.get('/ai/generate-analysis-student');
       setAnalysisText(response?.data?.text);
       setYoutubeVideos(response?.data?.youtubeVideos || []);
-      setLoading(false);
+      setFetched(true);
     } catch (error) {
       console.error('Error fetching analysis:', error);
+    } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchAnalysis();
-  }, []);
 
   const renderContent = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -61,6 +60,17 @@ const StudentProgressAnalysis = () => {
               </div>
             </div>
             <h4 className="font-bold mt-4">Analysis</h4>
+            {!loading && !fetched && (
+              <div className="mt-6 flex justify-center">
+                <button
+                  type="button"
+                  className="px-6 py-3 mb-10 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  onClick={fetchAnalysis}
+                >
+                  Fetch Analysis
+                </button>
+              </div>
+            )}
             {loading ? (
               <div className="mt-6 flex justify-center">
                 <Lottie
@@ -76,30 +86,32 @@ const StudentProgressAnalysis = () => {
                   width={200}
                 />
               </div>
-            ) : (
-              <div className="font-thin" style={{ whiteSpace: 'pre-wrap' }}>
-                {renderContent(sanitizeText(analysisText))}
-              </div>
+            ) : fetched && (
+              <>
+                <div className="font-thin mt-4" style={{ whiteSpace: 'pre-wrap' }}>
+                  {renderContent(sanitizeText(analysisText))}
+                </div>
+                <h4 className="font-bold mt-4">Recommended Videos</h4>
+                <div className="flex overflow-x-auto gap-4 py-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#4A5568 #CBD5E0' }}>
+                  {youtubeVideos.length > 0 ? (
+                    youtubeVideos.map((video, index) => (
+                      <div key={index} className="flex flex-col items-center">
+                        <div style={{ width: '200px', height: '150px', marginBottom: '8px' }}>
+                          <ReactPlayer
+                            url={video.url}
+                            width="100%"
+                            height="100%"
+                          />
+                        </div>
+                        <h5 className="text-center font-thin">{video.title}</h5>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No recommended videos available.</p>
+                  )}
+                </div>
+              </>
             )}
-            <h4 className="font-bold mt-4">Recommended Videos</h4>
-            <div className="flex overflow-x-auto gap-4 py-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#4A5568 #CBD5E0' }}>
-              {youtubeVideos.length > 0 ? (
-                youtubeVideos.map((video, index) => (
-                  <div key={index} className="flex flex-col items-center">
-                    <div style={{ width: '200px', height: '150px', marginBottom: '8px' }}>
-                      <ReactPlayer
-                        url={video.url}
-                        width="100%"
-                        height="100%"
-                      />
-                    </div>
-                    <h5 className="text-center font-thin">{video.title}</h5>
-                  </div>
-                ))
-              ) : (
-                <p>No recommended videos available.</p>
-              )}
-            </div>
           </div>
         </div>
       </div>
