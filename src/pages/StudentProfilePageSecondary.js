@@ -10,6 +10,7 @@ const StudentProfilePageSecondary = () => {
   const [reviewPopUpData, setReviewPopUpData] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  
   const apiPrivate = useAPIPrivte();
 
   
