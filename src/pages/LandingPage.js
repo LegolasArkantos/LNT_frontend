@@ -43,7 +43,7 @@ const LandingPage = () => {
             >
               Login
             </a>
-            <a href="signup" type="button" className="text-white bg-[#7179C6] hover:bg-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-500 font-medium rounded text-sm px-4 py-1.5 text-center me-2 mb-2">
+            <a href="signup" type="button" className="text-white bg-[#7179C6] hover:bg-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-500 font-medium rounded text-sm px-4 py-1.5 text-center">
               Register
             </a>
           </div>
