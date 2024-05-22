@@ -1,5 +1,4 @@
 // firebase.js
-
 import { initializeApp } from 'firebase/app';
 
 // Your Firebase configuration
