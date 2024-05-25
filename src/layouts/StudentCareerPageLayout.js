@@ -1,14 +1,19 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
 import StudentHomePageNavBar from "../components/StudentHomePageNavBar";
 import useApiPrivate from "../hooks/useAPIPrivate";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAuthValues } from "../features/auth";
 import { removeStudentProfile } from "../features/studentProfile";
 import Footer from "../components/Footer";
+import ProfileDropDown from "../components/ProfileDropDown";
 
 const StudentCareerPageLayout = () => {
-    const apiPrivate = useApiPrivate();
+
+  const [dropDown, setDropDown] = useState(false);
+
+  const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
   const profile = useSelector((state) => state.studentProfile.value);
@@ -30,8 +35,13 @@ const StudentCareerPageLayout = () => {
 
   return (
     <div className="bg-white">
-      <div className="flex-col space-y-16">
-        <StudentHomePageNavBar profile={profile} handleLogOut={handleLogOut} career={true} />
+      <div className="flex-col">
+        <StudentHomePageNavBar profile={profile}  career={true} setDropDown={setDropDown} dropDown={dropDown}/>
+        {dropDown && (
+        <div className="absolute flex w-[150px] justify-end top-16 right-0 z-50">
+          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown} role="Student"/>
+        </div>
+      )}
         {/* <StudentHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} /> */}
       </div>
 

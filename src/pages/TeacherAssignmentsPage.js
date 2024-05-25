@@ -81,12 +81,9 @@ const TeacherAssignmentsPage = () => {
     try {
       const sessionId = location.state.sessionId;
       await apiPrivate.post(`/assignment/create/${sessionId}`, createAssignmentFormData);
-      // Refetch assignments after creating a new assignment
       const response = await apiPrivate.get(`/assignment/getSessionAssignments/${sessionId}`);
       setAssignments(response.data.assignments);
-      // Close the popup after successful submission
       setIsCreateAssignmentPopupOpen(false);
-      // Clear the form data
       setCreateAssignmentFormData({
         title: '',
         startTime: '',
@@ -236,47 +233,43 @@ const TeacherAssignmentsPage = () => {
   return (
     <div className="max-w-screen">
       <div className="p-8 flex flex-col max-w-screen h-full">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Assignments</h2>
-            <button onClick={handleOpenCreateAssignmentPopup} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        <div className="rounded-lg flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl text-[#7179C6] font-bold">Assignments</h2>
+            <button onClick={handleOpenCreateAssignmentPopup} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
               Create Assignment
             </button>
           </div>
-          <div className="flex flex-col">
             {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Name</div>
               <div className="font-bold mx-4">Start Time</div>
               <div className="font-bold mx-4">End Time</div>
               <div className="font-bold">Marks</div>
             </div> */}
-            <div className='overflow-y-scroll h-[350px] scroll scrollbar-hide'>
+            <div className='flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide'>
             {
               assignments?.length !== 0
               ? (
             assignments?.map((assignment) => (
-              <div key={assignment?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 className="text-xl font-semibold mb-2">
-              
-              <button
-                className="text-black-500 hover:underline"
+              <div key={assignment?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
+                <h3 className="text-xl cursor-pointer font-semibold mb-2 text-purple-800 hover:underline"
                 onClick={() =>handleAssignmentClick(assignment?._id,sessionId,subject)}
               >
                 {assignment?.title}
-              </button>
             </h3>
-            <div className="flex-grow"></div>
+            <div className="flex">
                 <div className='flex'>
-                  <h className="font-bold mx-4">Start Time:</h>
-                  <p className="">{assignment?.startTime}</p>
+                  <h className="font-bold text-sm text-gray-700 mx-2">Start Time:</h>
+                  <p className="font-semibold text-sm mr-4">{assignment?.startTime}</p>
                 </div>
                 <div className='flex'>
-                  <h className="font-bold mx-4">End Time:</h>
-                  <p className="">{assignment?.endTime}</p>
+                  <h className="font-bold text-gray-700 text-sm mx-2">End Time:</h>
+                  <p className="font-semibold text-sm mr-4">{assignment?.endTime}</p>
                 </div>
                 <div className='flex'>
-                  <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{assignment?.marks}</p>
+                  <h className="font-bold text-gray-700 text-sm mx-2">Marks:</h>
+                  <p className="font-semibold text-sm mr-2">{assignment?.marks}</p>
+                </div>
                 </div>
               </div>
             )))
@@ -297,7 +290,6 @@ const TeacherAssignmentsPage = () => {
           </div>
           )}
             </div>
-          </div>
         </div>
       </div>
       {isCreateAssignmentPopupOpen && (
@@ -377,37 +369,37 @@ const TeacherAssignmentsPage = () => {
       )}
 
 <div className="pl-8 pr-8 flex flex-col max-w-screen h-full">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="rounded-lg flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Quizes</h2>
+            <h2 className="text-2xl text-[#7179C6] font-bold">Quizes</h2>
             <button onClick={() => {
               setCreateQuiz(true)
-            }} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            }} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
               Create Quiz
             </button>
           </div>
-          <div className="flex flex-col" >
             {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
               <div className="flex-grow font-bold">Title</div>
               <div className="font-bold mx-4">Time</div>
               <div className="font-bold">Marks</div>
             </div> */}
-            <div className='overflow-y-scroll h-[350px] scroll scrollbar-hide'>
+            <div className='flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide'>
             { quizes.length !== 0
             ? (
             quizes.map((quiz) => (
-              <div key={quiz?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() =>fetchQuizSubmissions(quiz?._id)} className="text-xl font-semibold mb-2 text-black-500 hover:underline cursor-pointer">
+              <div key={quiz?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
+                <h3 onClick={() =>fetchQuizSubmissions(quiz?._id)} className="text-xl text-purple-800 font-semibold mb-2 text-black-500 hover:underline cursor-pointer">
                     {quiz?.title}
                 </h3>
-            <div className="flex-grow"></div>
+            <div className="flex">
                 <div className='flex'>
-                  <h className="font-bold mx-4">Time:</h>
-                  <p className="">{quiz?.time}</p>
+                  <h className="font-bold text-sm text-gray-700 mx-2">Time:</h>
+                  <p className="font-semibold text-sm mr-4">{quiz?.time}</p>
                 </div>
                 <div className='flex'>
-                  <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{quiz?.marks}</p>
+                  <h className="font-bold text-sm text-gray-700 mx-2">Marks:</h>
+                  <p className="font-semibold text-sm mr-2">{quiz?.marks}</p>
+                </div>
                 </div>
               </div>
             )))
@@ -428,7 +420,6 @@ const TeacherAssignmentsPage = () => {
           </div>
           )}
             </div>
-          </div>
         </div>
       </div>
 
