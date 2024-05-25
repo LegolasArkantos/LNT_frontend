@@ -234,7 +234,7 @@ const TeacherHomePage = () => {
   };
 
   return (
-    <div className="container mx-auto my-8">
+    <div className="container flex flex-col mx-auto my-8">
       <div className="flex justify-between">
       <h1 className="text-3xl text-[#7179C6] font-bold mb-4">Polls</h1>
       <button

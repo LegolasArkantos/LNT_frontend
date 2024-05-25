@@ -46,7 +46,7 @@ const SessionOverviewPage = () => {
         </div>
         
         <p className="text-sm text-teal-500 hover:underline cursor-pointer font-semibold"
-        onClick={() => handleTeacherClick(session?.teacher)}>
+        onClick={() => handleTeacherClick(session?.teacher._id)}>
             Instructor: {session?.teacherName}
         </p>
         <p className="mb-2 text-sm text-gray-700 dark:text-gray-400">

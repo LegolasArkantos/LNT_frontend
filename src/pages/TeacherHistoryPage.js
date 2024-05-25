@@ -54,44 +54,84 @@ const TeacherSessionHistoryPage = () => {
 
   return (
     <div className="max-h-screen max-w-screen">
-      <div className="p-8 flex max-h-screen max-w-screen">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}>
+      <div className="p-8 flex flex-col max-h-screen max-w-screen">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Teacher Session History</h2>
+            <h2 className="text-2xl text-[#7179C6] font-bold">Past Sessions</h2>
           </div>
-          <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
+          <div className="flex w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mb-10 gap-3">
             {completedSessions.length !== 0 ? (
               completedSessions.map((session) => (
-                <div key={session._id} className="w-1/5 h-4/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
-                  <div className="flex justify-start">
-                    <button
-                      className="text-blue-500 hover:underline focus:outline-none"
-                      onClick={() => handleSessionClick(session._id, session.subject)}
-                    >
-                      <h3 className="text-4/5 font-semibold mb-2">{session.subject}</h3>
-                    </button>
-                  </div>
-                  <div className="flex w-full flex-col justify-start">
-                    <p className="text-gray-700">Start Time: {session.startTime}</p>
-                    <p className="text-gray-700">End Time: {session.endTime}</p>
-                    <p className="text-gray-700">Days: {session.day}</p>
-                    <p className="text-gray-700">No. of Students: {session.students.length}</p>
-                    <div className="flex items-center mb-2">
-                      <button
-                        className="text-sm text-blue-500 hover:underline focus:outline-none"
-                        onClick={() => handleShowStudents(session)}
-                      >
-                        Show Students
-                      </button>
-                      <button
-                        className="ml-2 text-sm text-blue-500 hover:underline focus:outline-none"
-                        onClick={() => handleReviewPopup(session)}
-                      >
-                        Reviews
-                      </button>
-                    </div>
-                  </div>
+                <div key={session?._id} className="w-full h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
+                <div className='flex justify-start'>
+                  <button
+                    className="text-purple-800 hover:underline"
+                    onClick={() => handleSessionClick(session?._id, session?.subject)}
+                  >
+                    <h3 className="text-4/5 font-bold mb-2">
+                      {session?.subject}
+                    </h3>
+                  </button>
+                  
                 </div>
+                <div className='flex w-full flex-col space-y-2 justify-start'>
+                  <div className='flex'>
+                  <div className='flex flex-col space-y-2'>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Timings:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Days:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Sessions Finished:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">No. of Students:</p>
+                  </div>
+                  </div>
+                  <div className='flex flex-col space-y-2 ml-8'>
+                  <p className='font-semibold text-sm'>{session?.startTime} - {session?.endTime}</p>
+                  <p className='font-semibold text-sm'>{session?.day}</p>
+                  <p className='font-semibold text-sm'>{session?.sessionCounter?.sessionCount}</p>
+                  <p className='font-semibold text-sm'>{session?.sessionCounter?.currentCount}</p>
+                  <p className='font-semibold text-sm'>{session?.students?.length}</p>
+                  </div>
+                  </div>
+                <div className="flex items-center mb-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="#7179C6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  <button
+                    className="text-sm focus:outline-none"
+                    onClick={() => {
+                      const data = {
+                        teacherId: session?.teacher,
+                        sessionName: session?.subject,
+                        profilePage: false
+                      }
+                      setReviewPopUpData(data);
+                      setReviewPopUp(true)
+                    }}
+                  >
+                    <span className="font-semibold hover:border-b-2 hover:border-[#7179C6] text-[#7179C6]">Reviews</span>
+                  </button>
+                </div>
+                </div>
+              </div>
               ))
             ) : (
               <div className="flex w-full h-[500px] items-center justify-center">
@@ -110,7 +150,6 @@ const TeacherSessionHistoryPage = () => {
               </div>
             )}
           </div>
-        </div>
       </div>
       {selectedSession && (
         <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">

@@ -44,55 +44,51 @@ const StudentSessionsPage = ({socket}) => {
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
       </div>
-      <div className="flex w-full" style={{ paddingRight: "17px" }}>
+      <div className="flex w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 gap-3">
         {sessions?.length !== 0 ? (
           sessions?.map((session) => (
-            <div key={session?._id} className="w-[280px] h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
+            <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
               <div className="flex justify-between">
                 <button
-                  className="text-4/5 text-purple-800 font-semibold mb-2 hover:underline"
+                  className="text-4/5 text-purple-800 font-bold mb-2 hover:underline"
                   onClick={() => handleSessionClick(session?._id)}
                 >
                   {session?.subject}
                 </button>
               </div>
               <div className='flex w-full flex-col space-y-2 justify-start'>
-              <div className="flex justify-between">
+              <div className='flex'>
+              <div className='flex flex-col space-y-2'>
+              <div className="flex">
                 <p className="text-gray-700 text-sm font-bold">
                   Teacher:
                 </p>
-                <button
-                  className="text-blue-500 font-semibold"
+              </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Timings:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Days:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
+                  </div>
+                  <div className='flex'>
+                  <p className="text-gray-700 text-sm font-bold">Sessions Finished:</p>
+                  </div>
+                  </div>
+                  <div className='flex flex-col space-y-2 ml-7'>
+                  <p
+                  className="text-sm text-purple-800 hover:underline cursor-pointer font-semibold"
                   onClick={() => handleTeacherClick(session?.teacher)}
                 >
-                  <small className='text-purple-500 hover:border-b-2 hover:border-purple-500'>
                   {session?.teacherName}
-                  </small>
-                </button>
-              </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Timings:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.startTime} - {session?.endTime}</p>
-                  </small>
+                </p>
+                <p className='font-semibold text-sm'>{session?.startTime} - {session?.endTime}</p>
+                  <p className='font-semibold text-sm'>{session?.day}</p>
+                  <p className='font-semibold text-sm'>{session?.sessionCounter?.sessionCount}</p>
+                  <p className='font-semibold text-sm'>{session?.sessionCounter?.currentCount}</p>
                   </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Days:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.day}</p>
-                  </small>
-                  </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.sessionCounter?.sessionCount}</p>
-                  </small>
-                  </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Sessions Completed:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.sessionCounter?.currentCount}</p>
-                  </small>
                   </div>
               <div className="flex items-center mb-2">
                 <svg
