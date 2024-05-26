@@ -99,18 +99,45 @@ const StudentResponsesPage = () => {
       {assignment && (
         <div>
           <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
+          {/* <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
           <p className="text-lg">Start Time: <span className="ml-2">{assignment?.startTime}</span></p>
           <p className="text-lg">End Time: <span className="ml-4">{assignment?.endTime}</span></p>
           <p className="text-lg">Marks: <span className="ml-6">{assignment?.marks}</span></p>
           <div className="mt-4">
             <h3 className="text-xl font-semibold mb-2">Description:</h3>
             <div className="bg-gray-100 p-4 rounded-lg">{assignment?.description}</div>
+          </div> */}
+
+          <div className='flex w-full flex-col space-y-2 justify-start'>
+          <div className='flex'>
+                      <div className='flex flex-col space-y-2'>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Start Time:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">End Time:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Marks:</p>
+                        </div>
+                      </div>
+                      <div className='flex flex-col space-y-2 ml-8'>
+                        <p className='font-semibold text-sm'>{assignment?.startTime}</p>
+                        <p className='font-semibold text-sm'>{assignment?.endTime}</p>
+                        <p className='font-semibold text-sm'>{assignment?.marks}</p>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div className="mt-4">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">Description:</h3>
+            <div className="bg-gray-100 p-4 font-semibold text-sm rounded-lg">{assignment?.description}</div>
           </div>
 
           {/* Display uploaded files */}
           {assignment?.files?.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-xl font-semibold mb-2">Uploaded Files:</h3>
+            <div className="mt-8">
+              <h3 className="text-lg font-bold text-gray-700 mt-3 mb-2">Uploaded Files:</h3>
               <ul>
                 {assignment?.files?.map((file, index) => (
                   <li key={index}>

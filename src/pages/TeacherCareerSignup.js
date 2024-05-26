@@ -26,7 +26,7 @@ const CareerSignupPage = () => {
       });
 
       
-        navigate('/teacher-home-page/career');
+        navigate('/teacher-career-page/career');
       
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -50,11 +50,11 @@ const CareerSignupPage = () => {
 
         {/* Benefits of Career Counseling */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-2">How it can help you:</h2>
+          <h2 className="text-lg font-semibold mb-2">How it can help your Students:</h2>
           <ul className="list-disc pl-6">
-            <li>Gain clarity on career goals and aspirations</li>
-            <li>Identify strengths and weaknesses to maximize potential</li>
-            <li>Receive personalized guidance tailored to your needs</li>
+            <li>They Gain clarity on career goals and aspirations</li>
+            <li>Their strengths and weaknesses are identified to maximize potential</li>
+            <li>Personalized guidance tailored to their needs</li>
             <li>Explore various career paths and opportunities</li>
             <li>Develop essential skills for academic and professional success</li>
           </ul>
@@ -68,7 +68,7 @@ const CareerSignupPage = () => {
             </label>
             <textarea
               id="description"
-              className="w-full h-40 border border-gray-300 rounded-lg py-2 px-4 resize-none"
+              className="w-full h-40 border border-gray-300 focus:border-gray-500 rounded-lg py-2 px-4 resize-none"
               value={description}
               onChange={handleDescriptionChange}
               rows="4"
@@ -83,7 +83,7 @@ const CareerSignupPage = () => {
             <input
               type="text"
               id="timings"
-              className="w-full border border-gray-300 rounded-lg py-2 px-4"
+              className="w-full border border-gray-300 focus:border-gray-500 rounded-lg py-2 px-4"
               value={timings}
               onChange={handleTimingsChange}
               required
@@ -92,7 +92,7 @@ const CareerSignupPage = () => {
           <div className="mb-6 flex justify-end">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-8 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="bg-[#7179C6] text-white py-2 px-8 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             >
               Submit
             </button>
