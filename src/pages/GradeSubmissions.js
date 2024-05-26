@@ -67,13 +67,19 @@ const GradeSubmissions = () => {
 
     return (
         
-        <div className="flex flex-col items-center h-screen bg-gradient-to-b bg-teal-100 rounded-lg outline outline-teal-500">
+        <div className="flex flex-col items-center h-screen bg-gradient-to-b">
             <div className="container mx-auto px-4">
+                <div className='flex justify-between items-center mb-8'>
+                    <h className="text-2xl text-[#7179C6] font-bold">
+                        Submissions
+                    </h>
+                </div>
                 <div className="grid grid-cols-5 gap-4">
                     {submissions.map(submission => (
-                        <div key={submission?._id} className=" bg-gray-100 p-4 rounded-lg shadow-lg mr-2 mb-2 mt-4 flex flex-col">
+                        <div key={submission?._id} className="w-1.5/5 h-4.5/5 bg-purple-100 p-4 rounded-lg shadow-lg mr-2 mb-2 mt-4 flex flex-col">
                             <h3 className="text-lg font-semibold mb-4">{submission?.studentName}</h3>
-                            <ul>
+                            <p className='text-gray-700 text-sm font-bold'>Submission Files:</p>
+                            <ul className='mb-3'>
                                 {submission.files.map((file, index) => (
                                     <li key={index}>
                                         <a href={file?.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{file?.fileName}</a>
@@ -81,13 +87,13 @@ const GradeSubmissions = () => {
                                 ))}
                             </ul>
                             {submission?.grade !== -1 ? (
-                                <p className="text-gray-600 mt-2 mb-2">
-                                    Grade: {submission?.grade} out of {location.state?.total}
+                                <p className="text-gray-700 text-sm font-bold mb-4">
+                                    Grade: <span className='text-purple-800'>{submission?.grade} / {location.state?.total}</span>
                                 </p>
                             ) : (
                                 <p className="text-red-500 mt-2 mb-2">Not graded</p>
                             )}
-                            <button onClick={() => handleGradeClick(submission)} className="mt-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button onClick={() => handleGradeClick(submission)} className="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">
                                 Grade
                             </button>
                         </div>

@@ -25,8 +25,6 @@ const TeacherSessionsPage = () => {
     };
 
     getSessions();
-
-    
   }, []);
 
   const handleShowStudents = (session) => {
@@ -81,115 +79,109 @@ const TeacherSessionsPage = () => {
   };
 
   return (
-    <div className=" max-h-screen max-w-screen">
+    <div className="max-h-screen max-w-screen">
       {/* Main Content */}
-      <div className="p-8 flex  max-h-screen max-w-screen ">
+      <div className="p-8 flex max-h-screen max-w-screen">
         {/* Sessions Container */}
-        <div className="bg-white rounded-lg flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" style={{ overflow: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}  >
+        <div className="bg-white rounded-lg flex-1 flex flex-col h-[600px] overflow-y-scroll scroll mb-20 w-4/5 mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6">
           {/* Teacher Sessions */}
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
-            <button onClick={() => navigate('/teacher-home-page/create')} className=" items-center px-4 py-2 mt-2  text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 ">
+            <button onClick={() => navigate('/teacher-home-page/create')} className="items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
               Create Session
             </button>
           </div>
-          <div className="flex flex-wrap" style={{ paddingRight: "17px" }}>
+          <div className="flex w-full items-center justify-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 gap-3">
             {/* Session Cards (Fetched Data) */}
             {sessions.length !== 0 ? (
-            sessions?.map((session) => (
-              <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-gray-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
-                <div className='flex justify-start'>
-                  <button
-                    className="text-purple-800 hover:underline"
-                    onClick={() => handleAssignmentClick(session?._id, session?.subject)}
-                  >
-                    <h3 className="text-4/5 font-semibold mb-2">
-                      {session?.subject}
-                    </h3>
-                  </button>
-                  
+              sessions?.map((session) => (
+                <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
+                  <div className='flex justify-start'>
+                    <button
+                      className="text-purple-800 hover:underline"
+                      onClick={() => handleAssignmentClick(session?._id, session?.subject)}
+                    >
+                      <h3 className="text-4/5 font-bold mb-2">
+                        {session?.subject}
+                      </h3>
+                    </button>
+                  </div>
+                  <div className='flex w-full flex-col space-y-2 justify-start'>
+                    <div className='flex'>
+                      <div className='flex flex-col space-y-2'>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Timings:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Days:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Sessions finished:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">No. of Students:</p>
+                        </div>
+                      </div>
+                      <div className='flex flex-col space-y-2 ml-8'>
+                        <p className='font-semibold text-sm'>{session?.startTime} - {session?.endTime}</p>
+                        <p className='font-semibold text-sm'>{session?.day}</p>
+                        <p className='font-semibold text-sm'>{session?.sessionCounter?.sessionCount}</p>
+                        <p className='font-semibold text-sm'>{session?.sessionCounter?.currentCount}</p>
+                        <p className='font-semibold text-sm'>{session?.students?.length}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#7179C6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                      <button
+                        className="text-sm focus:outline-none"
+                        onClick={() => {
+                          const data = {
+                            teacherId: session?.teacher,
+                            sessionName: session?.subject,
+                            profilePage: false
+                          }
+                          setReviewPopUpData(data);
+                          setReviewPopUp(true)
+                        }}
+                      >
+                        <span className="font-semibold hover:border-b-2 hover:border-[#7179C6] text-[#7179C6]">Reviews</span>
+                      </button>
+                    </div>
+                    {
+                      session?.sessionCounter?.currentCount < session?.sessionCounter?.sessionCount
+                        ? (<button onClick={() => handleJoinVideoCall(session?._id)} type="button" className="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Launch Session</button>)
+                        : (<button onClick={() => handleFinishSession(session?._id)} type="button" className="text-white w-2/5 bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Finish</button>)
+                    }
+                  </div>
+                  <div className="inline-flex items-center justify-center rounded-md shadow-sm" role="group">
+                    <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-[#7179C6] rounded-s-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                      Show Students
+                    </button>
+                    <button onClick={() => handleUpdateClick(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-[#7179C6] rounded-e-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                      Update Session
+                    </button>
+                  </div>
                 </div>
-                <div className='flex w-full flex-col space-y-2 justify-start'>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Timings:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.startTime} - {session?.endTime}</p>
-                  </small>
-                  </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Days:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.day}</p>
-                  </small>
-                  </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Total Sessions:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.sessionCounter?.sessionCount}</p>
-                  </small>
-                  </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">Sessions Completed:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.sessionCounter?.currentCount}</p>
-                  </small>
-                  </div>
-                  <div className='flex justify-between'>
-                  <p className="text-gray-700 text-sm font-bold">No. of Students:</p>
-                  <small>
-                  <p className='font-semibold'>{session?.students?.length}</p>
-                  </small>
-                  </div>
-                <div className="flex items-center mb-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mr-1 text-gray-600 dark:text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="#7179C6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                  <button
-                    className="text-sm focus:outline-none"
-                    onClick={() => {
-                      const data = {
-                        teacherId: session?.teacher,
-                        sessionName: session?.subject,
-                        profilePage: false
-                      }
-                      setReviewPopUpData(data);
-                      setReviewPopUp(true)
-                    }}
-                  >
-                    <span className="font-semibold hover:border-b-2 hover:border-[#7179C6] text-[#7179C6]">Reviews</span>
-                  </button>
-                </div>
-                {
-                session?.sessionCounter?.currentCount < session?.sessionCounter?.sessionCount
-                ? (<button onClick={() => handleJoinVideoCall(session?._id)} type="button" class="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Launch Session</button>)
-                : (<button onClick={() => handleFinishSession(session?._id)} type="button" class="text-white w-2/5 bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Finish</button>)
-                }
-                </div>
-                <div class="inline-flex items-center justify-center rounded-md shadow-sm" role="group">
-                  <button onClick={() => handleShowStudents(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-[#7179C6] rounded-s-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
-                    Show Students
-                  </button>
-                  <button onClick={() => handleUpdateClick(session)} className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-[#7179C6] rounded-e-lg hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
-                    Update Session
-                  </button>
-                </div>
-              </div>
-            )))
-          :
-          (
-            <div className="flex w-full h-[500px] items-center justify-center">
-            <Lottie
+              ))
+            ) : (
+              <div className="flex items-center justify-center">
+                <Lottie
                   options={{
                     loop: true,
                     autoplay: true,
@@ -201,14 +193,14 @@ const TeacherSessionsPage = () => {
                   height={200}
                   width={200}
                 />
-          </div>
-          )}
+              </div>
+            )}
           </div>
         </div>
       </div>
       {
         reviewPopUp && (
-          <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData}/>
+          <ReviewsPopupTeacher setReviewPopUp={setReviewPopUp} reviewPopUpData={reviewPopUpData} />
         )
       }
       {/* Students Popup */}

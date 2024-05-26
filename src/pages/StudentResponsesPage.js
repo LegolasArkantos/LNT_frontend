@@ -99,18 +99,45 @@ const StudentResponsesPage = () => {
       {assignment && (
         <div>
           <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
+          {/* <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
           <p className="text-lg">Start Time: <span className="ml-2">{assignment?.startTime}</span></p>
           <p className="text-lg">End Time: <span className="ml-4">{assignment?.endTime}</span></p>
           <p className="text-lg">Marks: <span className="ml-6">{assignment?.marks}</span></p>
           <div className="mt-4">
             <h3 className="text-xl font-semibold mb-2">Description:</h3>
             <div className="bg-gray-100 p-4 rounded-lg">{assignment?.description}</div>
+          </div> */}
+
+          <div className='flex w-full flex-col space-y-2 justify-start'>
+          <div className='flex'>
+                      <div className='flex flex-col space-y-2'>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Start Time:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">End Time:</p>
+                        </div>
+                        <div className='flex'>
+                          <p className="text-gray-700 text-sm font-bold">Marks:</p>
+                        </div>
+                      </div>
+                      <div className='flex flex-col space-y-2 ml-8'>
+                        <p className='font-semibold text-sm'>{assignment?.startTime}</p>
+                        <p className='font-semibold text-sm'>{assignment?.endTime}</p>
+                        <p className='font-semibold text-sm'>{assignment?.marks}</p>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div className="mt-4">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">Description:</h3>
+            <div className="bg-gray-100 p-4 font-semibold text-sm rounded-lg">{assignment?.description}</div>
           </div>
 
           {/* Display uploaded files */}
           {assignment?.files?.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-xl font-semibold mb-2">Uploaded Files:</h3>
+            <div className="mt-8">
+              <h3 className="text-lg font-bold text-gray-700 mt-3 mb-2">Uploaded Files:</h3>
               <ul>
                 {assignment?.files?.map((file, index) => (
                   <li key={index}>
@@ -136,7 +163,7 @@ const StudentResponsesPage = () => {
           {/* Upload button and file input */}
           <div className="mt-4">
             <input type="file" multiple onChange={handleFileInputChange} id="fileInput" />
-            <button onClick={handleUpload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 " disabled={isLoading}>
+            <button onClick={handleUpload} className="bg-[#7179C6] hover:bg-purple-500 text-white font-bold py-2 px-4 rounded mt-2 " disabled={isLoading}>
             {isLoading ? (
         <div className="flex items-center">
             <svg aria-hidden="true" role="status" className="inline w-4 h-4 me-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,7 +189,7 @@ const StudentResponsesPage = () => {
       <button 
       type="button" 
       onClick={() =>handleSubmissionClick(assignmentId,assignment?.marks,assignment?.title,sessionId,subject)} 
-      class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-8 "
+      class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 shadow-lg shadow-purple-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-8 "
   
       >View Submissions</button>
       

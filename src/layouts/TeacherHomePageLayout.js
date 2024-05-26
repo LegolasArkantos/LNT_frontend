@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import TeacherHomePageNavBar from "../components/TeacherHomePageNavBar";
 import useApiPrivate from "../hooks/useAPIPrivate";
@@ -7,8 +7,12 @@ import { removeAuthValues } from "../features/auth";
 import { removeTeacherProfile } from "../features/teacherProfile";
 import TeacherHomePageNavBar2 from "../components/TeacherHomePageNavBar2";
 import Footer from "../components/Footer";
+import ProfileDropDown from "../components/ProfileDropDown";
 
 const TeacherHomePageLayout = () => {
+
+  const [dropDown, setDropDown] = useState(false);
+
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
 
@@ -30,17 +34,22 @@ const TeacherHomePageLayout = () => {
 
   return (
     <div className="bg-white">
-      <div className="flex-col space-y-16">
-        <TeacherHomePageNavBar profile={profile} career={false}/>
-        <TeacherHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} />
+      <div className="flex-col">
+      <TeacherHomePageNavBar profile={profile} career={false} setDropDown={setDropDown} dropDown={dropDown} />
+      {dropDown && (
+        <div className="absolute flex w-[150px] justify-end top-16 right-0 z-50">
+          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown} role="Teacher"/>
+        </div>
+      )}
+      <TeacherHomePageNavBar2/>
       </div>
 
-      <div className="ml-20 mr-20 mb-10 mt-20">
+      <div className="ml-20 mr-20 mb-10 mt-40">
         <Outlet />
       </div>
 
       <div className="bg-[#7179C6]">
-      <Footer/>
+        <Footer />
       </div>
     </div>
   );

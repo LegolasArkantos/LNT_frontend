@@ -4,9 +4,8 @@ import logoutIcon from "../assets/logout.png"; // Make sure to provide the corre
 import useAPIPrivate from "../hooks/useAPIPrivate";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-const StudentHomePageNavBar2 = (props) => {
+const StudentHomePageNavBar2 = () => {
   const location = useLocation();
-  const [isHovered, setIsHovered] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
@@ -45,7 +44,7 @@ const StudentHomePageNavBar2 = (props) => {
   }, []);
 
   return (
-    <nav className="fixed top-0 w-screen z-10">
+    <nav className="fixed top-16 w-full z-10">
       <div className="bg-[#7179C6] flex items-center justify-between dark:bg-gray-800">
         <ul className="relative flex font-medium w-screen">
           <li>
@@ -109,6 +108,7 @@ const StudentHomePageNavBar2 = (props) => {
             </Link>
           </li>
         </ul>
+        <div className="mr-3">
         <svg
   onClick={toggleNotification}
   width="30px"
@@ -157,31 +157,7 @@ const StudentHomePageNavBar2 = (props) => {
     </text>
   )}
 </svg>
-        <button
-          onClick={props.handleLogOut}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className="scale-50 text-gray-900 mr-3 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
-            <svg
-              fill={isHovered ? "#FFFFFF" : "#000000"}
-              width="50px"
-              height="50px"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path>
-              </g>
-            </svg>
-          </div>
-        </button>
+</div>
       </div>
       <NotificationBox isNotificationOpen={isNotificationOpen} notifications={notifications} handleNotificationDelete={handleNotificationDelete} />
     </nav>

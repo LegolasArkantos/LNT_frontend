@@ -148,21 +148,21 @@ const ChatPage = ({ socket }) => {
   }, []);
 
   return (
-    <div className="flex divide-x outline outline-teal-500 h-[700px] rounded-lg">
-      <div className="flex-col w-2/5 bg-teal-100 p-5">
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
+    <div className="flex divide-x outline outline-purple-500 h-[700px] rounded-lg">
+      <div className="flex-col w-2/5 bg-purple-200 p-5">
+        <h1 className="mb-2 text-2xl text-purple-700 font-bold">
           Chats
         </h1>
         <ul class="divide-y space-y-5 divide-gray-200 dark:divide-gray-700 mt-5">
           {!chats ? (
-            <p className="text-lg font-semibold text-gray-900 truncate dark:text-white">
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">
               No Chats
             </p>
           ) : (
             chats.map((chat, index) => (
               <li
                 key={index}
-                class="py-3 sm:py-4 cursor-pointer outline outline-teal-400 bg-teal-300 rounded-full hover:outline-teal-700 rounded p-3"
+                class="py-3 sm:py-4 cursor-pointer outline outline-purple-400 bg-[#7179C6] rounded-full hover:purple-teal-400 rounded p-3"
                 onClick={() => handleChatClicked(chat)}
               >
                 <div class="flex items-center">
@@ -245,10 +245,10 @@ const ChatPage = ({ socket }) => {
         </ul>
       </div>
       {deleteChat && (
-        <div className="fixed z-20 overflow-y-auto top-0 left-0 bg-opacity-50 bg-gray-900 w-screen h-screen">
+        <div className="fixed z-20 overflow-y-auto justify-center items-center top-0 left-0 bg-opacity-50 bg-gray-900 w-screen h-screen">
           <div class="flex justify-center items-center mt-60">
             <div class="p-4 w-full max-w-md max-h-full ">
-              <div class="bg-teal-200 rounded-lg shadow dark:bg-gray-700">
+              <div class="bg-white rounded-lg shadow dark:bg-gray-700">
                 <div class="p-4 md:p-5 text-center">
                   <svg
                     class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
@@ -296,13 +296,13 @@ const ChatPage = ({ socket }) => {
             {selectedChat.participants.map((participant, index) => {
               if (participant?.participant != profile?.profileID) {
                 return (
-                  <div key={index} className="bg-teal-500 w-full">
-                    <h1 className="ml-10 mt-3 text-2xl font-bold tracking-tight text-teal-900 dark:text-white">
-                      {participant?.name}
+                  <div key={index} className="bg-purple-400 w-full">
+                    <h1 className="ml-10 mt-3 mb-3 text-2xl font-bold tracking-tight text-purple-900 dark:text-white">
+                      {participant?.name} - <span className="font-semibold tracking-tight text-purple-900">{participant?.role}</span>
                     </h1>
-                    <p className="ml-10 font-semibold tracking-tight text-teal-900">
+                    {/* <p className="ml-10 font-semibold tracking-tight text-purple-900">
                       {participant?.role}
-                    </p>
+                    </p> */}
                   </div>
                 );
               }
@@ -347,7 +347,7 @@ const ChatPage = ({ socket }) => {
                    gap-2.5 mb-3 justify-end"
                   >
                     <div
-                      class="flex flex-col items-end w-fit max-w-[320px] leading-1.5 p-4 bg-green-500 border-gray-200 bg-gray-100 rounded-l-lg rounded-b-lg
+                      class="flex flex-col items-end w-fit max-w-[320px] leading-1.5 p-4 bg-green-500 border-gray-200 bg-purple-200 rounded-l-lg rounded-b-lg
                      dark:bg-gray-700"
                     >
                       <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -383,7 +383,7 @@ const ChatPage = ({ socket }) => {
               <div class="relative">
                 <input
                   id="default-search"
-                  class="block w-full p-4 text-sm text-gray-900 border border-blue-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="block w-full p-4 text-sm text-gray-900 border border-purple-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Type a message"
                   value={currentMessage}
                   onChange={(e) => {
