@@ -159,29 +159,45 @@ useEffect(() => {
 
   return (
     <div className="p-8 flex flex-col h-full">
-      <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-row h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6">
+      <div className="flex-1 flex flex-row h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6">
         <div className="card" style={{ width: '50%', height: '100%' }}>
           <div className="card-body">
-            <div className="mb-4">
-              <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/Quiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-teal-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/analysis')} >Analysis</button>
+            <div className="mb-4 flex flex-col">
+              <div className="inline-flex mb-4 rounded-md shadow-sm" role="group">
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/Quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/analysis')} >Analysis</button>
               </div>
-              <h4 className="ml-5 mt-4">Average Progress by Session</h4>
-            </div>
-            <div id="avg-chart"></div>
-          </div>
-        </div>
-        <div className="card" style={{ width: '50%', height: '100%' }}>
-          <div className="card-body">
-            <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
+              <h className="font-bold text-lg mb-1 text-gray-700">
+                Select Course:
+              </h>
+              <select className="mb-4 w-3/5" onChange={handleSessionChange} value={selectedSession}>
               {sessions?.map(session => (
                 <option key={session?.session} value={session?.session}>{session?.subject}</option>
               ))}
             </select>
-            <h4 className="ml-5">Quiz Progress</h4>
-            <div id="quiz-chart"></div>
+              
+            </div>
+            <div className='flex space-x-20'>
+              <div className=''>
+              <h4 className="ml-5 mt-4">Average Progress by Session</h4>
+            <div className='w-[500px] h-full' id="avg-chart"></div>
+            </div>
+            <div className=''>
+            <h4 className="ml-5 mt-4">Average Progress by Quiz</h4>
+            <div className='w-[500px] h-full' id="quiz-chart"></div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div className="card" style={{ width: '50%', height: '100%' }}>
+          <div className="card-body">
+            {/* <select className="mb-4" onChange={handleSessionChange} value={selectedSession}>
+              {sessions?.map(session => (
+                <option key={session?.session} value={session?.session}>{session?.subject}</option>
+              ))}
+            </select> */}
+            
           </div>
         </div>
       </div>

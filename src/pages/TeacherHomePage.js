@@ -143,6 +143,8 @@ const TeacherHomePage = () => {
         // Reset input fields and close the popup
         setTitle("");
         setDescription("");
+        setTitle1("");
+        setDescription1("");
         setShowNotePopup(false);
       }
     } catch (error) {
@@ -317,7 +319,7 @@ const TeacherHomePage = () => {
         <ul id="slider1" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-5 space-x-8">
   {polls.length !== 0 ? (
     polls?.map((poll, index) => (
-      <li key={index} className="flex flex-col justify-between mb-4 ml-2 mt-2 outline outline-teal-800 rounded p-3 w-[300px]">
+      <li key={index} className="flex flex-col justify-between mb-4 ml-2 mt-2 outline outline-purple-800 rounded p-3 w-[300px]">
         <div className="flex justify-between">
           <div className="flex bg-[#d8b4fe] p-2 rounded-full">
             <p className="text-purple-800 text-xs">{poll?.category}</p>
@@ -493,9 +495,9 @@ const TeacherHomePage = () => {
       <button className="hover:bg-purple-200 rounded-full" style={{ marginLeft: "-40px" }} onClick={() => slideLeft('slider2')}>
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
-        <ul id="slider2" className="flex w-full overflow-x-scroll scroll  scroll-smooth scrollbar-hide mt-5 space-x-8">
+        <ul id="slider2" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-5 space-x-8">
           {notes?.length !== 0 ? ( notes?.map((note,index) => (
-            <li key={index} className="mb-4 ml-2 mt-2 outline outline-teal-800 rounded p-3 w-[300px]">
+            <li key={index} className="flex flex-col justify-between mb-4 ml-2 mt-2 outline outline-purple-800 rounded p-3 w-[300px]">
               <div className="flex justify-end">
               <div onClick={() => handleUpdateNotePopup(note?._id, note?.title, note?.description)} className="hover:bg-blue-100 rounded-full w-fit">
               <svg fill="#000000" width="30px" height="30px" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path class="st0" d="M12 25l3 3 15-15-3-3-15 15zM11 26l3 3-4 1z"></path></g></svg>

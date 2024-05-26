@@ -38,7 +38,7 @@ const TeacherCareerPageLayout = () => {
       <TeacherHomePageNavBar profile={profile} career={false} setDropDown={setDropDown} dropDown={dropDown} role="Teacher" />
       {dropDown && (
         <div className="absolute flex w-[150px] justify-end top-16 right-0 z-50">
-          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown}/>
+          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown} role="Teacher"/>
         </div>
       )}
       </div>

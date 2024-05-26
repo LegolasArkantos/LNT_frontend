@@ -44,7 +44,7 @@ const TeacherHomePageLayout = () => {
       <TeacherHomePageNavBar2/>
       </div>
 
-      <div className="ml-20 mr-20 mb-20 mt-40">
+      <div className="ml-20 mr-20 mb-10 mt-40">
         <Outlet />
       </div>
 
