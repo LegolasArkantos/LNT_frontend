@@ -177,7 +177,7 @@ const StudentProfilePageSecondary = () => {
           <p 
             onClick={() => {
               const data = {
-                teacherId: profile?.profileID,
+                teacherId: teacherId,
                 profilePage: true
               }
               setReviewPopUpData(data);

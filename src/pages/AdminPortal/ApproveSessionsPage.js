@@ -108,7 +108,7 @@ const ApproveSessionsPage = () => {
             Course Overview:
         </p>
         <div className='flex w-full h-[300px] bg-gray-100 rounded p-3 overflow-y-scroll'>
-        <p className='mb-4 text-m font-semibold text-teal-900'>
+        <p className='mb-4 text-m font-semibold text-teal-900' style={{ whiteSpace: 'pre-wrap' }}>
             {session?.sessionDescription}
         </p>
         </div>

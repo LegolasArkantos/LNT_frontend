@@ -37,7 +37,7 @@ const SessionOverviewPage = () => {
         </h1>
         {
             !enrolled && (
-                <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm w-1/5 px-4 py-2.5 text-center me-2 mb-2"
+                <button type="button" class="text-white w-1/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2"
                 onClick={() => joinSession(session?._id)}>
                     Enroll
                 </button>
