@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiPrivate } from '../services/api';
+import useAPIPrivate from '../hooks/useAPIPrivate';
 
 const TeacherCareerPage = () => {
   const navigate = useNavigate();
   const [isCareerCounseling, setIsCareerCounseling] = useState(false);
   const [teacherCareerData, setTeacherCareerData] = useState(null);
   const [students, setStudents] = useState([]);
+  const apiPrivate = useAPIPrivate();
 
   useEffect(() => {
     const fetchCareerCounselingStatus = async () => {

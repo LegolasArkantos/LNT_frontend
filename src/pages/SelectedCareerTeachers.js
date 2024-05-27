@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { apiPrivate } from '../services/api';
+import useAPIPrivate from '../hooks/useAPIPrivate';
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
 
@@ -8,6 +8,7 @@ const SelectedCareerTeachers = () => {
   const navigate = useNavigate();
   const [careerTeachers, setCareerTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const apiPrivate = useAPIPrivate();
 
   useEffect(() => {
     const fetchSelectedCareerTeachers = async () => {

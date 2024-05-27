@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import image from '../assets/we need u.jpg';
-import { apiPrivate } from '../services/api';
+import useAPIPrivate from '../hooks/useAPIPrivate';
 import { useNavigate } from 'react-router-dom';
 
 const CareerSignupPage = () => {
   const navigate = useNavigate();
+  const apiPrivate = useAPIPrivate();
 
   const [description, setDescription] = useState('');
   const [timings, setTimings] = useState('');
