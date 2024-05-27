@@ -56,19 +56,19 @@ const TeacherCareerPage = () => {
     <div>
       {isCareerCounseling && teacherCareerData ? (
         <div className="p-10 mb-1 bg-white rounded-lg shadow-md">
-          <div className="flex items-center">
-            {/* Cloudinary profile pic */}
-            <img src={teacherCareerData?.profilePic} alt="Profile Pic" className="w-24 h-24 rounded-full mr-4 border-4 border-teal-200 object-cover" />
+          <div className="flex flex-col">
+            <img src={teacherCareerData?.profilePic} alt="Profile Pic" className="w-24 h-24 mb-4 rounded-full mr-4 border-4 border-purple-200 object-cover" />
         
             <div>
               {/* Teacher name */}
-              <h2 className="text-xl font-semibold mb-2">{teacherCareerData?.name}</h2>
+              <h2 className="text-gray-700 font-bold mb-2 text-xl">{teacherCareerData?.name}</h2>
               
               {/* Timing */}
-              <p className="text-gray-600">Counseling Timings: {teacherCareerData?.timing}</p>
+              <p className="text-gray-700 text-sm font-bold mb-2">Counseling Timings: <span className='font-semibold text-sm'>{teacherCareerData?.timing}</span></p>
         
               {/* Description */}
-              <p className="text-gray-700">{teacherCareerData?.description}</p>
+              <p className="text-gray-700 text-sm font-bold mb-2 underline">Description</p>
+              <p className="font-semibold text-sm">{teacherCareerData?.description}</p>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ const TeacherCareerPage = () => {
 
       {/* Display Students */}
       <div>
-        <h2 className="text-3xl font-bold mb-4 text-center">Students Enrolled</h2>
+        <h2 className="text-gray-700 text-center mt-4 text-2xl font-bold">Students Enrolled</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {students?.map((student, index) => (
             <div key={index} className="bg-white border border-gray-200 flex flex-col justify-between rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

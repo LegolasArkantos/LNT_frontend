@@ -92,11 +92,17 @@ const ShowCareerTeachers = () => {
                   {teacher?.name}
                 </h2>
                 <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-                  Description: {teacher?.description}
+                  Description: 
                 </p>
-                <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-                  Timing: {teacher?.timing}
+                <div className='w-full h-[150px] bg-gray-200 mb-4 overflow-y-scroll scroll'>
+                {teacher?.description}
+                </div>
+                <p className=" text-sm font-medium text-gray-900 dark:text-gray-400">
+                  Timing: 
                 </p>
+                <div className='mb-3'>
+                {teacher?.timing}
+                </div>
                 {/* Assuming rating is available in the teacher object */}
                 {teacher?.teacher?.rating && (
                   <p className="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">

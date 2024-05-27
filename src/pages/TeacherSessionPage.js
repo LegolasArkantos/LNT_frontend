@@ -83,7 +83,7 @@ const TeacherSessionsPage = () => {
       {/* Main Content */}
       <div className="p-8 flex max-h-screen max-w-screen">
         {/* Sessions Container */}
-        <div className="bg-white rounded-lg flex-1 flex flex-col h-[600px] overflow-y-scroll scroll mb-20 w-4/5 mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6">
+        <div className="bg-white rounded-lg flex-1 flex flex-col h-[600px] overflow-y-scroll scroll scrollbar-hide mb-20 w-4/5 mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6">
           {/* Teacher Sessions */}
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>

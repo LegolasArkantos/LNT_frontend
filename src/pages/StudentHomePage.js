@@ -171,7 +171,7 @@ const StudentHomePage = () => {
             </div>
           ) : (
             availableSessions.map((session, index) => (
-              <div key={index} className="w-[250px] flex flex-col justify-between bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
+              <div key={index} className="w-1.5/5 flex flex-col justify-between bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
     {/* <a href="#">
       <img
@@ -215,7 +215,7 @@ const StudentHomePage = () => {
       <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
         <span className="font-semibold">End:</span> {session?.endTime}
       </p>
-      <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      <button type="button" class="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2"
       onClick={() => viewSession(session)}>
         View
       </button>
