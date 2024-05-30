@@ -81,9 +81,9 @@ const TeacherSessionsPage = () => {
   return (
     <div className="max-h-screen max-w-screen">
       {/* Main Content */}
-      <div className="p-8 flex max-h-screen max-w-screen">
+      <div className="flex max-h-screen max-w-screen">
         {/* Sessions Container */}
-        <div className="bg-white rounded-lg flex-1 flex flex-col h-[600px] overflow-y-scroll scroll scrollbar-hide mb-20 w-4/5 mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6">
+        <div className="bg-white rounded-lg flex-1 flex flex-col w-4/5 ">
           {/* Teacher Sessions */}
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
@@ -91,7 +91,7 @@ const TeacherSessionsPage = () => {
               Create Session
             </button>
           </div>
-          <div className="flex w-full items-center justify-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 gap-3">
+          <div className="flex w-full items-center justify-center h-full overflow-y-scroll scroll scrollbar-hide grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {/* Session Cards (Fetched Data) */}
             {sessions.length !== 0 ? (
               sessions?.map((session) => (
@@ -205,20 +205,22 @@ const TeacherSessionsPage = () => {
       }
       {/* Students Popup */}
       {selectedSession && (
-        <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded">
-            <h2 className="text-2xl font-bold mb-4">Students in Session {selectedSession?.subject}</h2>
+        <div className="fixed top-0 left-0 h-screen w-screen z-40 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded h-2.5/5 w-1.5/5">
+            <h2 className="text-2xl font-bold mb-4">Enrolled Students</h2>
+            <div className='flex flex-col h-2/5 space-y-4 mb-3 overflow-y-scroll scroll scrollbar-hide'>
             {selectedSession?.students?.map((student) => (
-              <div key={student?._id} className="mb-2">
+              <div key={student?._id} className="">
                 <button
-                  className="text-blue-500 hover:underline"
+                  className="font-bold text-sm text-gray-700 hover:underline"
                   onClick={() => handleTeacherClick(student?._id)}
                 >
                   {`${student?.firstName} ${student?.lastName}`}
                 </button>
               </div>
             ))}
-            <button onClick={handleClosePopup} className="text-blue-500 mt-4 underline">
+            </div>
+            <button onClick={handleClosePopup} className="bg-gray-500 hover:bg-gray-600 items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
               Close
             </button>
           </div>

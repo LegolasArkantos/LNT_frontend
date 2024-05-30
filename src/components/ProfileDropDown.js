@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const ProfileDropDown = (props) => {
   return (
-      <div class="w-full bg-white rounded-lg shadow">
+      <div class="w-[150px] bg-white rounded-lg shadow">
         <ul class="py-2" aria-labelledby="user-menu-button">
             <li>
             <h class="block px-4 py-4 text-m font-semibold text-purple-900">{props.profile.firstName} {props.profile.lastName}</h>
