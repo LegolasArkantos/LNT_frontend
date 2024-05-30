@@ -38,13 +38,13 @@ const StudentSessionsPage = ({socket}) => {
   }
 
   return (
-    <div className="h-screen">
-  <div className="p-8 flex flex-col h-full">
-    <div className="bg-white rounded-lg flex-1 flex flex-col h-[500px] mb-20 max-w-screen mx-auto mt-[-50px] mb-[125px] ml-[-50px] mr-[-50px] p-6" >
+    <div className="max-h-screen max-w-screen">
+  <div className="flex max-h-screen max-w-screen">
+    <div className="bg-white rounded-lg flex-1 flex flex-col w-4/5" >
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
       </div>
-      <div className="flex w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 gap-3">
+      <div className="flex w-full items-center justify-center h-full overflow-y-scroll scroll scrollbar-hide grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {sessions?.length !== 0 ? (
           sessions?.map((session) => (
             <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import logo from '../assets/lntlogo-removebg-preview.png';
+import ProfileDropDown from "./ProfileDropDown";
 
 const StudentHomePageNavBar = (props) => {
   // const [careerClicked, setCareerClicked] = useState(false);
@@ -9,10 +10,13 @@ const StudentHomePageNavBar = (props) => {
   //   navigate("/student-home-page/ai-career"); // Using navigate to go to the career page
   // };
 
+  const [dropDown, setDropDown] = useState(false);
+
   const location = useLocation();
 
 
   return (
+    <div>
     <nav className="top-0 z-20 fixed w-full bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -43,7 +47,7 @@ const StudentHomePageNavBar = (props) => {
               </Link>
             </li>
             <li onClick={() => {
-              props.setDropDown(!props.dropDown)
+              setDropDown(!dropDown)
               }}>
                 <img
                   className="w-8 h-8 cursor-pointer rounded-full"
@@ -55,6 +59,12 @@ const StudentHomePageNavBar = (props) => {
         </div>
       </div>
     </nav>
+    {dropDown && (
+        <div className="fixed z-30 flex w-full justify-end top-16 right-0">
+          <ProfileDropDown handleLogOut={props.handleLogOut} profile={props.profile} setDropDown={setDropDown} role="Student"/>
+        </div>
+      )}
+    </div>
   );
 };
 
