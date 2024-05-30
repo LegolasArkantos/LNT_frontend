@@ -56,6 +56,7 @@ import TeacherCareerPageLayout from "./layouts/TeacherCareerPageLayout";
 import ApproveSessionsPage from "./pages/AdminPortal/ApproveSessionsPage";
 import TeacherSessionHistoryPage from "./pages/TeacherHistoryPage";
 import StudentSessionsHistoryPage from "./pages/StudentHistoryPage";
+import StudentGrades from "./pages/TeacherOverallStudentGrades";
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
@@ -96,6 +97,7 @@ function App() {
             <Route path="create" element={<CreateSessionPage />} />
             <Route path="update" element={<UpdateSessionPage />} />
             <Route path="history" element={<TeacherSessionHistoryPage />} />
+            <Route path="Individual" element={<StudentGrades />} />
 
           </Route>
 
