@@ -6,11 +6,13 @@ import ProfileDropDown from "./ProfileDropDown";
 const TeacherHomePageNavBar = (props) => {
 
   const [isHovered, setIsHovered] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
   // const [dropDown, setDropDown] = useState(false);
 
   const location = useLocation();
 
   return (
+    <div>
     <nav class="top-0 z-20 fixed w-full bg-white border-gray-200 dark:bg-gray-900">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <a class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -40,7 +42,7 @@ const TeacherHomePageNavBar = (props) => {
               </Link>
             </li>
             <li onClick={() => {
-              props.setDropDown(!props.dropDown)
+              setDropDown(!dropDown)
               }}>
             <img
                   className="w-8 h-8 cursor-pointer rounded-full"
@@ -49,8 +51,16 @@ const TeacherHomePageNavBar = (props) => {
             </li>
           </ul>
         </div>
+        
       </div>
+      
     </nav>
+    {dropDown && (
+      <div className="fixed z-30 flex w-full justify-end top-16 right-0">
+      <ProfileDropDown handleLogOut={props.handleLogOut} profile={props.profile} setDropDown={setDropDown} role="Teacher"/>
+    </div>
+  )}
+  </div>
   );
 };
 

@@ -35,11 +35,11 @@ const CreateSessionPage = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-2xl font-bold mb-4">Create Session</h1>
+      <h1 className="text-2xl text-[#7179C6] font-bold mb-4">Create Course</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
         <div className="mb-4">
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="subject" className="font-bold text-m text-gray-700">
               Subject
             </label>
             <input
@@ -53,7 +53,7 @@ const CreateSessionPage = () => {
             />
           </div>
         <div className="mb-4">
-            <label htmlFor="day" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="day" className="font-bold text-m text-gray-700">
               Day
             </label>
             <input
@@ -67,7 +67,7 @@ const CreateSessionPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="startTime" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="startTime" className="font-bold text-m text-gray-700">
               Start Time
             </label>
             <input
@@ -81,7 +81,7 @@ const CreateSessionPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="endTime" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="endTime" className="font-bold text-m text-gray-700">
               End Time
             </label>
             <input
@@ -95,8 +95,8 @@ const CreateSessionPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="sessionPrice" className="block text-sm font-medium text-gray-900">
-              Session Price
+            <label htmlFor="sessionPrice" className="font-bold text-m text-gray-700">
+              Price
             </label>
             <input
               type="text"
@@ -109,7 +109,7 @@ const CreateSessionPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="sessionCount" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="sessionCount" className="font-bold text-m text-gray-700">
               Number of Sessions
             </label>
             <input
@@ -123,8 +123,8 @@ const CreateSessionPage = () => {
             />
           </div>
           <div className="mb-4 col-span-2">
-            <label htmlFor="sessionDescription" className="block text-sm font-medium text-gray-900">
-              Session Description
+            <label htmlFor="sessionDescription" className="font-bold text-m text-gray-700">
+              Description
             </label>
             <textarea
               id="sessionDescription"
@@ -138,8 +138,8 @@ const CreateSessionPage = () => {
           </div>
         </div>
         <div className="flex justify-end">
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Create Session
+          <button type="submit" className="bg-[#7179C6] hover:bg-purple-500 text-white px-4 py-2 rounded">
+            Create
           </button>
         </div>
       </form>

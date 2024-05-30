@@ -7,11 +7,8 @@ import { removeAuthValues } from "../features/auth";
 import { removeTeacherProfile } from "../features/teacherProfile";
 import TeacherHomePageNavBar2 from "../components/TeacherHomePageNavBar2";
 import Footer from "../components/Footer";
-import ProfileDropDown from "../components/ProfileDropDown";
 
 const TeacherHomePageLayout = () => {
-
-  const [dropDown, setDropDown] = useState(false);
 
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
@@ -35,12 +32,8 @@ const TeacherHomePageLayout = () => {
   return (
     <div className="bg-white">
       <div className="flex-col">
-      <TeacherHomePageNavBar profile={profile} career={false} setDropDown={setDropDown} dropDown={dropDown} />
-      {dropDown && (
-        <div className="absolute flex w-[150px] justify-end top-16 right-0 z-50">
-          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown} role="Teacher"/>
-        </div>
-      )}
+      <TeacherHomePageNavBar profile={profile} handleLogOut={handleLogOut} career={false} />
+      
       <TeacherHomePageNavBar2/>
       </div>
 

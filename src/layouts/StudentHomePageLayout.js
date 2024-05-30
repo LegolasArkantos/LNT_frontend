@@ -8,11 +8,8 @@ import { useState } from "react";
 import { removeStudentProfile } from "../features/studentProfile";
 import StudentHomePageNavBar2 from "../components/StudentHomePageNavBar2";
 import Footer from "../components/Footer";
-import ProfileDropDown from "../components/ProfileDropDown";
 
 const StudentHomePageLayout = () => {
-
-  const [dropDown, setDropDown] = useState(false);
 
   const apiPrivate = useApiPrivate();
   const dispatch = useDispatch();
@@ -37,12 +34,7 @@ const StudentHomePageLayout = () => {
   return (
     <div className="bg-white">
       <div className="flex-col">
-        <StudentHomePageNavBar profile={profile} career={false} setDropDown={setDropDown} dropDown={dropDown}/>
-        {dropDown && (
-        <div className="absolute flex w-[150px] justify-end top-16 right-0 z-50">
-          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown} role="Student"/>
-        </div>
-      )}
+        <StudentHomePageNavBar profile={profile} handleLogOut={handleLogOut} career={false}/>
         <StudentHomePageNavBar2 />
       </div>
 
