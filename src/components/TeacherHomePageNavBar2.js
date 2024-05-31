@@ -173,7 +173,7 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
       <ul className="bg-purple-200 p-4 h-[300px] rounded-lg shadow-lg">
         <ScrollToBottom className="h-full  flex-col">
         {
-          notifications.length == 0
+          notifications?.length == 0
           ? (
             <div>
             No Notifications
@@ -182,7 +182,7 @@ const NotificationBox = ({ isNotificationOpen, notifications, handleNotification
           : (
 
           
-          notifications.map((notification, index) => (
+          notifications?.map((notification, index) => (
             <li key={index} className=" rounded mb-3 mr-3">
               
 

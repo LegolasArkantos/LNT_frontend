@@ -82,7 +82,7 @@ const StudentGrades = () => {
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/analysis')}>Analysis</button>
               </div>
             </div>
-            <h4 className="font-bold mt-4 mb-4">Student Grades</h4>
+            <h4 className="text-2xl text-[#7179C6] font-bold mt-4 mb-4">Student Grades</h4>
             <div className="mb-4">
               <select 
                 className="form-select" 
