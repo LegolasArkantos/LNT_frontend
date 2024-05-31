@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { apiPrivate } from '../services/api';
 import Lottie from 'react-lottie';
-import loadingAnimation from '../assets/loading.json';
+import loadingPurple from '../assets/loadingPurple.json';
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from 'react-player';
 
@@ -54,9 +54,9 @@ const StudentProgressAnalysis = () => {
             <div className="mb-4">
               {/* Navigation buttons */}
               <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 cursor-pointer rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 cursor-pointer focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 cursor-pointer rounded-e-lg focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/analysis')}><span className='border-b-2 border-purple-200'>Analysis</span></button>
               </div>
             </div>
             <h4 className="text-2xl text-[#7179C6] font-bold">Analysis</h4>
@@ -77,7 +77,7 @@ const StudentProgressAnalysis = () => {
                   options={{
                     loop: true,
                     autoplay: true,
-                    animationData: loadingAnimation,
+                    animationData: loadingPurple,
                     rendererSettings: {
                       preserveAspectRatio: 'xMidYMid slice',
                     },
@@ -91,7 +91,7 @@ const StudentProgressAnalysis = () => {
                 <div className="font-bold text-gray-700 mt-4" style={{ whiteSpace: 'pre-wrap' }}>
                   {renderContent(sanitizeText(analysisText))}
                 </div>
-                <h4 className="font-bold mt-4">Recommended Videos</h4>
+                <h4 className="font-bold text-lg text-gray-700 mt-4">Recommended Videos</h4>
                 <div className="flex overflow-x-auto gap-4 py-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#4A5568 #CBD5E0' }}>
                   {youtubeVideos.length > 0 ? (
                     youtubeVideos.map((video, index) => (
@@ -103,7 +103,7 @@ const StudentProgressAnalysis = () => {
                             height="100%"
                           />
                         </div>
-                        <h5 className="text-center font-thin">{video.title}</h5>
+                        <h5 className="font-bold text-center text-gray-700 mt-1">{video.title}</h5>
                       </div>
                     ))
                   ) : (

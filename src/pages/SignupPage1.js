@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/l-t-high-resolution-logo-transparent.png";
 import image from "../assets/signuppage1image.png"
 const SignUpPage1 = () => {
   const navigate = useNavigate();
@@ -21,33 +20,25 @@ const SignUpPage1 = () => {
     // Validate email format
     if (!emailRegex.test(email)) {
       setEmailError("Invalid email format");
-      setPasswordError(""); // Clear password error if email is invalid
-      return; // Do not proceed if email format is incorrect
+      setPasswordError(""); 
+      return; 
     }
 
-    // Validate password format
     if (!passwordRegex.test(password)) {
       setPasswordError(
         "Password must be at least 8 characters long and include at least one digit, one lowercase letter, and one uppercase letter."
       );
-      setEmailError(""); // Clear email error if password is invalid
-      return; // Do not proceed if password format is incorrect
+      setEmailError(""); 
+      return; 
     }
 
-    // Clear errors if both email and password are valid
     setEmailError("");
     setPasswordError("");
 
-    // Log the values of email and password
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    // Increase progress bar by one
+    
     setProgress((prevProgress) => Math.min(prevProgress + 1, 3));
 
-    // Wait for 1 second for the animation to play
     setTimeout(() => {
-      // Navigate to the next page
       navigate("/signup2", { state: { email, password, firstName, lastName } });
     }, 1000);
   };
@@ -189,82 +180,6 @@ const SignUpPage1 = () => {
         </form>
     </div>
 </div>
-      
-      {/* <div className="p-10">
-        <div className="flex mb-10 items-center justify-center space-x-3 rtl:space-x-reverse">
-          <img src={logo} alt="Logo" className="h-8" />
-        </div> */}
-
-        
-        {/* Progress Bar */}
-        {/* <div className="mb-5 relative pt-1 flex-col mb-2 items-center justify-between ">
-          <ul className="flex relative pt-1">
-            {[1, 2, 3].map((step) => (
-              <div
-                key={step}
-                className={`w-full bg-gray-300 rounded-full h-2 transition-all duration-1000 ease-in-out ${
-                  progress >= step ? "bg-teal-400" : ""
-                }`}
-              ></div>
-            ))}
-          </ul>
-        </div> */}
-
-        {/* Form */}
-        {/* <form className="max-w-sm mx-auto mt-40 " onSubmit={submit}>
-          <div className="mb-5">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@gmail.com"
-              required
-            />
-            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
-          </div>
-          <div className="mb-5">
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              className="bg-gray-50 mb-2.5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
-              required
-            />
-            {passwordError && (
-              <p className="text-red-500 text-sm">{passwordError}</p>
-            )}
-            <a href="login" className="text-sm hover:underline cursor-pointer">
-              Already have an account? Login in
-            </a>
-          </div>
-          <button
-            type="submit"
-            className="text-white bg-teal-400 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Next
-          </button>
-        </form>
-      </div> */}
     </div>
   );
 };

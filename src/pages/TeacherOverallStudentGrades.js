@@ -77,8 +77,8 @@ const StudentGrades = () => {
             <div className="mb-4">
               <div className="inline-flex rounded-md shadow-sm" role="group">
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/assignments')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/quiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/Individual')}>Individual</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/quiz')}>Quizes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/Individual')}><span className='border-b-2 border-purple-200'>Individual</span></button>
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress/analysis')}>Analysis</button>
               </div>
             </div>
@@ -123,7 +123,9 @@ const StudentGrades = () => {
                 {gradesData.map(student => (
                   <details key={student.studentId} className="mb-6 p-4 bg-white rounded shadow">
                     <summary className="font-semibold text-xl flex items-center">
+                      <h1 className='text-purple-600 hover:underline cursor-pointer'>
                       {student.studentName}
+                      </h1>
                       <ProgressBar 
                         completed={student.overallPercentage.toFixed(2)}
                         className="flex-1 ml-4"

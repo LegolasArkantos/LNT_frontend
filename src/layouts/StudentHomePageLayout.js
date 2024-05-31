@@ -25,7 +25,6 @@ const StudentHomePageLayout = () => {
         dispatch(removeAuthValues());
         dispatch(removeStudentProfile());
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

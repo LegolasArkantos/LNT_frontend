@@ -55,7 +55,6 @@ const TeacherSessionsPage = () => {
   const handleJoinVideoCall = async (roomID) => {
     try {
       await apiPrivate.post(`sessions/launch-session/${roomID}`).then((res) => {
-        console.log(res.status)
         if (res.status === 200) {
           navigate('/teacher-home-page/sessions/live-session', { state: { roomID, userType: "Teacher", purpose: "Session" } });
         }
@@ -114,10 +113,8 @@ const TeacherSessionsPage = () => {
               </div>
               )
             }
-            {/* Session Cards (Fetched Data) */}
             {!loading && sessions.length === 0 
             ? (<div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
             </div>
             )

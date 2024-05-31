@@ -62,7 +62,7 @@ const LandingPage = () => {
               About
             </a>
             <a
-              href=""
+              href="contact-us"
               className="text-xl text-gray hover:border-b-2 hover:border-b-[#7179C6]"
             >
               Contact Us

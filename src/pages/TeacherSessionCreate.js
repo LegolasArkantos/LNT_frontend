@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useApiPrivate from '../hooks/useAPIPrivate';
+import Popup from "../components/Popup";
 
 const CreateSessionPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const CreateSessionPage = () => {
     sessionDescription: '',
     sessionCount: ''
   });
+  const [popup, setPopup] = useState(false);
+
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
 
@@ -26,12 +29,19 @@ const CreateSessionPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await apiPrivate.post('/sessions/create', formData);
-      navigate('/teacher-home-page/sessions'); 
+      await apiPrivate.post('/sessions/create', formData).then((res => {
+        if (res.status === 201) {
+          setPopup(true);
+        }
+      }))
     } catch (error) {
       console.error(error);
     }
   };
+
+  const onConfirm = () => {
+    navigate('/teacher-home-page/sessions'); 
+  }
 
   return (
     <div className="container mx-auto px-4">
@@ -99,7 +109,7 @@ const CreateSessionPage = () => {
               Price
             </label>
             <input
-              type="text"
+              type="number"
               id="sessionPrice"
               name="sessionPrice"
               value={formData?.sessionPrice}
@@ -143,6 +153,9 @@ const CreateSessionPage = () => {
           </button>
         </div>
       </form>
+      {
+    popup && (<Popup setPopup={setPopup} onConfirm={onConfirm} message="Course has been sent to the Admin for approval" purpose="course-creation"/>)
+  }
     </div>
   );
 };

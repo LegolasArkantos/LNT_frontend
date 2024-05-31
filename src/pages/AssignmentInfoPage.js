@@ -26,7 +26,6 @@ const AssignmentInfoPage = () => {
     const fetchAssignmentDetails = async () => {
       try {
         const assignmentId = location.state.assignmentId;
-        console.log('Assignment ID:', assignmentId);
         const response = await apiPrivate.get(`/assignment/getAssignment/${assignmentId}`);
         setAssignment(response.data.assignment);
       } catch (error) {
@@ -90,7 +89,6 @@ const AssignmentInfoPage = () => {
   };
 
   const handleSubmissionClick = (assignmentId, total,title,sessionId,subject) => {
-    console.log("id dad "+assignmentId,"id dad "+ total+"id sub"+sessionId,subject)
     navigate('/teacher-home-page/sessions/assignments/submissons', { state: { assignmentId,total,title,sessionId,subject} });
   };
 

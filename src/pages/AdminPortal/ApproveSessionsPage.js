@@ -13,7 +13,6 @@ const ApproveSessionsPage = () => {
 
     const handleApproveSession = async () => {
         try {
-          console.log("hello")
           await apiPrivate.patch("admin/approve-session/" + selectedSessionID).then((res) => {
             if (res.status === 200) {
                 setInReviewSessions((sessions) => sessions.filter((session) => session?._id != selectedSessionID));
@@ -48,7 +47,6 @@ const ApproveSessionsPage = () => {
               apiPrivate.get("admin/un-approved-sessions").then((res) => {
                 if (res.status === 200) {
                   setInReviewSessions(res.data);
-                  console.log(res.data)
                 }
               });
             }

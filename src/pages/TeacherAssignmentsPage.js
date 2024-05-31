@@ -53,7 +53,6 @@ const TeacherAssignmentsPage = () => {
       try {
         const sessionId = location.state.sessionId;
         const response = await apiPrivate.get(`/quiz/get-session-quizes/${sessionId}`);
-        console.log(response)
         setQuizes(response.data.quiz);
       } catch (error) {
         console.error(error);
@@ -113,7 +112,6 @@ const TeacherAssignmentsPage = () => {
   };
 
   const handleAssignmentClick = (assignmentId,sessionId,subject) => {
-    console.log("id "+assignmentId,sessionId,subject)
     navigate('/teacher-home-page/sessions/assignments/overview', { state: { assignmentId,sessionId,subject} });
   };
 
@@ -186,7 +184,6 @@ const TeacherAssignmentsPage = () => {
       questions: createQuizFormData.questions
     }).then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         quizes.push(res.data);
         setQuizes(quizes);
       }
@@ -218,7 +215,6 @@ const TeacherAssignmentsPage = () => {
   const handleQuizUpload = async (e) => {
     try {
         const file = e.target.files[0];
-        console.log(file);
 
         if (file) { 
           const formData = new FormData();
@@ -230,7 +226,6 @@ const TeacherAssignmentsPage = () => {
           })
                 .then((res) => {
                     if (res.status === 200) {
-                      console.log(res.data)
                       setCreateQuizFormData(prevState => ({
                         ...prevState,
                         questions: res.data
@@ -243,7 +238,13 @@ const TeacherAssignmentsPage = () => {
     }
 };
 
-  
+const formatDateTime = (dateTimeString) => {
+  if (!dateTimeString) return '';
+
+  const date = new Date(dateTimeString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return date.toLocaleDateString('en-US', options);
+};
 
 
   return (
@@ -297,7 +298,6 @@ const TeacherAssignmentsPage = () => {
             {
               !loading1 && assignments?.length === 0
               ? (<div className="flex w-full h-[300px] items-center justify-center">
-              {/* <p className="text-xl font-normal">No Sessions Available</p> */}
               <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
               </div>
               )
@@ -312,11 +312,11 @@ const TeacherAssignmentsPage = () => {
             <div className="flex">
                 <div className='flex'>
                   <h className="font-bold text-sm text-gray-700 mx-2">Start Time:</h>
-                  <p className="font-semibold text-sm mr-4">{assignment?.startTime}</p>
+                  <p className="font-semibold text-sm mr-4">{formatDateTime(assignment?.startTime)}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold text-gray-700 text-sm mx-2">End Time:</h>
-                  <p className="font-semibold text-sm mr-4">{assignment?.endTime}</p>
+                  <p className="font-semibold text-sm mr-4">{formatDateTime(assignment?.endTime)}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold text-gray-700 text-sm mx-2">Marks:</h>
@@ -360,7 +360,6 @@ const TeacherAssignmentsPage = () => {
             {!loading2 && quizes.length === 0
             ? (
               <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
             </div>
             )
@@ -409,7 +408,7 @@ const TeacherAssignmentsPage = () => {
               <div className="flex flex-col mb-4">
                 <label htmlFor="startTime" className="font-bold text-sm text-gray-700">Start Time</label>
                 <input
-                  type="text"
+                  type="datetime-local"
                   id="startTime"
                   name="startTime"
                   value={createAssignmentFormData?.startTime}
@@ -421,7 +420,7 @@ const TeacherAssignmentsPage = () => {
               <div className="flex flex-col mb-4">
                 <label htmlFor="endTime" className="font-bold text-sm text-gray-700">End Time</label>
                 <input
-                  type="text"
+                  type="datetime-local"
                   id="endTime"
                   name="endTime"
                   value={createAssignmentFormData?.endTime}
@@ -561,7 +560,6 @@ const TeacherAssignmentsPage = () => {
                 }
               
     <div className='flex items-center '>
-    {/* <button type='button' onClick={() => addQuestion()}  className="bg-[#7179C6] hover:bg-purple-500 text-white px-4 py-2 rounded items-center h-10">Add</button> */}
     <svg onClick={() => addQuestion()} className="cursor-pointer" width="45px" height="45px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.4" d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2Z" fill="#6d28d9"></path> <path d="M18 11.25H12.75V6C12.75 5.59 12.41 5.25 12 5.25C11.59 5.25 11.25 5.59 11.25 6V11.25H6C5.59 11.25 5.25 11.59 5.25 12C5.25 12.41 5.59 12.75 6 12.75H11.25V18C11.25 18.41 11.59 18.75 12 18.75C12.41 18.75 12.75 18.41 12.75 18V12.75H18C18.41 12.75 18.75 12.41 18.75 12C18.75 11.59 18.41 11.25 18 11.25Z" fill="#ffffff"></path> </g></svg>
     </div>
     </div>

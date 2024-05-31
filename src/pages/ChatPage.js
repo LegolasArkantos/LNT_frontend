@@ -40,7 +40,6 @@ const ChatPage = ({ socket }) => {
     socket.emit("join_room", chat._id);
     try {
       await apiPrivate.get("chat/get-chat/" + chat._id).then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setMessageList(res.data.messages);
         }
@@ -63,7 +62,6 @@ const ChatPage = ({ socket }) => {
         .patch("chat/delete-message", { chatID: chatID, messageID: messageID })
         .then((res) => {
           if (res.status === 200) {
-            console.log("hello");
             setMessageList((prevMessages) =>
               prevMessages.filter((message) => message._id !== messageID)
             );
@@ -117,7 +115,6 @@ const ChatPage = ({ socket }) => {
   useEffect(() => {
     socket.off("receive_message").on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
-      console.log(data);
     });
   }, [socket]);
 
@@ -129,9 +126,7 @@ const ChatPage = ({ socket }) => {
       try {
         await apiPrivate.get("chat/").then((res) => {
           if (isMounted && res.status === 200) {
-            console.log(res.status);
             setChats(res.data.chatRooms);
-            console.log(chats);
           }
         });
       } catch (error) {

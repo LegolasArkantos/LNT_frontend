@@ -52,7 +52,6 @@ const ReviewsPopupStudent = ({setReviewPopUp, reviewPopUpData}) => {
                 await apiPrivate.get(`reviews/getTeacherReviewsbySession/${reviewPopUpData.teacherId}/${reviewPopUpData.sessionName}`)
                 .then((res) => {
                     if (res.status === 200) {
-                        console.log(res.data)
                         setReviews(res.data);
                     }
                 })

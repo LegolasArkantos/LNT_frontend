@@ -158,14 +158,14 @@ const StudentQuizProgress = () => {
     <div className="p-8 flex flex-col h-full">
       <div className="inline-flex rounded-md shadow-sm" role="group">
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/quiz')}><span className='border-b-2 border-purple-200'>Quizzes</span></button>
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
               </div>
       <div className="flex-1 flex flex-row h-[700px] max-w-screen p-3">
         <div className="card" style={{ width: '50%', height: '100%' }}>
           <div className="card-body">
             <div className="mb-4">
-              <h4 className="ml-5 mt-16">Average Quiz Grade by Session</h4>  
+              <h4 className="ml-5 mt-16 font-bold text-gray-700">Average Quiz Grade by Session</h4>  
             </div>
             <div id="overall-quiz-chart"></div>
           </div>
@@ -179,7 +179,7 @@ const StudentQuizProgress = () => {
                     <option key={session.sessionId} value={session.sessionId}>{session.subject}</option>
                   ))}
                 </select>
-                <h4 className="ml-5">Individual Quiz Grades</h4>
+                <h4 className="ml-5 font-bold text-gray-700">Individual Quiz Grades</h4>
                 <div id="quiz-chart"></div>
               </>
             )}

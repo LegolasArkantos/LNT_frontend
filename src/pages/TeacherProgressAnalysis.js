@@ -19,7 +19,6 @@ const TeacherProgressAnalysis = () => {
       try {
         const response = await apiPrivate.get('/ai/sessions');
         setSessions(response.data.sessions);
-        console.log("id"+selectedSession)
       } catch (error) {
         console.error('Error fetching sessions:', error);
       }
@@ -195,9 +194,9 @@ const TeacherProgressAnalysis = () => {
               {/* Navigation buttons */}
               <div className="inline-flex rounded-md shadow-sm" role="group">
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/assignments')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/quiz')}>Quizes</button>
                 <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/Individual')}>Individual</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/analysis')} >Analysis</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/analysis')} ><span className='border-b-2 border-purple-200'>Analysis</span></button>
               </div>
             </div>
             <h4 className="font-bold mt-4 mb-4">Analysis</h4>
@@ -243,7 +242,7 @@ const TeacherProgressAnalysis = () => {
                   <div id="quizPassedFailedChart" style={{ flex: 1, minWidth: '300px', margin: '0 10px' }}></div>
                   <div id="passFailRatioChart" style={{ flex: 1, minWidth: '300px', margin: '0 10px' }}></div>
                 </div>
-                <p className="font-thin mt-4" style={{ whiteSpace: 'pre-wrap' }}>
+                <p className="font-bold text-gray-700 mt-4" style={{ whiteSpace: 'pre-wrap' }}>
                   {sanitizeText(analysisText)}
                 </p>
               </>

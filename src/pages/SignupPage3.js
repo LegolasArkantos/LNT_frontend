@@ -15,11 +15,15 @@ import image7 from "../assets/pt7.png"
 import image8 from "../assets/pt8.png"
 import image9 from "../assets/pt9.png"
 import image10 from "../assets/pt10.png"
+import Popup from "../components/Popup";
 
 // Initialize Firebase Storage
 const storage = getStorage(app);
 
 const SignUpPage3 = () => {
+
+  const [popup, setPopup] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -129,6 +133,10 @@ const SignUpPage3 = () => {
     
   };
 
+  const onConfirm = () => {
+    navigate("/login");
+  }
+
   // Extracting previous data from location state
   const { email, password, firstName, lastName, role, educationalCredential, educationalLevel, profilePicture, aboutMe,teacherFiles} = location.state || {};
 
@@ -154,14 +162,12 @@ const SignUpPage3 = () => {
         });
   
         const uploadedFiles = await Promise.all(fileUploadPromises);
-        console.log("Uploaded files:", uploadedFiles);
 
 
         // Upload profile picture to Firebase Storage
     const profileStorageRef = ref(storage, profilePicture.name);
     await uploadBytes(profileStorageRef, profilePicture);
     const profileDownloadURL = await getDownloadURL(profileStorageRef);
-    console.log("Profile Picture URL:", profileDownloadURL);
   
 
         const lowercasedEmail = email.toLowerCase()
@@ -180,19 +186,19 @@ const SignUpPage3 = () => {
           credentialFiles: uploadedFiles, // Include credentialFiles in payload
         };
   
-        console.log("Payload:", payload);
-  
         // Make API request to signup endpoint
         const response = await api.post("/auth/signup", payload);
-  
-        console.log("API Response:", response);
+
+        if (response.status === 201) {
+          setPopup(true);
+        }
   
         // Update progress bar and navigate after a delay
         setProgress(progress + 1);
   
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
+        // setTimeout(() => {
+        //   navigate("/login");
+        // }, 1000);
   
         // Reset error message
         setErrorMessage("");
@@ -317,6 +323,9 @@ Loading...
       </div>
     </div>
   </div>
+  {
+    popup && (<Popup setPopup={setPopup} onConfirm={onConfirm} message={`${role === "Student" ? 'Sign up Successful' : 'Your account has been sent to the Admin for approval'}`} purpose="signup"/>)
+  }
 </div>
 
   );

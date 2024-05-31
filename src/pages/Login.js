@@ -35,7 +35,6 @@ const Login = () => {
         .then((res) => {
           if (res.status === 200) {
             const { accessToken } = res.data;
-            console.log(accessToken);
             const decodedToken = jwtDecode(accessToken);
             const role = decodedToken.role;
             dispatch(setAuthValues({ role, accessToken }));

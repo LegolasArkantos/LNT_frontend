@@ -33,7 +33,6 @@ const useRefreshToken = () => {
                     console.log(error)
                 }
             }
-            console.log(error);
         }
 
     }
