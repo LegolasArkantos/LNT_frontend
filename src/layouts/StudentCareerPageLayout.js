@@ -27,7 +27,6 @@ const StudentCareerPageLayout = () => {
         dispatch(removeAuthValues());
         dispatch(removeStudentProfile());
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +44,7 @@ const StudentCareerPageLayout = () => {
       </div>
 
       
-      <div className="bg-teal-100">
+      <div className="bg-[#7179C6]">
       <Footer/>
       </div>
     </div>

@@ -159,7 +159,7 @@ const StudentAssignmentProgress = () => {
   return (
     <div className="p-8 flex flex-col h-full">
       <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/assignments')}><span className='border-b-2 border-purple-200'>Assignment</span></button>
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
                 <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
               </div>
@@ -170,7 +170,7 @@ const StudentAssignmentProgress = () => {
           <div className="card-body">
             <div className="mb-4">
               
-              <h4 className="ml-5 mt-16">Average Progress by Session</h4>  
+              <h4 className="ml-5 mt-16 font-bold text-gray-700">Average Progress by Session</h4>  
             </div>
             <div id="avg-chart"></div>
           </div>
@@ -184,7 +184,7 @@ const StudentAssignmentProgress = () => {
                     <option key={session?.sessionId} value={session?.sessionId}>{session?.subject}</option>
                   ))}
                 </select>
-                <h4 className="ml-5">Assignment Progress</h4>
+                <h4 className="ml-5 font-bold text-gray-700">Assignment Progress</h4>
                 <div id="session-chart"></div>
               </>
             )}

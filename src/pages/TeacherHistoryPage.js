@@ -85,7 +85,6 @@ const TeacherSessionHistoryPage = () => {
             }
             {!loading && completedSessions.length === 0 
             ? (<div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
             </div>
             )

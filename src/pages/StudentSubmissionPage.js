@@ -81,7 +81,7 @@ const StudentSubmissionPage = () => {
 
             // Send file URLs to backend
             const response = await apiPrivate.post(`/assignment/submit/${assignment._id}`, { files: uploadedFiles });
-            console.log(response.data.message); 
+            
 
             setIsLoading(false); // Stop loading animation
 
@@ -104,13 +104,6 @@ const StudentSubmissionPage = () => {
       {assignment ? (
       <div>
           <h2 className="text-3xl font-bold mb-4">{assignment?.title}</h2>
-          {/* <p className="text-lg">Start Time: <span className="ml-2">{assignment?.startTime}</span></p>
-          <p className="text-lg">End Time: <span className="ml-4">{assignment?.endTime}</span></p>
-          <p className="text-lg">Marks: <span className="ml-6">{assignment?.marks}</span></p>
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold mb-2">Description:</h3>
-            <div className="bg-gray-100 p-4 rounded-lg">{assignment?.description}</div>
-          </div> */}
 
 <div className='flex w-full flex-col space-y-2 justify-start'>
           <div className='flex'>

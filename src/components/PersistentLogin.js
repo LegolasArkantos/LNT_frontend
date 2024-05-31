@@ -25,7 +25,6 @@ const PersistentLogin = () => {
 
     const getProfile = async () => {
       try {
-        console.log(auth.accessToken);
         if (auth.role === "Student") {
           const response = await apiPrivate.get("student/profile/get", {
             headers: {
@@ -55,7 +54,6 @@ const PersistentLogin = () => {
             },
           });
           if (response.status === 200) {
-            console.log(response.data.profilePicture)
             dispatch(
               teacherProfile({
                 firstName: response.data.firstName,

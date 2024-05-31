@@ -36,7 +36,6 @@ const StudentAssignmentsPage = () => {
       try {
         const sessionId = location.state.sessionId;
         const response = await apiPrivate.get(`/quiz/get-session-quizes/${sessionId}`);
-        console.log(response)
         setQuizes(response.data.quiz);
       } catch (error) {
         console.error(error);
@@ -63,7 +62,6 @@ const StudentAssignmentsPage = () => {
   }, [location]);
 
   const handleAssignmentClick = (assignmentId) => {
-    console.log("id "+assignmentId)
     navigate('/student-home-page/sessions/assignments/submission', { state: { assignmentId} });
   };
 

@@ -14,7 +14,6 @@ const ApproveTeachersPage = () => {
 
   const handleApproveTeacher = async () => {
     try {
-      console.log("hello")
       await apiPrivate.patch("admin/approve-teacher/" + selectedTeacherID).then((res) => {
         if (res.status === 200) {
           setUnApproveTeachers((teachers) => teachers.filter((teacher) => teacher._id != selectedTeacherID));
@@ -51,7 +50,6 @@ const ApproveTeachersPage = () => {
         apiPrivate.get("admin/un-approved-teachers").then((res) => {
           if (res.status === 200) {
             setUnApproveTeachers(res.data);
-            console.log(res.data)
           }
         });
       }
@@ -94,9 +92,16 @@ const ApproveTeachersPage = () => {
     <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
       Educational Credentials: {teacher?.educationalCredential}
     </p>
-    <p class="mb-3 text-sm font-medium text-gray-900 dark:text-gray-400">
-      About Me: {teacher?.aboutMe}
-    </p>
+    <div className='flex-col'>
+        <p className="mb-3 text-lg underline font-semibold text-gray-700 dark:text-gray-400">
+            About Me:
+        </p>
+        <div className='flex w-full h-[150px] bg-gray-100 rounded p-3 overflow-y-scroll'>
+        <p className='mb-4 text-m font-semibold text-teal-900' style={{ whiteSpace: 'pre-wrap' }}>
+        {teacher?.aboutMe}
+        </p>
+        </div>
+        </div>
     <p class="text-sm font-medium text-gray-900 dark:text-gray-400">
       Credentials files:
     </p>

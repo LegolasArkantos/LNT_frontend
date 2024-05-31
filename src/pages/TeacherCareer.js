@@ -44,8 +44,6 @@ const TeacherCareerPage = () => {
     try {
       const roomID = teacherCareerData._id;
       await apiPrivate.post(`career/launch-counselling/${roomID}`).then((res) => {
-        console.log("HELLO Frontend")
-        console.log(res.status)
         if (res.status === 200) {
           navigate('/teacher-home-page/sessions/live-session', { state: {roomID, userType: "Teacher", purpose: "Counselling"}});
         }
@@ -112,7 +110,6 @@ const TeacherCareerPage = () => {
           }
           {!loading && students.length === 0
           ? (<div className="flex w-full h-[300px] items-center justify-center">
-          {/* <p className="text-xl font-normal">No Sessions Available</p> */}
           <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
           </div>)
           : (students?.map((student, index) => (

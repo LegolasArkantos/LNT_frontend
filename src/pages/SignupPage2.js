@@ -27,22 +27,9 @@ const [teacherFileNames, setTeacherFileNames] = useState([]);
 
   const submit = (e) => {
     e.preventDefault();
-  
-    // Log the values
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Role:", role);
-    console.log(aboutMe);
 
   
-    if (role === "Teacher") {
-      console.log("Educational Credential:", educationalCredential);
-      console.log("Teacher Files:", teacherFiles);
-    } else if (role === "Student") {
-      console.log("educational level", educationalLevel);
-    }
+   
   
     // Increase progress bar by one
     setProgress((prevProgress) => Math.min(prevProgress + 1, 3));

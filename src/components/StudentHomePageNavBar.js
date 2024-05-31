@@ -31,7 +31,7 @@ const StudentHomePageNavBar = (props) => {
             <li>
               <Link
                 to="/student-home-page"
-                className={`block py-2 px-3 hover:text-[#7179C6] rounded md:bg-transparent md:p-0 ${(location.pathname !== "/student-career-page/ai-career" && location.pathname !== "/student-career-page/teacherCareers" && location.pathname !== "/student-career-page/Counselors") ? 'text-[#7179C6]' : 'text-[#444444]'}`}
+                className={`block py-2 px-3 hover:text-[#7179C6] rounded md:bg-transparent md:p-0 ${(location.pathname !== "/student-career-page/ai-career" && location.pathname !== "/student-career-page/available-counsellors" && location.pathname !== "/student-career-page/my-counsellors") ? 'text-[#7179C6]' : 'text-[#444444]'}`}
                 aria-current="page"
               >
                 Learn
@@ -39,7 +39,7 @@ const StudentHomePageNavBar = (props) => {
             </li>
             <li>
               <Link
-                className={`block py-2 px-3 hover:text-[#7179C6] rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/student-career-page/ai-career" || location.pathname === "/student-career-page/teacherCareers" || location.pathname === "/student-career-page/Counselors" ? 'text-[#7179C6]' : 'text-[#444444]'}`}
+                className={`block py-2 px-3 hover:text-[#7179C6] rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/student-career-page/ai-career" || location.pathname === "/student-career-page/available-counsellors" || location.pathname === "/student-career-page/my-counsellors" ? 'text-[#7179C6]' : 'text-[#444444]'}`}
                 to="/student-career-page/ai-career"
                 // onClick={() => setCareer(true)}
               >

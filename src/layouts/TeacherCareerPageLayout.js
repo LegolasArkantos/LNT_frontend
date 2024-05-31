@@ -26,7 +26,6 @@ const TeacherCareerPageLayout = () => {
         dispatch(removeAuthValues());
         dispatch(removeTeacherProfile());
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

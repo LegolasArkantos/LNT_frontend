@@ -89,28 +89,17 @@ const AICareerGenerator = () => {
     <div className="min-h-auto flex items-top justify-center bg-white-100">
       <div className="w-full h-screen/2 max-w-screen-xl bg-white rounded-lg shadow-lg p-6">
         {/* Navigation buttons */}
-        <div className="mb-5 text-center mx-auto rounded-md shadow-sm" role="group">
-          <Link
-            to="/student-career-page/ai-career"
-            className="bg-teal-300 text-white py-2 px-4 rounded-l-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            <span className="border-b-2 border-red-500">AI Career</span>
+
+        <div class="mb-8 text-center mx-auto rounded-md shadow-sm" role="group">
+          <Link to="/student-career-page/ai-career" className="bg-purple-500 text-white py-2 px-4 rounded-l-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+           <span className='border-b-2 border-purple-200'>AI Career</span>
           </Link>
-          <Link
-            to="/student-career-page/teacherCareers"
-            className="bg-teal-300 text-white py-2 px-4 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Career Teachers
-          </Link>
-          <Link
-            to="/student-career-page/Counselors"
-            className="bg-teal-300 text-white py-2 px-4 rounded-r-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Career Students
-          </Link>
+          <Link to="/student-career-page/available-counsellors" className="bg-purple-500 text-white py-2 px-4 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Available Counsellors</Link>
+          <Link to="/student-career-page/my-counsellors" className="bg-purple-500 text-white py-2 px-4 rounded-r-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">My Counsellors</Link>
         </div>
 
-        <h1 className="text-3xl font-bold mb-4 text-center">AI Career Generator</h1>
+        <h1 className="text-3xl text-[#7179C6] mb-5 font-bold text-center">AI Career Generator</h1>
+
         {loading ? (
           <div className="mt-6 flex justify-center">
             <Lottie
@@ -147,9 +136,9 @@ const AICareerGenerator = () => {
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label htmlFor="educationalBackground" className="block text-lg mb-2">
-                1. Tell us about your educational background:
-              </label>
+
+              <label htmlFor="educationalBackground" className="font-bold text-m text-gray-700 mx-2">1. Tell us about your educational background:</label>
+
               <textarea
                 id="educationalBackground"
                 className="w-full h-40 border border-gray-300 rounded-lg py-2 px-4 resize-none"
@@ -160,9 +149,9 @@ const AICareerGenerator = () => {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="workExperience" className="block text-lg mb-2">
-                2. Work experience:
-              </label>
+
+              <label htmlFor="workExperience" className="font-bold text-m text-gray-700 mx-2">2. Work experience:</label>
+
               <textarea
                 id="workExperience"
                 className="w-full h-40 border border-gray-300 rounded-lg py-2 px-4 resize-none"
@@ -172,9 +161,10 @@ const AICareerGenerator = () => {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="strengthsWeaknesses" className="block text-lg mb-2">
-                3. Tell us a bit about what you perceive are your strengths and weaknesses:
-              </label>
+
+
+              <label htmlFor="strengthsWeaknesses" className="font-bold text-m text-gray-700 mx-2">3. Tell us a bit about what you perceive are your strengths and weaknesses:</label>
+
               <textarea
                 id="strengthsWeaknesses"
                 className="w-full h-40 border border-gray-300 rounded-lg py-2 px-4 resize-none"
@@ -184,9 +174,9 @@ const AICareerGenerator = () => {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="futureJobs" className="block text-lg mb-2">
-                4. What jobs do you wish to do in the future?
-              </label>
+
+              <label htmlFor="futureJobs" className="font-bold text-m text-gray-700 mx-2">4. What jobs do you wish to do in the future?</label>
+
               <textarea
                 id="futureJobs"
                 className="w-full h-40 border border-gray-300 rounded-lg py-2 px-4 resize-none"
@@ -231,9 +221,9 @@ const AICareerGenerator = () => {
             </div>
             <button
               type="submit"
-              className={`bg-blue-500 text-white py-2 px-4 rounded-lg w-full ${
-                loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-              }`}
+
+              className={`bg-[#7179C6] text-white py-2 px-4 rounded-lg w-full ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'}`}
+
               disabled={loading}
             >
               {loading ? 'Generating...' : 'Generate'}
@@ -244,7 +234,7 @@ const AICareerGenerator = () => {
           <div className="mt-6">
             <button
               onClick={handleReset}
-              className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg w-full hover:bg-gray-400"
+              className="bg-[#7179C6] text-gray-800 py-2 px-4 rounded-lg w-full hover:bg-purple-400"
             >
               Go Back
             </button>

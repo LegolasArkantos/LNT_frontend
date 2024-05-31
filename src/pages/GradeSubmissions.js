@@ -48,7 +48,6 @@ const GradeSubmissions = () => {
                 sessionId,
                 subject
             });
-            console.log(response.data.message);
             fetchSubmissions();
 
         setSelectedSubmission(null);

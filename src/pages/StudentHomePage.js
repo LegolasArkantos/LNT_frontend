@@ -32,11 +32,9 @@ const StudentHomePage = () => {
       try {
         await apiPrivate.get("sessions/availableSessions").then((res) => {
           if (isMounted && res.status === 200) {
-            console.log(res.data.sessions)
             setAvailableSessions(res.data.sessions);
           }
         });
-        console.log("process   :  "+process.env.REACT_APP_BASE_URL)
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +48,6 @@ const StudentHomePage = () => {
         await apiPrivate.get("student/top-rated-teachers").then((res) => {
           if (isMounted && res.status === 200) {
             setTopRatedTeachers(res.data);
-            console.log(topRatedTeachers)
           }
         });
       }
@@ -114,9 +111,6 @@ const StudentHomePage = () => {
 
   const handleOptionClicked = async (pollID, optionID) => {
     await apiPrivate.put("poll/update-count/" + pollID, {optionID}).then((res) => {
-      if (res.status === 200) {
-        console.log(res.data);
-      }
     })
   }
 
@@ -141,22 +135,7 @@ const StudentHomePage = () => {
     } catch (error) {
         console.log(error);
     }
-};
-
-// const joinSession = async (sessionId) => {
-//   try {
-//       const response = await apiPrivate.post(`/sessions/joinSession/${sessionId}`);
-//       alert('Student joined session successfully');
-//   } catch (error) {
-//       console.log(error);
-//   }
-// };
-
-      
-  
-  
-  
-  
+};  
   
 
   return (
@@ -173,7 +152,6 @@ const StudentHomePage = () => {
         <div id="slider1" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
           {loading1 && (
             <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <Lottie
                   options={{
                     loop: true,
@@ -190,27 +168,16 @@ const StudentHomePage = () => {
           )}
           {!loading1 && availableSessions?.length === 0 ? (
             <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
             </div>
           ) : (
             availableSessions?.map((session, index) => (
               <div key={index} className="w-1.5/5 flex flex-col justify-between bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
-    {/* <a href="#">
-      <img
-        className="rounded-t-lg w-full"
-        src="/docs/images/blog/image-1.jpg"
-        alt=""
-      />
-    </a> */}
     <div className="p-5">
       <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
         {session?.subject}
       </h2>
-      <p className="mb-2 text-sm font-medium text-green-500 dark:text-green-400">
-        Price: {session?.sessionPrice}
-      </p>
       <div className="flex items-center mb-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +194,7 @@ const StudentHomePage = () => {
           />
         </svg>
         <button
-          className="text-sm text-blue-500 hover:underline focus:outline-none"
+          className="text-sm text-purple-500 hover:underline focus:outline-none"
           onClick={() => handleTeacherClick(session?.teacher?._id)}
         >
           <span className="font-semibold">Teacher:</span> {session?.teacherName}
@@ -270,7 +237,6 @@ const StudentHomePage = () => {
         <div id="slider2" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
         {loading2 && (
             <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <Lottie
                   options={{
                     loop: true,
@@ -287,7 +253,6 @@ const StudentHomePage = () => {
           )}
           {!loading2 && topRatedTeachers?.length === 0 ? (
             <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
             </div>
           ) : (
@@ -369,7 +334,6 @@ const StudentHomePage = () => {
         <ul id="slider3" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-10 space-x-8">
         {loading3 && (
             <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <Lottie
                   options={{
                     loop: true,
@@ -387,7 +351,6 @@ const StudentHomePage = () => {
         {!loading3 && polls?.length === 0 
         ? (
           <div className="flex w-full h-[300px] items-center justify-center">
-                    {/* <p className="text-xl font-normal">No Sessions Available</p> */}
                     <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
                     </div>
         )
@@ -402,10 +365,6 @@ const StudentHomePage = () => {
         {poll?.options?.map((option, optionIndex) => (
           <li className="w-[300px]" key={optionIndex}>
             <div className="flex items-center space-x-2 mb-2 mt-2">
-              {/*
-                Only render the radio input if the student has not voted
-                Check if the student's profileID exists in the poll's users array
-              */}
               {!poll?.users.includes(profile?.profileID) && (
                 <input
                   onClick={() => handleOptionClicked(poll?._id, option?._id)}

@@ -71,7 +71,6 @@ const StudentSessionsPage = ({socket}) => {
         {!loading && sessions?.length === 0 
         ? (
           <div className="flex w-full h-[300px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
             </div>
         )
@@ -150,6 +149,7 @@ const StudentSessionsPage = ({socket}) => {
                 </button>
               </div>
               </div>
+              <div className='flex space-x-3'>
               <button
                 type="button"
                 className="text-white mt-3 w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2"
@@ -163,11 +163,12 @@ const StudentSessionsPage = ({socket}) => {
                 <button
                   onClick={() => handleJoinVideoCall(session?._id)}
                   type="button"
-                  className="text-white w-40 bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded text-sm px-5 py-2.5 text-center mb-2"
+                  className="text-white w-40 bg-purple-950 hover:bg-purple-900 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded text-sm px-5 py-2 text-center mb-2 mt-3"
                 >
                   Join Video
                 </button>
               )}
+              </div>
             </div>
           ))
         )}

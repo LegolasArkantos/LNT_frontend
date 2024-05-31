@@ -56,6 +56,7 @@ import ApproveSessionsPage from "./pages/AdminPortal/ApproveSessionsPage";
 import TeacherSessionHistoryPage from "./pages/TeacherHistoryPage";
 import StudentSessionsHistoryPage from "./pages/StudentHistoryPage";
 import StudentGrades from "./pages/TeacherOverallStudentGrades";
+import ContactUsPage from "./pages/ContactUsPage";
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
@@ -76,6 +77,7 @@ function App() {
         <Route path="/personalityTestInformation" element={<PersonalityTestInformation/>} />
         <Route path="/signup3" element={<SignUpPage3 />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
+        <Route path="/contact-us" element={<ContactUsPage/>}/>
       </Route>
 
       <Route element={<PersistentLogin />}>
@@ -131,8 +133,8 @@ function App() {
 
           <Route path="/student-career-page" element={<StudentCareerPageLayout/>}>
             <Route path="ai-career" element={<AICareerGenerator/>} />
-            <Route path="teacherCareers" element={<ShowCareerTeachers />} />
-            <Route path="Counselors" element={<SelectedCareerTeachers />} />
+            <Route path="available-counsellors" element={<ShowCareerTeachers />} />
+            <Route path="my-counsellors" element={<SelectedCareerTeachers />} />
           </Route>
           
           <Route path="/student-home-page/sessions/live-session" element={<VideoCallPage2/>} />

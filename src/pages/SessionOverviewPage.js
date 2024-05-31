@@ -11,7 +11,6 @@ const SessionOverviewPage = () => {
     const location = useLocation();
     const session = location.state.session;
     const enrolled = location.state.enrolled;
-    console.log(session)
     const navigate = useNavigate();
     const apiPrivate = useApiPrivate();
 
@@ -77,7 +76,7 @@ const SessionOverviewPage = () => {
         {
             popup
             &&
-            (<Popup setPopup={setPopup} message="Course Enrolled Successfully!"/>)
+            (<Popup setPopup={setPopup} message="Course Enrolled Successfully!" purpose="enroll"/>)
         }
     </div>
   )
