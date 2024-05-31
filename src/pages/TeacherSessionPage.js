@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png'
 
 const TeacherSessionsPage = () => {
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [reviewPopUp, setReviewPopUp] = useState(false);
   const [reviewPopUpData, setReviewPopUpData] = useState(null);
+  const [loading, setLoading] = useState(true)
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
@@ -21,6 +23,9 @@ const TeacherSessionsPage = () => {
         setSessions(response.data.sessions);
       } catch (error) {
         console.error(error);
+      }
+      finally {
+        setLoading(false)
       }
     };
 
@@ -40,20 +45,19 @@ const TeacherSessionsPage = () => {
   };
 
   const handleAssignmentClick = (sessionId, subject) => {
-    navigate('/teacher-home-page/assignments', { state: { sessionId, subject } });
+    navigate('/teacher-home-page/sessions/assignments-and-quizes', { state: { sessionId, subject } });
   };
 
   const handleUpdateClick = (session) => {
-    navigate('/teacher-home-page/update', { state: { session } });
+    navigate('/teacher-home-page/sessions/update', { state: { session } });
   };
 
   const handleJoinVideoCall = async (roomID) => {
     try {
       await apiPrivate.post(`sessions/launch-session/${roomID}`).then((res) => {
-        console.log("HELLO Frontend")
         console.log(res.status)
         if (res.status === 200) {
-          navigate('/teacher-home-page/live-session', { state: { roomID, userType: "Teacher", purpose: "Session" } });
+          navigate('/teacher-home-page/sessions/live-session', { state: { roomID, userType: "Teacher", purpose: "Session" } });
         }
       })
     }
@@ -87,13 +91,37 @@ const TeacherSessionsPage = () => {
           {/* Teacher Sessions */}
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
-            <button onClick={() => navigate('/teacher-home-page/create')} className="items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+            <button onClick={() => navigate('/teacher-home-page/sessions/create')} className="items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
               Create Session
             </button>
           </div>
           <div className="flex w-full items-center justify-center h-full overflow-y-scroll scroll scrollbar-hide grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {
+              loading && (
+                <div className="flex items-center justify-center">
+                <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+              </div>
+              )
+            }
             {/* Session Cards (Fetched Data) */}
-            {sessions.length !== 0 ? (
+            {!loading && sessions.length === 0 
+            ? (<div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+            )
+            : (
               sessions?.map((session) => (
                 <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
                   <div className='flex justify-start'>
@@ -179,21 +207,6 @@ const TeacherSessionsPage = () => {
                   </div>
                 </div>
               ))
-            ) : (
-              <div className="flex items-center justify-center">
-                <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-              </div>
             )}
           </div>
         </div>

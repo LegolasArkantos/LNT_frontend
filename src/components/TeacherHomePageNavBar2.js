@@ -64,7 +64,7 @@ const TeacherHomePageNavBar2 = () => {
             <Link
               to="sessions"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
-                location.pathname === "/teacher-home-page/sessions"
+                location.pathname.startsWith("/teacher-home-page/sessions")
                   ? "text-white underline"
                   : "hover:text-white"
               }`}
@@ -86,9 +86,9 @@ const TeacherHomePageNavBar2 = () => {
           </li>
           <li>
             <Link
-              to="progress"
+              to="progress/assignments"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
-                location.pathname === "/teacher-home-page/progress"
+                location.pathname.startsWith("/teacher-home-page/progress")
                   ? "text-white underline"
                   : "hover:text-white"
               }`}
@@ -138,7 +138,7 @@ const TeacherHomePageNavBar2 = () => {
   {notifications.length > 0 && (
     <circle
       cx="17.5"
-      cy="7"
+      cy="8"
       r="8"
       fill="#ff0000"
       stroke="#ffffff"
@@ -149,7 +149,7 @@ const TeacherHomePageNavBar2 = () => {
   {notifications.length > 0 && (
     <text
       x="17.5"
-      y="10"
+      y="11.5"
       fontSize="10"
       fill="#ffffff"
       textAnchor="middle"

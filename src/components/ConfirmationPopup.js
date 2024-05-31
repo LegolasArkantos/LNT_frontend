@@ -1,11 +1,11 @@
 import React from 'react'
 
-const ConfirmationPopupQuiz = (props) => {
+const ConfirmationPopup = (props) => {
   return (
-    <div className="fixed z-40 overflow-y-auto top-0 left-0 bg-opacity-50 bg-gray-900 w-screen h-screen">
+    <div className="fixed z-40 top-0 left-0 bg-opacity-50 bg-gray-900 w-screen h-screen">
           <div class="flex justify-center items-center mt-40">
             <div class="p-4 w-full max-w-md max-h-full ">
-              <div class="bg-teal-200 rounded-lg shadow dark:bg-gray-700">
+              <div class="bg-purple-300 rounded-lg shadow dark:bg-gray-700">
                 <div class="p-4 md:p-5 text-center">
                   <svg
                     class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
@@ -23,16 +23,9 @@ const ConfirmationPopupQuiz = (props) => {
                     />
                   </svg>
                   <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Are you sure you want to start the Quiz?
+                    {props.message}
                   </h3>
-                  <button
-                    data-modal-hide="popup-modal"
-                    type="button"
-                    onClick={() => props.onConfirm()}
-                    class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
-                  >
-                    Yes, I'm sure
-                  </button>
+                  <div className='flex justify-center space-x-4'>
                   <button
                     data-modal-hide="popup-modal"
                     onClick={() => props.setConfirmationPopup(false)}
@@ -41,6 +34,15 @@ const ConfirmationPopupQuiz = (props) => {
                   >
                     No, cancel
                   </button>
+                  <button
+                    data-modal-hide="popup-modal"
+                    type="button"
+                    onClick={() => props.onConfirm()}
+                    class="text-white bg-[#7179C6] hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm items-center px-5 py-2.5 text-center"
+                  >
+                    Yes, I'm sure
+                  </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,4 +51,4 @@ const ConfirmationPopupQuiz = (props) => {
   )
 }
 
-export default ConfirmationPopupQuiz
+export default ConfirmationPopup

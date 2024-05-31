@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import useApiPrivate from '../hooks/useAPIPrivate';
+import Popup from '../components/Popup';
 
 const SessionOverviewPage = () => {
 
+    const [popup, setPopup] = useState(false);
+    
     const location = useLocation();
     const session = location.state.session;
     const enrolled = location.state.enrolled;
@@ -20,8 +23,7 @@ const SessionOverviewPage = () => {
   try {
       await apiPrivate.post(`/sessions/joinSession/${sessionId}`).then((res) => {
         if (res.status === 200) {
-            alert('Student joined session successfully');
-            window.history.back();
+            setPopup(true)
         }
       });
   } catch (error) {
@@ -71,6 +73,12 @@ const SessionOverviewPage = () => {
         </p>
         </div>
         </div>
+
+        {
+            popup
+            &&
+            (<Popup setPopup={setPopup} message="Course Enrolled Successfully!"/>)
+        }
     </div>
   )
 }

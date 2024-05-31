@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import ReviewsPopupStudent from '../components/ReviewsPopupStudent';
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png'
 
 const StudentSessionsPage = ({socket}) => {
   const [sessions, setSessions] = useState([]);
   const [reviewPopUp, setReviewPopUp] = useState(false);
   const [reviewPopUpData, setReviewPopUpData] = useState(null);
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,13 +21,16 @@ const StudentSessionsPage = ({socket}) => {
       } catch (error) {
         console.error(error);
       }
+      finally {
+        setLoading(false)
+      }
     };
 
     fetchSessions();
   }, []);
 
   const handleSessionClick = (sessionId) => {
-    navigate('/student-home-page/studentassignments', { state: { sessionId } });
+    navigate('/student-home-page/sessions/assignments-and-quizes', { state: { sessionId } });
   };
 
   const handleTeacherClick = (teacherId) => {
@@ -34,7 +39,7 @@ const StudentSessionsPage = ({socket}) => {
 
   const handleJoinVideoCall = (roomID) => {
     socket.emit("join:video-call", {roomID});
-    navigate('/student-home-page/live-session', { state: {roomID, userType: "Student", purpose: "Session"}});
+    navigate('/student-home-page/sessions/live-session', { state: {roomID, userType: "Student", purpose: "Session"}});
   }
 
   return (
@@ -45,8 +50,32 @@ const StudentSessionsPage = ({socket}) => {
         <h2 className="text-2xl text-[#7179C6] font-bold">My Sessions</h2>
       </div>
       <div className="flex w-full items-center justify-center h-full overflow-y-scroll scroll scrollbar-hide grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {sessions?.length !== 0 ? (
-          sessions?.map((session) => (
+        {
+          loading && (
+            <div className="flex w-full h-full items-center justify-center">
+            <Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: loadingPurple,
+                rendererSettings: {
+                  preserveAspectRatio: 'xMidYMid slice',
+                },
+              }}
+              height={200}
+              width={200}
+            />
+          </div>
+          )
+        }
+        {!loading && sessions?.length === 0 
+        ? (
+          <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+        )
+        : (sessions?.map((session) => (
             <div key={session?._id} className="w-1.5/5 h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
               <div className="flex justify-between">
                 <button
@@ -141,21 +170,6 @@ const StudentSessionsPage = ({socket}) => {
               )}
             </div>
           ))
-        ) : (
-          <div className="flex w-full h-full items-center justify-center">
-            <Lottie
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: loadingPurple,
-                rendererSettings: {
-                  preserveAspectRatio: 'xMidYMid slice',
-                },
-              }}
-              height={200}
-              width={200}
-            />
-          </div>
         )}
       </div>
     </div>

@@ -23,11 +23,9 @@ import TeacherProfilePage from "./pages/TeacherProfilePage";
 import StudentProfilePageSecondary from "./pages/StudentProfilePageSecondary";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import TeacherAssignmentsPage from "./pages/TeacherAssignmentsPage";
-import StudentResponsesPage from "./pages/StudentResponsesPage";
 import AdminLayout from "./layouts/AdminLayout";
 import ApproveTeachersPage from "./pages/AdminPortal/ApproveTeachersPage";
 import StudentSubmissionPage from "./pages/StudentSubmissionPage";
-import VideoCallPage from "./pages/VideoCallPage";
 
 import VideoCallPage2 from "./pages/VideoCallPage2";
 import TeacherProgressAnalysis from "./pages/TeacherProgressAnalysis";
@@ -46,6 +44,7 @@ import SessionOverviewPage from "./pages/SessionOverviewPage";
 import QuizProgress from "./pages/TeacherProgressQuiz";
 import CreateSessionPage from "./pages/TeacherSessionCreate";
 import UpdateSessionPage from "./pages/TeacherSessionUpdate";
+import AssignmentInfoPage from "./pages/AssignmentInfoPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 import StudentProgressAnalysis from "./pages/StudentProgressAnalysis";
@@ -88,16 +87,16 @@ function App() {
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<TeacherProfilePage/>} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
-            <Route path="assignments" element={<TeacherAssignmentsPage />} />
-            <Route path="responses" element={<StudentResponsesPage />} />
-            <Route path="progress" element={<ProgressPage />} />
-            <Route path="submissons" element={<GradeSubmissions />} />
-            <Route path="analysis" element={<TeacherProgressAnalysis />} />
-            <Route path="Quiz" element={<QuizProgress />} />
-            <Route path="create" element={<CreateSessionPage />} />
-            <Route path="update" element={<UpdateSessionPage />} />
+            <Route path="sessions/assignments-and-quizes" element={<TeacherAssignmentsPage />} />
+            <Route path="sessions/assignments/overview" element={<AssignmentInfoPage />} />
+            <Route path="progress/assignments" element={<ProgressPage />} />
+            <Route path="sessions/assignments/submissons" element={<GradeSubmissions />} />
+            <Route path="progress/analysis" element={<TeacherProgressAnalysis />} />
+            <Route path="progress/quiz" element={<QuizProgress />} />
+            <Route path="sessions/create" element={<CreateSessionPage />} />
+            <Route path="sessions/update" element={<UpdateSessionPage />} />
             <Route path="history" element={<TeacherSessionHistoryPage />} />
-            <Route path="Individual" element={<StudentGrades />} />
+            <Route path="progress/Individual" element={<StudentGrades />} />
 
           </Route>
 
@@ -106,7 +105,7 @@ function App() {
             <Route path="careerSignup" element={<CareerSignupPage />} />
           </Route>
 
-          <Route path="/teacher-home-page/live-session" element={<VideoCallPage2/>} />
+          <Route path="/teacher-home-page/sessions/live-session" element={<VideoCallPage2/>} />
         </Route>
 
         {/* Student routes */}
@@ -116,16 +115,16 @@ function App() {
             <Route path="chats" element={<ChatPage socket={socket}/>} />
             <Route path="my-profile" element={<StudentProfilePage/>} />
             <Route path="sessions" element={<StudentSessionsPage socket={socket}/>} />
-            <Route path="studentassignments" element={<StudentAssignmentsPage />} />
+            <Route path="sessions/assignments-and-quizes" element={<StudentAssignmentsPage />} />
             <Route path="StudentProfileSecondary" element={<StudentProfilePageSecondary />} />
             <Route path="results" element={<SearchResultsPage/>}/>
-            <Route path="submission" element={<StudentSubmissionPage />} />
-            <Route path="quiz" element={<QuizPage />} />
+            <Route path="sessions/assignments/submission" element={<StudentSubmissionPage />} />
+            <Route path="sessions/quizes/quiz" element={<QuizPage />} />
             <Route path="session-overview" element={<SessionOverviewPage/>} />
-            <Route path="assignment" element={<StudentAssignmentProgress/>} />
-            <Route path="analysis" element={<StudentProgressAnalysis/>} />
-            <Route path="ProgressQuiz" element={<StudentQuizProgress/>} />
-            <Route path="quiz-feedback-page" element={<QuizFeedbackPage />} />
+            <Route path="progress/assignments" element={<StudentAssignmentProgress/>} />
+            <Route path="progress/analysis" element={<StudentProgressAnalysis/>} />
+            <Route path="progress/quiz" element={<StudentQuizProgress/>} />
+            <Route path="sessions/quizes/quiz-feedback" element={<QuizFeedbackPage />} />
             <Route path="StudentHistory" element={<StudentSessionsHistoryPage />} />
 
           </Route>
@@ -136,7 +135,7 @@ function App() {
             <Route path="Counselors" element={<SelectedCareerTeachers />} />
           </Route>
           
-          <Route path="/student-home-page/live-session" element={<VideoCallPage2/>} />
+          <Route path="/student-home-page/sessions/live-session" element={<VideoCallPage2/>} />
         </Route>
 
         {/* admin routes */}
