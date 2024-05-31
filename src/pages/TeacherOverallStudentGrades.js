@@ -75,12 +75,12 @@ const StudentGrades = () => {
         <div className="card" style={{ width: '100%', height: '100%' }}>
           <div className="card-body">
             <div className="mb-4">
-              <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/progress')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/Quiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/Individual')}>Individual</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() => navigate('/teacher-home-page/analysis')}>Analysis</button>
-              </div>
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/assignments')}>Assignment</button>
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/quiz')}>Quizzes</button>
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/Individual')}>Individual</button>
+              <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/analysis')} >Analysis</button>
+            </div>
             </div>
             <h4 className="font-bold mt-4 mb-4">Student Grades</h4>
             <div className="mb-4">
@@ -135,7 +135,7 @@ const StudentGrades = () => {
                         isLabelVisible={false} 
                       />
                       <span className="ml-2">
-                        <AnimatedCounter targetValue={student.overallPercentage.toFixed(2)} duration={1700} />
+                        <AnimatedCounter targetValue={student.overallPercentage.toFixed(2)} duration={1800} />
                       </span>
                     </summary>
                     <div className="mt-2">
