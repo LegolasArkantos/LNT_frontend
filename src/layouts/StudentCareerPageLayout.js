@@ -36,12 +36,7 @@ const StudentCareerPageLayout = () => {
   return (
     <div className="bg-white">
       <div className="flex-col">
-        <StudentHomePageNavBar profile={profile}  career={true} setDropDown={setDropDown} dropDown={dropDown}/>
-        {dropDown && (
-        <div className="absolute flex w-[150px] justify-end top-16 right-0 z-50">
-          <ProfileDropDown handleLogOut={handleLogOut} profile={profile} setDropDown={setDropDown} role="Student"/>
-        </div>
-      )}
+        <StudentHomePageNavBar profile={profile} handleLogOut={handleLogOut} career={true}/>
         {/* <StudentHomePageNavBar2 profile={profile} handleLogOut={handleLogOut} /> */}
       </div>
 

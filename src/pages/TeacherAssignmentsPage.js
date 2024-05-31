@@ -23,7 +23,7 @@ const TeacherAssignmentsPage = () => {
     questions: []
   });
   const [quizSubmissions, setQuizSubmissions] = useState([]);
-
+  const [nav, setNav] = useState("Assignments");
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -66,6 +66,13 @@ const TeacherAssignmentsPage = () => {
   };
 
   const handleCloseCreateAssignmentPopup = () => {
+    setCreateAssignmentFormData({
+      title: '',
+      startTime: '',
+      endTime: '',
+      description: '',
+      marks: ''
+    })
     setIsCreateAssignmentPopupOpen(false);
   };
 
@@ -232,20 +239,31 @@ const TeacherAssignmentsPage = () => {
 
   return (
     <div className="max-w-screen">
-      <div className="p-8 flex flex-col max-w-screen h-full">
-        <div className="rounded-lg flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="p-8 flex flex-col space-y-10 max-w-screen h-full">
+      <div className='flex w-full justify-center items-center'>
+          <div className='flex bg-gray-200 w-1/4 h-[30px] shadow-lg rounded-full'>
+            <div onClick={() => setNav("Assignments")} className={`flex items-center justify-center w-1/2 ${nav == "Assignments" && 'bg-[#7179C6]'} hover:bg-[#7179C6] hover:border hover:border-purple-500 hover:border-2 cursor-pointer rounded-l-full`}>
+              <h className='font-bold text-3/5 text-black'>
+                Assignments
+              </h>
+            </div>
+            <div onClick={() => setNav("Quizes")} className={`flex items-center justify-center w-1/2 ${nav == "Quizes" && 'bg-[#7179C6]'} hover:bg-[#7179C6] hover:border hover:border-purple-500 hover:border-2 cursor-pointer rounded-r-full`}>
+              <h className='font-bold text-3/5 text-black'>
+                Quizes
+              </h>
+            </div>
+          </div>
+        </div>
+        {
+          nav === "Assignments"
+          ? (
+            <div className="flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl text-[#7179C6] font-bold">Assignments</h2>
             <button onClick={handleOpenCreateAssignmentPopup} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-[#7179C6] rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
               Create Assignment
             </button>
           </div>
-            {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
-              <div className="flex-grow font-bold">Name</div>
-              <div className="font-bold mx-4">Start Time</div>
-              <div className="font-bold mx-4">End Time</div>
-              <div className="font-bold">Marks</div>
-            </div> */}
             <div className='flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide'>
             {
               assignments?.length !== 0
@@ -291,84 +309,8 @@ const TeacherAssignmentsPage = () => {
           )}
             </div>
         </div>
-      </div>
-      {isCreateAssignmentPopupOpen && (
-        <div className="fixed top-0 left-0 h-screen w-screen z-20 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-5 rounded">
-            <h2 className="text-2xl font-bold mb-4">Create Assignment</h2>
-            <form onSubmit={handleCreateAssignmentSubmit}>
-              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-              <div className="flex flex-col mb-4">
-                <label htmlFor="title" className="block text-sm font-medium text-gray-900">Title</label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={createAssignmentFormData?.title}
-                  onChange={handleCreateAssignmentFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              </div>
-              <div className="flex flex-col mb-4">
-                <label htmlFor="startTime" className="block text-sm font-medium text-gray-900">Start Time</label>
-                <input
-                  type="text"
-                  id="startTime"
-                  name="startTime"
-                  value={createAssignmentFormData?.startTime}
-                  onChange={handleCreateAssignmentFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              </div>
-              <div className="flex flex-col mb-4">
-                <label htmlFor="endTime" className="block text-sm font-medium text-gray-900">End Time</label>
-                <input
-                  type="text"
-                  id="endTime"
-                  name="endTime"
-                  value={createAssignmentFormData?.endTime}
-                  onChange={handleCreateAssignmentFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              </div>
-              <div className="flex flex-col mb-4">
-                <label htmlFor="description" className="block text-sm font-medium text-gray-900">Description</label>
-                <input
-                  type="text"
-                  id="description"
-                  name="description"
-                  value={createAssignmentFormData?.description}
-                  onChange={handleCreateAssignmentFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              </div>
-              <div className="flex flex-col mb-4">
-                <label htmlFor="marks" className="block text-sm font-medium text-gray-900">Marks</label>
-                <input
-                  type="text"
-                  id="marks"
-                  name="marks"
-                  value={createAssignmentFormData?.marks}
-                  onChange={handleCreateAssignmentFormChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              </div>
-              </div>
-              <div className="flex justify-end">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded mr-auto">Submit</button>
-                <button type="button" onClick={handleCloseCreateAssignmentPopup} className="bg-gray-300 hover:bg-gray-500 text-gray-800 px-4 py-2 rounded">Close</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-<div className="pl-8 pr-8 flex flex-col max-w-screen h-full">
+          )
+          : (
         <div className="rounded-lg flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl text-[#7179C6] font-bold">Quizes</h2>
@@ -378,17 +320,12 @@ const TeacherAssignmentsPage = () => {
               Create Quiz
             </button>
           </div>
-            {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
-              <div className="flex-grow font-bold">Title</div>
-              <div className="font-bold mx-4">Time</div>
-              <div className="font-bold">Marks</div>
-            </div> */}
             <div className='flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide'>
             { quizes.length !== 0
             ? (
             quizes.map((quiz) => (
               <div key={quiz?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() =>fetchQuizSubmissions(quiz?._id)} className="text-xl text-purple-800 font-semibold mb-2 text-black-500 hover:underline cursor-pointer">
+                <h3 onClick={() =>fetchQuizSubmissions(quiz?._id)} className="text-xl text-purple-800 font-semibold mb-2 hover:underline cursor-pointer">
                     {quiz?.title}
                 </h3>
             <div className="flex">
@@ -421,18 +358,97 @@ const TeacherAssignmentsPage = () => {
           )}
             </div>
         </div>
+          )
+        }
       </div>
+      {isCreateAssignmentPopupOpen && (
+        <div className="fixed top-0 left-0 h-screen w-screen z-20 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-5 h-3.5/5 w-2.5/5 p-8 rounded">
+            <h2 className="text-2xl text-[#7179C6] font-bold mb-4">Create Assignment</h2>
+            <form onSubmit={handleCreateAssignmentSubmit}>
+              <div className="flex space-x-3">
+                <div >
+                <label htmlFor="title" className="font-bold text-sm text-gray-700">Topic</label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={createAssignmentFormData?.title}
+                  onChange={handleCreateAssignmentFormChange}
+                  placeholder='The topic of the Assignment'
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              </div>
+              <div className="flex flex-col mb-4">
+                <label htmlFor="startTime" className="font-bold text-sm text-gray-700">Start Time</label>
+                <input
+                  type="text"
+                  id="startTime"
+                  name="startTime"
+                  value={createAssignmentFormData?.startTime}
+                  onChange={handleCreateAssignmentFormChange}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              </div>
+              <div className="flex flex-col mb-4">
+                <label htmlFor="endTime" className="font-bold text-sm text-gray-700">End Time</label>
+                <input
+                  type="text"
+                  id="endTime"
+                  name="endTime"
+                  value={createAssignmentFormData?.endTime}
+                  onChange={handleCreateAssignmentFormChange}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              </div>
+              </div>
+              <div className="flex flex-col w-1/5 mb-4">
+                <label htmlFor="marks" className="font-bold text-sm text-gray-700">Marks</label>
+                <input
+                  type="text"
+                  id="marks"
+                  name="marks"
+                  value={createAssignmentFormData?.marks}
+                  onChange={handleCreateAssignmentFormChange}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              </div>
+              <div className="flex flex-col mb-4">
+                <label htmlFor="description" className="font-bold text-sm text-gray-700">Description</label>
+                <textarea
+                  type="text"
+                  id="description"
+                  name="description"
+                  value={createAssignmentFormData?.description}
+                  onChange={handleCreateAssignmentFormChange}
+                  placeholder='Instructions about the Assignment'
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              </div>
+              <div className="flex justify-between">
+                <button type="button" onClick={handleCloseCreateAssignmentPopup} className="bg-gray-300 hover:bg-gray-500 text-gray-800 px-4 py-2 rounded">Close</button>
+                <button type="submit" className="bg-[#7179C6] hover:bg-purple-500 text-white px-4 py-2 rounded">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {
         createQuiz && (
           <div className="fixed top-0 left-0 z-20 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
           
-          <div className="bg-white p-5 rounded">
-            <h2 className="text-2xl font-bold mb-2">Create Quiz</h2>
+          <div className="bg-white p-8 w-3/5 rounded">
+            <h2 className="text-2xl text-[#7179C6] font-bold mb-2">Create Quiz</h2>
             <form onSubmit={(e) => handleCreateQuizFormSubmit(e)}>
               <div className='flex space-x-3'>
               <div className="flex flex-col ">
-                <label htmlFor="title" className="block text-sm font-medium text-gray-900">Title</label>
+                <label htmlFor="title" className="font-bold text-sm text-gray-700">Title</label>
                 <input
                   type="text"
                   id="title"
@@ -444,7 +460,7 @@ const TeacherAssignmentsPage = () => {
                 />
               </div>
               <div className="flex flex-col ">
-                <label htmlFor="time" className="block text-sm font-medium text-gray-900">Time</label>
+                <label htmlFor="time" className="font-bold text-sm text-gray-700">Time</label>
                 <input
                   type="number"
                   placeholder='Minutes'
@@ -457,7 +473,7 @@ const TeacherAssignmentsPage = () => {
                 />
               </div>
               <div className="flex flex-col ">
-                <label htmlFor="marks" className="block text-sm font-medium text-gray-900">Marks</label>
+                <label htmlFor="marks" className="font-bold text-sm text-gray-700">Marks</label>
                 <input
                   type="text"
                   id="marks"
@@ -469,7 +485,7 @@ const TeacherAssignmentsPage = () => {
                 />
               </div>
               <div className="flex flex-col ">
-                <label htmlFor="quiz-upload" className="block text-sm font-medium text-gray-900">Upload Quiz</label>
+                <label htmlFor="quiz-upload" className="font-bold text-sm text-gray-700">Upload Quiz</label>
                 <input
                   type="file"
                   id="quiz-upload"
@@ -479,21 +495,29 @@ const TeacherAssignmentsPage = () => {
                 />
               </div>
               </div>
-              <div className='overflow-x-scroll scroll scrollbar-hide flex p-2 space-x-8 w-[880px]' >
+              <div className='overflow-x-scroll scroll flex mb-2 p-2 space-x-8 w-full' >
                 {
                   createQuizFormData?.questions?.map((question,index) => (
                     <div className="max-w-lg my-8 p-2 bg-white shadow-md outline rounded-md">
                       <div className='flex space-x-2'>
                 <div className='flex-col space-y-3 mb-3'>
-                  <h2 className="text-lg font-semibold mr-2">Question</h2>
+                  <div className='flex space-x-4'>
+                    <div className='flex-col ml-4'>
+                  <h2 className="font-bold text-m text-gray-700">Question</h2>
                   <input type="text" value={question?.question} onChange={(e) => handleQuestionChange(index, 'question', e.target.value)} className="border rounded-md px-2 py-1 focus:outline-none" />
+                  </div>
+                  <div className='flex-col ml-4'>
+                    <h2 className="font-bold text-m text-gray-700">Answer</h2>
+                    <input type="text" value={question?.correctAns?.toUpperCase()} maxLength={1} placeholder='A' onChange={(e) => handleQuestionChange(index, 'correctAns', e.target.value.toUpperCase())} className="border rounded-md w-7 ml-4 px-2 py-1 focus:outline-none" />
+                  </div>
+                  </div>
                 </div>
                 </div>
                 <div className='flex'>
       <div className="flex-col space-y-2">
       {question?.options?.map((option, optionIndex) => (
               <div key={optionIndex} className="flex items-center">
-                <label className="text-lg font-semibold mr-2">{String.fromCharCode(65 + optionIndex)}.</label>
+                <label className="font-bold text-m text-gray-700 mr-1">{String.fromCharCode(65 + optionIndex)}.</label>
                 <input
                   type="text"
                   value={option}
@@ -503,22 +527,20 @@ const TeacherAssignmentsPage = () => {
               </div>
             ))}
       </div>
-      <div className='flex-col ml-4'>
-           <h2 className="text-lg font-semibold mr-2">Answer</h2>
-           <input type="text" value={question?.correctAns?.toUpperCase()} maxLength={1} placeholder='A' onChange={(e) => handleQuestionChange(index, 'correctAns', e.target.value.toUpperCase())} className="border rounded-md w-7 ml-4 px-2 py-1 focus:outline-none" />
-        </div>
+      
         </div>
     </div>
                   ))
                 }
               
-    <div className='flex items-center ml-3'>
-    <button type='button' onClick={() => addQuestion()}  className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded items-center h-10">Add</button>
+    <div className='flex items-center '>
+    {/* <button type='button' onClick={() => addQuestion()}  className="bg-[#7179C6] hover:bg-purple-500 text-white px-4 py-2 rounded items-center h-10">Add</button> */}
+    <svg onClick={() => addQuestion()} className="cursor-pointer" width="45px" height="45px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.4" d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2Z" fill="#6d28d9"></path> <path d="M18 11.25H12.75V6C12.75 5.59 12.41 5.25 12 5.25C11.59 5.25 11.25 5.59 11.25 6V11.25H6C5.59 11.25 5.25 11.59 5.25 12C5.25 12.41 5.59 12.75 6 12.75H11.25V18C11.25 18.41 11.59 18.75 12 18.75C12.41 18.75 12.75 18.41 12.75 18V12.75H18C18.41 12.75 18.75 12.41 18.75 12C18.75 11.59 18.41 11.25 18 11.25Z" fill="#ffffff"></path> </g></svg>
     </div>
     </div>
-              <div className="flex justify-end">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded mr-auto">Create</button>
+              <div className="flex justify-between">
                 <button type="button" onClick={() => handleCloseCreateQuizPopup()} className="bg-gray-300 hover:bg-gray-500 text-gray-800 px-4 py-2 rounded">Close</button>
+                <button type="submit" className="bg-[#7179C6] hover:bg-purple-500 text-white px-4 py-2 rounded">Create</button>
               </div>
             </form>
           </div>
@@ -528,25 +550,33 @@ const TeacherAssignmentsPage = () => {
 
 {
   quizSubmissions?.length !== 0 && (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded">
-        <h2 className="text-2xl font-bold mb-4">Student Submissions</h2>
+    <div className="fixed top-0 left-0 h-screen w-screen z-40 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+      <div className="bg-white p-8 rounded h-2.5/5 w-1.5/5">
+        <h2 className="text-2xl text-[#7179C6] font-bold mb-4">Submissions</h2>
+        <div className='flex flex-col h-2/5 space-y-4 mb-3 overflow-y-scroll scroll scrollbar-hide'>
         {quizSubmissions?.map((submission, index) => (
-          <div key={index} className="flex items-center mb-2">
+          <div key={index} className="flex justify-between items-center space-x-7">
+            <div className='flex items-center'>
             <div className="flex items-center justify-center h-8 w-8 bg-gray-300 rounded-full overflow-hidden mr-2">
               <img src={submission?.student?.profilePicture} alt="Profile" className="h-full w-full object-cover" />
             </div>
-            <h3 className="text-blue-500">
+            <h3 className="font-bold text-sm text-gray-700">
               {`${submission?.student?.firstName} ${submission?.student?.lastName}`}
             </h3>
-            <h3 className="text-blue-500 ml-10">
+            </div>
+            <div className='flex justify-start'>
+            <h3 className="font-bold text-sm text-gray-700">
               {"Marks: "}{submission?.marks}
             </h3>
+            </div>
           </div>
         ))}
-        <button onClick={() => setQuizSubmissions([])} className="inline-flex items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        </div>
+        <div className='flex justify-end'>
+        <button onClick={() => setQuizSubmissions([])} className="bg-gray-500 hover:bg-gray-600 items-center px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
               Close
         </button>
+        </div>
       </div>
     </div>
   )

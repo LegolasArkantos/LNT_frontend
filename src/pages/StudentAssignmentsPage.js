@@ -11,6 +11,7 @@ const StudentAssignmentsPage = () => {
   const [submissions, setSubmissions] = useState([]);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [nav, setNav] = useState("Assignments");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -63,37 +64,49 @@ const StudentAssignmentsPage = () => {
 
   return (
     <div className=" max-w-screen ">
-      <div className="p-8 flex flex-col max-w-screen h-full">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[900px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="p-8 flex flex-col space-y-10 max-w-screen h-full">
+        <div className='flex w-full justify-center items-center'>
+          <div className='flex bg-gray-200 w-1/4 h-[30px] shadow-lg rounded-full'>
+            <div onClick={() => setNav("Assignments")} className={`flex items-center justify-center w-1/2 ${nav == "Assignments" && 'bg-[#7179C6]'} hover:bg-[#7179C6] hover:border hover:border-purple-500 hover:border-2 cursor-pointer rounded-l-full`}>
+              <h className='font-bold text-3/5 text-black'>
+                Assignments
+              </h>
+            </div>
+            <div onClick={() => setNav("Quizes")} className={`flex items-center justify-center w-1/2 ${nav == "Quizes" && 'bg-[#7179C6]'} hover:bg-[#7179C6] hover:border hover:border-purple-500 hover:border-2 cursor-pointer rounded-r-full`}>
+              <h className='font-bold text-3/5 text-black'>
+                Quizes
+              </h>
+            </div>
+          </div>
+        </div>
+        {
+          nav === "Assignments"
+          ? (
+            <div className="flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className=" justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Assignments</h2>
+          <h2 className="text-2xl text-[#7179C6] font-bold">Assignments</h2>
           </div>
           <div className="flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
-            {/* <div className="flex items-right bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
-              <div className="flex-grow font-bold">Name</div>
-              <div className="font-bold mx-4">Start Time</div>
-              <div className="font-bold mx-4">End Time</div>
-              <div className="font-bold">Marks</div>
-            </div> */}
             {assignments?.length !== 0
             ? (
             assignments?.map((assignment) => (
-              <div key={assignment?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
-                <h3 onClick={() =>handleAssignmentClick(assignment?._id)} className="text-xl font-semibold mb-2 text-black-500 cursor-pointer hover:underline">
+              <div key={assignment?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
+                <h3 onClick={() =>handleAssignmentClick(assignment?._id)} className="text-xl cursor-pointer font-semibold mb-2 text-purple-800 hover:underline">
                   {assignment?.title}
                 </h3>
-            <div className="flex-grow"></div>
+                <div className="flex">
                 <div className='flex'>
-                  <h className="font-bold mx-4">Start Time:</h>
-                  <p className="">{assignment?.startTime}</p>
+                  <h className="font-bold text-sm text-gray-700 mx-2">Start Time:</h>
+                  <p className="font-semibold text-sm mr-4">{assignment?.startTime}</p>
                 </div>
                 <div className='flex'>
-                  <h className="font-bold mx-4">End Time:</h>
-                  <p className="">{assignment?.endTime}</p>
+                  <h className="font-bold text-gray-700 text-sm mx-2">End Time:</h>
+                  <p className="font-semibold text-sm mr-4">{assignment?.endTime}</p>
                 </div>
                 <div className='flex'>
-                  <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{assignment?.marks}</p>
+                  <h className="font-bold text-gray-700 text-sm mx-2">Marks:</h>
+                  <p className="font-semibold text-sm mr-2">{assignment?.marks}</p>
+                </div>
                 </div>
               </div>
             )))
@@ -115,26 +128,20 @@ const StudentAssignmentsPage = () => {
           )}
           </div>
         </div>
-
-        <div className="flex flex-col max-w-screen h-full">
-        <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-col  h-[900px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          )
+          : (
+        <div className="flex-1 flex flex-col h-[500px] max-w-screen mt-[-50px] mb-[125px] p-6" style={{ overflow: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Quizes</h2>
+            <h2 className="text-2xl text-[#7179C6] font-bold">Quizes</h2>
           </div>
           <div className="flex flex-col" >
-            {/* <div className="flex items-center bg-gray-200 p-4 rounded-lg shadow-lg mb-4">
-              <div className="flex-grow font-bold">Title</div>
-              <div className="font-bold mx-4">Marks Attained</div>
-              <div className="font-bold mx-4">Time</div>
-              <div className="font-bold">Marks</div>
-            </div> */}
             <div className='overflow-y-scroll h-[350px] scroll scrollbar-hide'>
             { quizes?.length !== 0 
             ? (
             quizes.map((quiz, index) => {
               const submission = submissions[index];
               return (
-              <div key={quiz?._id} className="flex items-center bg-gray-100 p-4 rounded-lg shadow-lg mb-4">
+              <div key={quiz?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3
                 onClick={() => {
                   if (!submission) {
@@ -142,29 +149,26 @@ const StudentAssignmentsPage = () => {
                     setSelectedQuiz(quiz);
                   }
                 }}
-                className={`text-xl ${!submission ? 'hover:underline cursor-pointer' : ''} font-semibold mb-2`}
+                className={`${!submission ? 'hover:underline cursor-pointer' : ''} text-xl text-purple-800 font-semibold mb-2`}
                 >
                   {quiz?.title}
                 </h3>
-                <div className="flex-grow"></div>
+                <div className="flex items-center justify-center">
                 {
                   submission && (
                     <button onClick={ () => {
                       navigate("/student-home-page/quiz-feedback-page", { state: { quiz, submission} })
-                    }} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Feedback</button>
+                    }} class="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Feedback</button>
                   )
                 }
                 <div className='flex'>
-                  <h className="font-bold mx-4">Marks Attained:</h>
-                  <p className="">{!submission?.marks ? "Not Attempted" : submission?.marks}</p>
+                  <h className="font-bold text-sm text-gray-700 mx-2">Time:</h>
+                  <p className="font-semibold text-sm mr-4">{quiz?.time}</p>
                 </div>
                 <div className='flex'>
-                  <h className="font-bold mx-4">Time:</h>
-                  <p className="">{quiz?.time}</p>
+                  <h className="font-bold text-sm text-gray-700 mx-2">Marks:</h>
+                  <p className="font-semibold text-sm mr-2">{quiz?.marks}</p>
                 </div>
-                <div className='flex'>
-                  <h className="font-bold mx-4">Marks:</h>
-                  <p className="">{quiz?.marks}</p>
                 </div>
               </div>
               )}))
@@ -188,7 +192,8 @@ const StudentAssignmentsPage = () => {
             </div>
           </div>
         </div>
-      </div>
+          )
+        }
 
       {
         confirmationPopup && (
