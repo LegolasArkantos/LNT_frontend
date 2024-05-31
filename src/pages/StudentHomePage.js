@@ -6,12 +6,16 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png'
 
 const StudentHomePage = () => {
 
   const navigate = useNavigate();
 
   const [availableSessions, setAvailableSessions] = useState([]);
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
+  const [loading3, setLoading3] = useState(true);
   const [topRatedTeachers, setTopRatedTeachers] = useState([]);
   const [polls, setPolls] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -36,6 +40,9 @@ const StudentHomePage = () => {
       } catch (error) {
         console.log(error);
       }
+      finally {
+        setLoading1(false);
+      }
     };
 
     const getTopRatedTeachers = async () => {
@@ -50,14 +57,25 @@ const StudentHomePage = () => {
       catch (error) {
         console.log(error);
       }
+      finally {
+        setLoading2(false)
+      }
     };
 
     const getPolls = async () => {
-      await apiPrivate.get("poll/").then((res) => {
-        if (isMounted && res.status === 200) {
-          setPolls(res.data);
-        }
-      });
+      try {
+        await apiPrivate.get("poll/").then((res) => {
+          if (isMounted && res.status === 200) {
+            setPolls(res.data);
+          }
+        });
+      }
+      catch (error) {
+        console.log(error)
+      }
+      finally {
+        setLoading3(false)
+      }
     };
 
     getSessions();
@@ -153,8 +171,8 @@ const StudentHomePage = () => {
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
         <div id="slider1" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
-          {availableSessions.length === 0 ? (
-            <div className="flex w-full h-[200px] items-center justify-center">
+          {loading1 && (
+            <div className="flex w-full h-[300px] items-center justify-center">
             {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <Lottie
                   options={{
@@ -169,8 +187,14 @@ const StudentHomePage = () => {
                   width={200}
                 />
             </div>
+          )}
+          {!loading1 && availableSessions?.length === 0 ? (
+            <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
           ) : (
-            availableSessions.map((session, index) => (
+            availableSessions?.map((session, index) => (
               <div key={index} className="w-1.5/5 flex flex-col justify-between bg-white border border-gray-200 rounded-lg  shadow dark:bg-gray-800 dark:border-gray-700">
   <div className="">
     {/* <a href="#">
@@ -244,9 +268,9 @@ const StudentHomePage = () => {
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
         <div id="slider2" className="flex w-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-10 space-x-8">
-          {topRatedTeachers.length === 0 ? (
-            <div className="flex w-full h-[200px] items-center justify-center">
-            {/* <p className="text-xl font-normal">No Teachers</p> */}
+        {loading2 && (
+            <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
             <Lottie
                   options={{
                     loop: true,
@@ -260,8 +284,14 @@ const StudentHomePage = () => {
                   width={200}
                 />
             </div>
+          )}
+          {!loading2 && topRatedTeachers?.length === 0 ? (
+            <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
           ) : (
-            topRatedTeachers.map((teacher, index) => (
+            topRatedTeachers?.map((teacher, index) => (
               <div key={index} className="w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
   <div>
     <div className="flex items-center justify-center">
@@ -276,16 +306,16 @@ const StudentHomePage = () => {
         {teacher?.firstName} {teacher?.lastName}
       </h2>
       <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
-        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 1 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+        <svg class={`w-4 h-4 ${parseInt(teacher?.rating) >= 1 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
             <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
         </svg>
-        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 2 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+        <svg class={`w-4 h-4 ${parseInt(teacher?.rating) >= 2 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
             <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
         </svg>
-        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 3 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+        <svg class={`w-4 h-4 ${parseInt(teacher?.rating) >= 3 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
             <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
         </svg>
-        <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 4 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+        <svg class={`w-4 h-4 ${parseInt(teacher?.rating) >= 4 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
             <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
         </svg>
         <svg class={`w-4 h-4 ${parseInt(teacher.rating) >= 5 ? 'text-yellow-300' : 'text-gray-300'}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -298,7 +328,7 @@ const StudentHomePage = () => {
           </p>
           <div className="flex flex-col">
           {
-            teacher?.subjectsTaught.map((subject, index) => (
+            teacher?.subjectsTaught?.map((subject, index) => (
               <small>
               <p key={index} className="font-semibold">{subject}</p>
               </small>
@@ -337,15 +367,39 @@ const StudentHomePage = () => {
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
         <ul id="slider3" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-10 space-x-8">
-        {polls.length !== 0 ? (
-  polls.map((poll, index) => (
+        {loading3 && (
+            <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+            </div>
+          )}
+        {!loading3 && polls?.length === 0 
+        ? (
+          <div className="flex w-full h-[300px] items-center justify-center">
+                    {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+                    <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+                    </div>
+        )
+        : (
+  polls?.map((poll, index) => (
     <li key={index} className="mb-4 ml-2 mt-2 border border-gray-200 flex flex-col justify-between rounded-lg shadow p-3 w-[300px]">
       <div className="flex w-fit bg-[#d8b4fe] p-2 rounded-full">
         <p className="text-purple-800 text-xs">{poll?.category}</p>
       </div>
       <h3 className="text-lg mt-5 font-semibold text-teal-900">{poll?.question}</h3>
       <ul className="mt-5 ">
-        {poll.options.map((option, optionIndex) => (
+        {poll?.options?.map((option, optionIndex) => (
           <li className="w-[300px]" key={optionIndex}>
             <div className="flex items-center space-x-2 mb-2 mt-2">
               {/*
@@ -379,22 +433,6 @@ const StudentHomePage = () => {
       </ul>
     </li>
   ))
-) : (
-  <div className="flex w-full h-[200px] items-center justify-center">
-    {/* <p className="text-xl font-normal">No Polls</p> */}
-    <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-  </div>
 )}
 
         </ul>

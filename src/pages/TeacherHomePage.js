@@ -3,6 +3,7 @@ import { useState } from "react";
 import useAPIPrivate from "../hooks/useAPIPrivate";
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png'
 
 const TeacherHomePage = () => {
   const [polls, setPolls] = useState([]);
@@ -18,6 +19,8 @@ const TeacherHomePage = () => {
   const [description1, setDescription1] = useState("");
   const [showUpdateNotePopup, setShowUpdateNotePopup] = useState(false);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
 
   const apiPrivate = useAPIPrivate();
 
@@ -176,6 +179,9 @@ const TeacherHomePage = () => {
       catch (error) {
         console.log(error)
       }
+      finally {
+        setLoading1(false)
+      }
       
     }
 
@@ -190,6 +196,9 @@ const TeacherHomePage = () => {
       }
       catch (error) {
         console.log(error)
+      }
+      finally {
+        setLoading2(false)
       }
     }
 
@@ -213,8 +222,7 @@ const TeacherHomePage = () => {
       }
       catch (error) {
         console.log(error)
-      }
-      
+      }      
     }
 
     const interval = setInterval(() => {
@@ -320,7 +328,31 @@ const TeacherHomePage = () => {
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
         <ul id="slider1" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-5 space-x-8">
-  {polls.length !== 0 ? (
+   {
+    loading1 && (
+      <div className="flex w-full h-[200px] items-center justify-center">
+      <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+    </div>
+    )
+   }
+  {!loading1 && polls.length === 0 
+  ? (<div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+  )
+  : (
     polls?.map((poll, index) => (
       <li key={index} className="flex flex-col justify-between mb-4 ml-2 mt-2 outline outline-purple-800 rounded p-3 w-[300px]">
         <div className="flex justify-between">
@@ -367,21 +399,6 @@ const TeacherHomePage = () => {
         </div>
       </li>
     ))
-  ) : (
-    <div className="flex w-full h-[200px] items-center justify-center">
-      <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-    </div>
   )}
 </ul>
 
@@ -499,7 +516,32 @@ const TeacherHomePage = () => {
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.4102 16.4199L10.3502 13.55C10.1944 13.4059 10.0702 13.2311 9.98526 13.0366C9.9003 12.8422 9.85645 12.6321 9.85645 12.4199C9.85645 12.2077 9.9003 11.9979 9.98526 11.8035C10.0702 11.609 10.1944 11.4342 10.3502 11.29L13.4102 8.41992" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </button>
         <ul id="slider2" className="flex w-full overflow-x-scroll scroll scroll-smooth scrollbar-hide mt-6 space-x-8">
-          {notes?.length !== 0 ? ( notes?.map((note,index) => (
+          {
+            loading2 && (
+              <div className="flex w-full h-[200px] items-center justify-center">
+              <Lottie
+                    options={{
+                      loop: true,
+                      autoplay: true,
+                      animationData: loadingPurple,
+                      rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice',
+                      },
+                    }}
+                    height={200}
+                    width={200}
+                  />
+            </div>
+            )
+          }
+          {!loading2 && notes?.length === 0 
+          ? (
+            <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+          )
+          : ( notes?.map((note,index) => (
             <li key={index} className="flex flex-col justify-between mb-4 ml-2 mt-2 outline outline-purple-800 rounded p-3 w-[300px]">
               <div className="flex justify-end">
               <div onClick={() => handleUpdateNotePopup(note?._id, note?.title, note?.description)} className="hover:bg-blue-100 rounded-full w-fit">
@@ -515,23 +557,7 @@ const TeacherHomePage = () => {
                 <p className="text-m mt-5 font-normal text-black">{note?.timestamp}</p>
               </div>
             </li>
-          )))
-        : (
-          <div className="flex w-full h-[200px] items-center justify-center">
-            <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-          </div>
-        )}
+          )))}
         </ul>
         <button className="hover:bg-purple-200 rounded-full" style={{ marginRight: "-40px" }} onClick={() => slideRight('slider2')}>
         <svg width="40px" height="40px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22.4199C17.5228 22.4199 22 17.9428 22 12.4199C22 6.89707 17.5228 2.41992 12 2.41992C6.47715 2.41992 2 6.89707 2 12.4199C2 17.9428 6.47715 22.4199 12 22.4199Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.5596 8.41992L13.6196 11.29C13.778 11.4326 13.9047 11.6068 13.9914 11.8015C14.0781 11.9962 14.123 12.2068 14.123 12.4199C14.123 12.633 14.0781 12.8439 13.9914 13.0386C13.9047 13.2332 13.778 13.4075 13.6196 13.55L10.5596 16.4199" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>

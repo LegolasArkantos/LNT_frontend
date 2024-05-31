@@ -66,7 +66,7 @@ const QuizPage = () => {
         try {
             await apiPrivate.post(`quiz/submit/${quiz._id}`, { answers }).then((res) => {
                 if (res.status === 200) {
-                    navigate('/student-home-page/studentassignments', { state: { sessionId: location.state.sessionId } });
+                    navigate('/student-home-page/sessions/assignments-and-quizes', { state: { sessionId: location.state.sessionId } });
                 }
             });
         } catch (error) {

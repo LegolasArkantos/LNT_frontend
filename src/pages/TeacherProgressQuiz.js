@@ -164,11 +164,21 @@ useEffect(() => {
           <div className="card-body">
             <div className="mb-4 flex flex-col">
               <div className="inline-flex mb-4 rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/Quiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/analysis')} >Analysis</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg hover:bg-blue-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/assignments')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-purple-700  hover:bg-purple-800 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/Individual')}>Individual</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg hover:bg-blue-100 hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" onClick={() =>navigate('/teacher-home-page/progress/analysis')} >Analysis</button>
               </div>
-              <h className="font-bold text-lg mb-1 text-gray-700">
+              
+            </div>
+            <div className='flex space-x-20'>
+              <div className=''>
+              <h4 className="ml-5 mt-16">Average Progress by Session</h4>
+            <div className='w-[500px] h-full' id="avg-chart"></div>
+            </div>
+            <div className=''>
+              <div className='flex space-x-5 items-center'>
+            <h className="font-bold text-lg mb-4 text-gray-700">
                 Select Course:
               </h>
               <select className="mb-4 w-3/5" onChange={handleSessionChange} value={selectedSession}>
@@ -176,14 +186,7 @@ useEffect(() => {
                 <option key={session?.session} value={session?.session}>{session?.subject}</option>
               ))}
             </select>
-              
             </div>
-            <div className='flex space-x-20'>
-              <div className=''>
-              <h4 className="ml-5 mt-4">Average Progress by Session</h4>
-            <div className='w-[500px] h-full' id="avg-chart"></div>
-            </div>
-            <div className=''>
             <h4 className="ml-5 mt-4">Average Progress by Quiz</h4>
             <div className='w-[500px] h-full' id="quiz-chart"></div>
             </div>

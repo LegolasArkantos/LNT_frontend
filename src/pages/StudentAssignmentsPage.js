@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { apiPrivate } from '../services/api';
 import { useLocation,useNavigate } from 'react-router-dom';
-import ConfirmationPopupQuiz from '../components/ConfirmationPopupQuiz';
+import ConfirmationPopupQuiz from '../components/ConfirmationPopup';
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png'
 
 const StudentAssignmentsPage = () => {
   const [assignments, setAssignments] = useState([]);
@@ -12,6 +13,8 @@ const StudentAssignmentsPage = () => {
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [nav, setNav] = useState("Assignments");
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -24,6 +27,9 @@ const StudentAssignmentsPage = () => {
       } catch (error) {
         console.error(error);
       }
+      finally {
+        setLoading1(false);
+      }
     };
 
     const fetchQuizes = async () => {
@@ -34,6 +40,9 @@ const StudentAssignmentsPage = () => {
         setQuizes(response.data.quiz);
       } catch (error) {
         console.error(error);
+      }
+      finally {
+        setLoading2(false);
       }
     }
 
@@ -55,11 +64,11 @@ const StudentAssignmentsPage = () => {
 
   const handleAssignmentClick = (assignmentId) => {
     console.log("id "+assignmentId)
-    navigate('/student-home-page/submission', { state: { assignmentId} });
+    navigate('/student-home-page/sessions/assignments/submission', { state: { assignmentId} });
   };
 
   const onConfirm = () => {
-    navigate('/student-home-page/quiz', { state: { selectedQuiz, sessionId: location.state.sessionId } })
+    navigate('/student-home-page/sessions/quizes/quiz', { state: { selectedQuiz, sessionId: location.state.sessionId } })
   }
 
   return (
@@ -87,8 +96,32 @@ const StudentAssignmentsPage = () => {
           <h2 className="text-2xl text-[#7179C6] font-bold">Assignments</h2>
           </div>
           <div className="flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide" style={{ paddingRight: '17px' }}>
-            {assignments?.length !== 0
+            {
+              loading1 && (
+                <div className="flex w-full h-[350px] items-center justify-center">
+              <Lottie
+                    options={{
+                      loop: true,
+                      autoplay: true,
+                      animationData: loadingPurple,
+                      rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice',
+                      },
+                    }}
+                    height={200}
+                    width={200}
+                  />
+            </div>
+              )
+            }
+            {!loading1 && assignments?.length === 0
             ? (
+              <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+            )
+            :(
             assignments?.map((assignment) => (
               <div key={assignment?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3 onClick={() =>handleAssignmentClick(assignment?._id)} className="text-xl cursor-pointer font-semibold mb-2 text-purple-800 hover:underline">
@@ -109,23 +142,7 @@ const StudentAssignmentsPage = () => {
                 </div>
                 </div>
               </div>
-            )))
-          : (
-            <div className="flex w-full h-[350px] items-center justify-center">
-            <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-          </div>
-          )}
+            )))}
           </div>
         </div>
           )
@@ -136,9 +153,32 @@ const StudentAssignmentsPage = () => {
           </div>
           <div className="flex flex-col" >
             <div className='overflow-y-scroll h-[350px] scroll scrollbar-hide'>
-            { quizes?.length !== 0 
+              {
+                loading2 && (
+                  <div className="flex w-full h-[350px] items-center justify-center">
+              <Lottie
+                    options={{
+                      loop: true,
+                      autoplay: true,
+                      animationData: loadingPurple,
+                      rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice',
+                      },
+                    }}
+                    height={200}
+                    width={200}
+                  />
+            </div>
+                )
+              }
+            {!loading2 && quizes?.length === 0 
             ? (
-            quizes.map((quiz, index) => {
+              <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+            )
+            : (quizes.map((quiz, index) => {
               const submission = submissions[index];
               return (
               <div key={quiz?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
@@ -157,7 +197,7 @@ const StudentAssignmentsPage = () => {
                 {
                   submission && (
                     <button onClick={ () => {
-                      navigate("/student-home-page/quiz-feedback-page", { state: { quiz, submission} })
+                      navigate("/student-home-page/sessions/quizes/quiz-feedback", { state: { quiz, submission} })
                     }} class="text-white w-2/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Feedback</button>
                   )
                 }
@@ -172,22 +212,6 @@ const StudentAssignmentsPage = () => {
                 </div>
               </div>
               )}))
-              : (
-                <div className="flex w-full h-[350px] items-center justify-center">
-            <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-          </div>
-              )
             }
             </div>
           </div>
@@ -195,12 +219,13 @@ const StudentAssignmentsPage = () => {
           )
         }
 
+      
+      </div>
       {
         confirmationPopup && (
-          <ConfirmationPopupQuiz onConfirm={onConfirm} setConfirmationPopup={setConfirmationPopup}/>
+          <ConfirmationPopupQuiz onConfirm={onConfirm} message="Are you sure you want to start the Quiz?" setConfirmationPopup={setConfirmationPopup}/>
         )
       }
-      </div>
     </div>
   );
 };

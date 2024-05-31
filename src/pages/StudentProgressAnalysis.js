@@ -48,26 +48,26 @@ const StudentProgressAnalysis = () => {
 
   return (
     <div className="p-8 flex flex-col h-full">
-      <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-row h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6">
+      <div className="flex-1 flex flex-row h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6">
         <div className="card" style={{ width: '100%', height: '100%' }}>
           <div className="card-body">
             <div className="mb-4">
               {/* Navigation buttons */}
               <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-teal-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/assignment')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:z-10 focus:ring-2 focus:ring-teal-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/teacher-home-page/ProgressQuiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-teal-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/teacher-home-page/analysis')}>Analysis</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
               </div>
             </div>
-            <h4 className="font-bold mt-4">Analysis</h4>
+            <h4 className="text-2xl text-[#7179C6] font-bold">Analysis</h4>
             {!loading && !fetched && (
-              <div className="mt-6 flex justify-center">
+              <div className="mt-6 flex justify-start">
                 <button
                   type="button"
-                  className="px-6 py-3 mb-10 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  className="px-6 w-50 py-3 mb-10 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                   onClick={fetchAnalysis}
                 >
-                  Fetch Analysis
+                  Generate Analysis
                 </button>
               </div>
             )}
@@ -88,7 +88,7 @@ const StudentProgressAnalysis = () => {
               </div>
             ) : fetched && (
               <>
-                <div className="font-thin mt-4" style={{ whiteSpace: 'pre-wrap' }}>
+                <div className="font-bold text-gray-700 mt-4" style={{ whiteSpace: 'pre-wrap' }}>
                   {renderContent(sanitizeText(analysisText))}
                 </div>
                 <h4 className="font-bold mt-4">Recommended Videos</h4>
