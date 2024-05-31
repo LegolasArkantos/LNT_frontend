@@ -163,9 +163,9 @@ const StudentAssignmentProgress = () => {
           <div className="card-body">
             <div className="mb-4">
               <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/assignment')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/ProgressQuiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/analysis')}>Analysis</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
               </div>
               <h4 className="ml-5 mt-4">Average Progress by Session</h4>  
             </div>

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useAPIPrivate from "../hooks/useAPIPrivate";
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png';
 
 const TeacherAssignmentsPage = () => {
   const [assignments, setAssignments] = useState([]);
@@ -24,6 +25,8 @@ const TeacherAssignmentsPage = () => {
   });
   const [quizSubmissions, setQuizSubmissions] = useState([]);
   const [nav, setNav] = useState("Assignments");
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,6 +44,9 @@ const TeacherAssignmentsPage = () => {
       } catch (error) {
         console.error(error);
       }
+      finally {
+        setLoading1(false);
+      }
     };
 
     const fetchQuizes = async () => {
@@ -51,6 +57,9 @@ const TeacherAssignmentsPage = () => {
         setQuizes(response.data.quiz);
       } catch (error) {
         console.error(error);
+      }
+      finally {
+        setLoading2(false);
       }
     }
 
@@ -105,7 +114,7 @@ const TeacherAssignmentsPage = () => {
 
   const handleAssignmentClick = (assignmentId,sessionId,subject) => {
     console.log("id "+assignmentId,sessionId,subject)
-    navigate('/teacher-home-page/responses', { state: { assignmentId,sessionId,subject} });
+    navigate('/teacher-home-page/sessions/assignments/overview', { state: { assignmentId,sessionId,subject} });
   };
 
   const handleCreateQuizFormChange = (e) => {
@@ -266,8 +275,33 @@ const TeacherAssignmentsPage = () => {
           </div>
             <div className='flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide'>
             {
-              assignments?.length !== 0
-              ? (
+              loading1 && (
+                (
+                  <div className="flex w-full h-[350px] items-center justify-center">
+                <Lottie
+                      options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: loadingPurple,
+                        rendererSettings: {
+                          preserveAspectRatio: 'xMidYMid slice',
+                        },
+                      }}
+                      height={200}
+                      width={200}
+                    />
+              </div>
+                )
+              )
+            }
+            {
+              !loading1 && assignments?.length === 0
+              ? (<div className="flex w-full h-[300px] items-center justify-center">
+              {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+              <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+              </div>
+              )
+              : (
             assignments?.map((assignment) => (
               <div key={assignment?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3 className="text-xl cursor-pointer font-semibold mb-2 text-purple-800 hover:underline"
@@ -290,23 +324,7 @@ const TeacherAssignmentsPage = () => {
                 </div>
                 </div>
               </div>
-            )))
-          : (
-            <div className="flex w-full h-[350px] items-center justify-center">
-            <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-          </div>
-          )}
+            )))}
             </div>
         </div>
           )
@@ -321,8 +339,32 @@ const TeacherAssignmentsPage = () => {
             </button>
           </div>
             <div className='flex flex-col overflow-y-scroll h-[350px] scroll scrollbar-hide'>
-            { quizes.length !== 0
+            {
+              loading2 && (
+                <div className="flex w-full h-[350px] items-center justify-center">
+              <Lottie
+                    options={{
+                      loop: true,
+                      autoplay: true,
+                      animationData: loadingPurple,
+                      rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice',
+                      },
+                    }}
+                    height={200}
+                    width={200}
+                  />
+            </div>
+              )
+            }
+            {!loading2 && quizes.length === 0
             ? (
+              <div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+            )
+            : (
             quizes.map((quiz) => (
               <div key={quiz?._id} className="flex justify-between items-center bg-purple-100 p-4 rounded-lg shadow-lg mb-4">
                 <h3 onClick={() =>fetchQuizSubmissions(quiz?._id)} className="text-xl text-purple-800 font-semibold mb-2 hover:underline cursor-pointer">
@@ -339,23 +381,7 @@ const TeacherAssignmentsPage = () => {
                 </div>
                 </div>
               </div>
-            )))
-          : (
-            <div className="flex w-full h-[350px] items-center justify-center">
-            <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-          </div>
-          )}
+            )))}
             </div>
         </div>
           )
@@ -448,13 +474,14 @@ const TeacherAssignmentsPage = () => {
             <form onSubmit={(e) => handleCreateQuizFormSubmit(e)}>
               <div className='flex space-x-3'>
               <div className="flex flex-col ">
-                <label htmlFor="title" className="font-bold text-sm text-gray-700">Title</label>
+                <label htmlFor="title" className="font-bold text-sm text-gray-700">Topic</label>
                 <input
                   type="text"
                   id="title"
                   name="title"
                   value={createQuizFormData?.title}
                   onChange={handleCreateQuizFormChange}
+                  placeholder='The topic of the Quiz'
                   className="mt-1 p-2 w-full border rounded-md"
                   required
                 />

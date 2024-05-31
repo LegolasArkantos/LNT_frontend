@@ -4,12 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import loadingPurple from '../assets/loadingPurple.json';
 import ReviewsPopupTeacher from '../components/ReviewsPopupTeacher';
+import emptyDataImgCourses from '../assets/no data.png';
 
 const TeacherSessionHistoryPage = () => {
   const [completedSessions, setCompletedSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
   const [reviewPopUp, setReviewPopUp] = useState(false);
   const [reviewPopUpData, setReviewPopUpData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const apiPrivate = useApiPrivate();
 
@@ -20,6 +23,9 @@ const TeacherSessionHistoryPage = () => {
         setCompletedSessions(response.data.sessions);
       } catch (error) {
         console.error(error);
+      }
+      finally {
+        setLoading(false);
       }
     };
 
@@ -54,12 +60,36 @@ const TeacherSessionHistoryPage = () => {
 
   return (
     <div className="max-h-screen max-w-screen">
-      <div className="p-8 flex flex-col max-h-screen max-w-screen">
+      <div className="flex flex-col max-h-screen max-w-screen">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl text-[#7179C6] font-bold">Past Sessions</h2>
           </div>
           <div className="flex w-full items-center justify-center h-full overflow-y-scroll scroll scrollbar-hide grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mb-10 gap-3">
-            {completedSessions.length !== 0 ? (
+            {
+              loading && (
+                <div className="flex w-full h-[500px] items-center justify-center">
+                <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: loadingPurple,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice',
+                    },
+                  }}
+                  height={200}
+                  width={200}
+                />
+              </div>
+              )
+            }
+            {!loading && completedSessions.length === 0 
+            ? (<div className="flex w-full h-[300px] items-center justify-center">
+            {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+            <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+            </div>
+            )
+            : (
               completedSessions.map((session) => (
                 <div key={session?._id} className="w-full h-4.5/5 bg-purple-100 pt-3 pb-3 pl-4 pr-4 rounded-lg justify-center flex flex-col shadow-lg mr-4 mb-4">
                 <div className='flex justify-start'>
@@ -133,21 +163,6 @@ const TeacherSessionHistoryPage = () => {
                 </div>
               </div>
               ))
-            ) : (
-              <div className="flex w-full h-[500px] items-center justify-center">
-                <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: loadingPurple,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
-                  }}
-                  height={200}
-                  width={200}
-                />
-              </div>
             )}
           </div>
       </div>

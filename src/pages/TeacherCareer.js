@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAPIPrivate from '../hooks/useAPIPrivate';
+import Lottie from 'react-lottie';
+import loadingPurple from '../assets/loadingPurple.json';
+import emptyDataImgCourses from '../assets/no data.png'
 
 const TeacherCareerPage = () => {
   const navigate = useNavigate();
   const [isCareerCounseling, setIsCareerCounseling] = useState(false);
   const [teacherCareerData, setTeacherCareerData] = useState(null);
   const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true)
   const apiPrivate = useAPIPrivate();
 
   useEffect(() => {
@@ -27,6 +31,9 @@ const TeacherCareerPage = () => {
         }
       } catch (error) {
         console.error('Error fetching career counseling status:', error);
+      }
+      finally {
+        setLoading(false);
       }
     };
 
@@ -56,7 +63,7 @@ const TeacherCareerPage = () => {
   return (
     <div>
       {isCareerCounseling && teacherCareerData ? (
-        <div className="p-10 mb-1 bg-white rounded-lg shadow-md">
+        <div className="p-10 mb-6 bg-white rounded-lg shadow-md">
           <div className="flex flex-col">
             <img src={teacherCareerData?.profilePic} alt="Profile Pic" className="w-24 h-24 mb-4 rounded-full mr-4 border-4 border-purple-200 object-cover" />
         
@@ -65,7 +72,8 @@ const TeacherCareerPage = () => {
               <h2 className="text-gray-700 font-bold mb-2 text-xl">{teacherCareerData?.name}</h2>
               
               {/* Timing */}
-              <p className="text-gray-700 text-sm font-bold mb-2">Counseling Timings: <span className='font-semibold text-sm'>{teacherCareerData?.timing}</span></p>
+              <h className="text-gray-700 text-sm mb-2 font-bold">Counseling Timings:</h>
+              <p className='font-semibold text-sm mb-4'>{teacherCareerData?.timing}</p>
         
               {/* Description */}
               <p className="text-gray-700 text-sm font-bold mb-2 underline">Description</p>
@@ -82,9 +90,32 @@ const TeacherCareerPage = () => {
 
       {/* Display Students */}
       <div>
-        <h2 className="text-gray-700 text-center mt-4 text-2xl font-bold">Students Enrolled</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {students?.map((student, index) => (
+        <div className='flex mb-6'>
+        <h2 className="text-2xl text-[#7179C6] font-bold">Students Enrolled</h2>
+        </div>
+        <div className="flex w-full h-full overflow-y-scroll scrollbar-hide grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {
+            loading && (<div className="flex items-center justify-center">
+            <Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: loadingPurple,
+                rendererSettings: {
+                  preserveAspectRatio: 'xMidYMid slice',
+                },
+              }}
+              height={200}
+              width={200}
+            />
+          </div>)
+          }
+          {!loading && students.length === 0
+          ? (<div className="flex w-full h-[300px] items-center justify-center">
+          {/* <p className="text-xl font-normal">No Sessions Available</p> */}
+          <img className="w-1.5/5 h-full" src={emptyDataImgCourses}/>
+          </div>)
+          : (students?.map((student, index) => (
             <div key={index} className="bg-white border border-gray-200 flex flex-col justify-between rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center justify-center">
                 <img
@@ -94,21 +125,24 @@ const TeacherCareerPage = () => {
                 />
               </div>
               <div className="p-3 flex text-wrap">
-                <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+                <h2 className=" text-xl font-semibold text-gray-900 dark:text-white">
                   {`${student?.firstName} ${student?.lastName}`}
                 </h2>
                 
               </div>
               <div className='p-3'>
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-400">
-                  Education Level: {student?.educationalLevel}
+              <h className="text-gray-700 underline text-sm font-bold">
+                  Education Level:
+              </h>
+              <p className='text-gray-700 text-sm font-bold'>
+              {student?.educationalLevel}
               </p>
                 </div>
               <div className='p-3'>
-              <button onClick={() => handleJoinVideoCall()} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Launch Counselling</button>
+              <button onClick={() => handleJoinVideoCall()} type="button" class="text-white w-3/5 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-xs px-2 py-2.5 text-center me-2 mb-2">Launch Counselling</button>
               </div>
             </div>
-          ))}
+          )))}
         </div>
       </div>
     </div>

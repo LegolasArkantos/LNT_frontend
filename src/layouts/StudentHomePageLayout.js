@@ -38,7 +38,7 @@ const StudentHomePageLayout = () => {
         <StudentHomePageNavBar2 />
       </div>
 
-      <div className="ml-20 mr-20 mb-20 mt-20">
+      <div className="ml-20 mr-20 mb-10 mt-20">
         <Outlet />
       </div>
 

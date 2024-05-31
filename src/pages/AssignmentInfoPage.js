@@ -9,7 +9,7 @@ import app from '../services/firebase'
 // Initialize Firebase Storage
 const storage = getStorage(app);
 
-const StudentResponsesPage = () => {
+const AssignmentInfoPage = () => {
     const [assignment, setAssignment] = useState(null);
     const [files, setFiles] = useState([]); 
     const [fileUrls, setFileUrls] = useState([]); 
@@ -91,7 +91,7 @@ const StudentResponsesPage = () => {
 
   const handleSubmissionClick = (assignmentId, total,title,sessionId,subject) => {
     console.log("id dad "+assignmentId,"id dad "+ total+"id sub"+sessionId,subject)
-    navigate('/teacher-home-page/submissons', { state: { assignmentId,total,title,sessionId,subject} });
+    navigate('/teacher-home-page/sessions/assignments/submissons', { state: { assignmentId,total,title,sessionId,subject} });
   };
 
   return (
@@ -197,4 +197,4 @@ const StudentResponsesPage = () => {
   );
 };
 
-export default StudentResponsesPage;
+export default AssignmentInfoPage;

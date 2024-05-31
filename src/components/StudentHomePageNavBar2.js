@@ -63,7 +63,7 @@ const StudentHomePageNavBar2 = () => {
             <Link
               to="sessions"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
-                location.pathname === "/student-home-page/sessions"
+                location.pathname.startsWith("/student-home-page/sessions")
                   ? "text-white underline"
                   : "hover:text-white"
               }`}
@@ -85,9 +85,9 @@ const StudentHomePageNavBar2 = () => {
           </li>
           <li>
             <Link
-              to="assignment"
+              to="progress/assignments"
               className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white group ${
-                location.pathname === "/student-home-page/assignment"
+                location.pathname.startsWith("/student-home-page/progress")
                   ? "text-white underline"
                   : "hover:text-white"
               }`}
