@@ -47,7 +47,7 @@ const TeacherCareerPage = () => {
         console.log("HELLO Frontend")
         console.log(res.status)
         if (res.status === 200) {
-          navigate('/teacher-home-page/live-session', { state: {roomID, userType: "Teacher", purpose: "Counselling"}});
+          navigate('/teacher-home-page/sessions/live-session', { state: {roomID, userType: "Teacher", purpose: "Counselling"}});
         }
       })
     }

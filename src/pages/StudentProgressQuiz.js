@@ -156,16 +156,16 @@ const StudentQuizProgress = () => {
 
   return (
     <div className="p-8 flex flex-col h-full">
-      <div className="bg-teal-100 rounded-lg outline outline-teal-500 flex-1 flex flex-row h-[700px] max-w-screen mt-[-50px] mb-[125px] ml-[-50px] p-6">
+      <div className="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
+                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-purple-400" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
+              </div>
+      <div className="flex-1 flex flex-row h-[700px] max-w-screen p-3">
         <div className="card" style={{ width: '50%', height: '100%' }}>
           <div className="card-body">
             <div className="mb-4">
-              <div className="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/progress/assignments')}>Assignment</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/progress/quiz')}>Quizzes</button>
-                <button type="button" className="px-4 py-2 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-teal-400" onClick={() => navigate('/student-home-page/progress/analysis')}>Analysis</button>
-              </div>
-              <h4 className="ml-5 mt-4">Average Quiz Grade by Session</h4>  
+              <h4 className="ml-5 mt-16">Average Quiz Grade by Session</h4>  
             </div>
             <div id="overall-quiz-chart"></div>
           </div>
