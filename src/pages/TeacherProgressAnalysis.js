@@ -217,7 +217,7 @@ const TeacherProgressAnalysis = () => {
                 className="ml-4 px-4 py-2 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-lg hover:text-white-700 focus:z-10 focus:ring-2 focus:ring-purple-400 focus:text-white-700"
                 onClick={fetchAnalysis}
               >
-                Fetch Analysis
+                Generate Analysis
               </button>
             </div>
             {loading ? (
