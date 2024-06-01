@@ -69,6 +69,14 @@ const StudentAssignmentsPage = () => {
     navigate('/student-home-page/sessions/quizes/quiz', { state: { selectedQuiz, sessionId: location.state.sessionId } })
   }
 
+  const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) return '';
+  
+    const date = new Date(dateTimeString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
   return (
     <div className=" max-w-screen ">
       <div className="p-8 flex flex-col space-y-10 max-w-screen h-full">
@@ -128,11 +136,11 @@ const StudentAssignmentsPage = () => {
                 <div className="flex">
                 <div className='flex'>
                   <h className="font-bold text-sm text-gray-700 mx-2">Start Time:</h>
-                  <p className="font-semibold text-sm mr-4">{assignment?.startTime}</p>
+                  <p className="font-semibold text-sm mr-4">{formatDateTime(assignment?.startTime)}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold text-gray-700 text-sm mx-2">End Time:</h>
-                  <p className="font-semibold text-sm mr-4">{assignment?.endTime}</p>
+                  <p className="font-semibold text-sm mr-4">{formatDateTime(assignment?.endTime)}</p>
                 </div>
                 <div className='flex'>
                   <h className="font-bold text-gray-700 text-sm mx-2">Marks:</h>
